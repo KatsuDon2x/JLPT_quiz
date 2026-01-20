@@ -12,7 +12,7 @@
     {
       "type": "mcq",
       "prompt": "Q2. 正しいスペルは？",
-      "audio": "",
+      "audio": "audio/banana.mp3",
       "choices": ["bananna", "banana", "bannana"],
       "answerIndex": 1
     }
