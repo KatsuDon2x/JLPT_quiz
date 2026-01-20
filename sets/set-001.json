@@ -1,13 +1,13 @@
 {
   "title": "JLPT Quiz • Set 001",
-  "description": "まずはテスト",
+  "description": "解けるかな？",
   "items": [
     {
-  "type": "mcq",
-  "prompt": "Q1. 音声を聞いて、正しいスペルを選びましょう",
-  "audio": "audio/apple.mp3",
-  "choices": ["appel", "apple", "aple"],
-  "answerIndex": 1 
+      "type": "mcq",
+      "prompt": "Q1. 音声を聞いて、正しいスペルを選びましょう",
+      "audio": "audio/apple.mp3",
+      "choices": ["appel", "apple", "aple"],
+      "answerIndex": 1
     },
     {
       "type": "mcq",
@@ -16,12 +16,12 @@
       "choices": ["bananna", "banana", "bannana"],
       "answerIndex": 1
     },
-      {
-  "type": "mcq",
-  "prompt": "Q3. 音声を聞いて、正しいスペルを選びましょう",
-  "audio": "audio/mikeko.mp3",
-  "choices": ["とらこ", "ミケランジェロ", "みけこ"],
-  "answerIndex": 1 
-      }
+    {
+      "type": "mcq",
+      "prompt": "Q3. 音声を聞いて、正しいスペルを選びましょう",
+      "audio": "audio/mikeko.mp3",
+      "choices": ["どらこ", "ミケランジェロ", "みけこ"],
+      "answerIndex": 2
+    }
   ]
 }
