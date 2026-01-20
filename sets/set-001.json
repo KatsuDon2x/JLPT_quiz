@@ -9,7 +9,6 @@
   "choices": ["appel", "apple", "aple"],
   "answerIndex": 1 
     },
-    },
     {
       "type": "mcq",
       "prompt": "Q2. 正しいスペルは？",
