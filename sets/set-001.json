@@ -1,0 +1,20 @@
+{
+  "title": "JLPT Quiz • Set 001",
+  "description": "まずはテスト",
+  "items": [
+    {
+      "type": "mcq",
+      "prompt": "Q1. 正しいスペルは？",
+      "audio": "",
+      "choices": ["appel", "apple", "aple"],
+      "answerIndex": 1
+    },
+    {
+      "type": "mcq",
+      "prompt": "Q2. 正しいスペルは？",
+      "audio": "",
+      "choices": ["bananna", "banana", "bannana"],
+      "answerIndex": 1
+    }
+  ]
+}
