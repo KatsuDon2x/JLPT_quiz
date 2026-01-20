@@ -1,292 +1,171 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sound Quiz</title>
-  <style>
-    :root{
-      --bg:#0b0f1a;
-      --card:#141a2a;
-      --text:#e9eefc;
-      --muted:#a9b3d6;
-      --line:rgba(255,255,255,.08);
-      --good:#43d19e;
-      --bad:#ff5c6c;
-      --btn:#1d2540;
-      --btn2:#202a4b;
-      --shadow: 0 14px 60px rgba(0,0,0,.45);
-      --radius:22px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-      background: radial-gradient(900px 600px at 20% 10%, #1a2350 0%, rgba(26,35,80,0) 60%),
-                  radial-gradient(900px 600px at 80% 0%, #2a1f4d 0%, rgba(42,31,77,0) 55%),
-                  var(--bg);
-      color:var(--text);
-      min-height:100vh;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:24px 14px 40px;
-    }
-    .wrap{width:min(920px, 100%);}
-    .card{
-      margin-top:18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .inner{padding:22px 18px 18px;}
-    .top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      padding:20px 18px 0;
-    }
-    .title{
-      font-size:28px;
-      font-weight:800;
-      letter-spacing:.2px;
-      margin:0 0 4px 0;
-    }
-    .desc{margin:0;color:var(--muted);font-size:14px}
-    .rightTop{
-      text-align:right;
-      color:var(--muted);
-      font-size:14px;
-      white-space:nowrap;
-      padding-top:8px;
-    }
-    .prompt{
-      margin:18px 0 14px;
-      font-size:20px;
-      font-weight:700;
-      line-height:1.35;
-    }
-    .audioRow{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:10px 0 14px;
-    }
-    .hp{font-size:20px; opacity:.9}
-    audio{width:100%;}
-    .choices{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin:14px 0 6px;
-    }
-    .choice{
-      width:100%;
-      text-align:left;
-      padding:16px 16px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.12);
-      color:var(--text);
-      font-size:18px;
-      cursor:pointer;
-      transition: transform .06s ease, background .2s ease, border-color .2s ease;
-    }
-    .choice:active{transform: scale(.99);}
-    .choice:hover{background: rgba(255,255,255,.06);}
-    .choice[disabled]{opacity:.7; cursor:default}
-    .feedback{
-      margin:12px 0 2px;
-      font-weight:800;
-      font-size:18px;
-      min-height:24px;
-    }
-    .feedback.good{color:var(--good)}
-    .feedback.bad{color:var(--bad)}
-    .subnote{
-      margin:0 0 10px;
-      color:var(--muted);
-      font-size:14px;
-      min-height:20px;
-    }
-    .btnRow{
-      display:flex;
-      gap:10px;
-      margin-top:12px;
-    }
-    .btn{
-      flex:1;
-      border:none;
-      border-radius:16px;
-      padding:14px 14px;
-      background: var(--btn);
-      color:var(--text);
-      font-weight:800;
-      font-size:16px;
-      cursor:pointer;
-      border:1px solid var(--line);
-      white-space:nowrap;
-    }
-    .btn:hover{background: var(--btn2);}
-    .btn:disabled{opacity:.5; cursor:default}
-    .meta{
-      margin-top:10px;
-      color:var(--muted);
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.12);
-      color:var(--muted);
-      font-size:13px;
-    }
-    .hidden{display:none !important}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sound Quiz</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #2b2f55, #0b0e1a);
+  color: #fff;
+}
+
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 14px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 16px;
+}
+
+button.correct {
+  background: #2ecc71;
+}
+
+button.wrong {
+  background: #e74c3c;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.controls button {
+  flex: 1;
+}
+
+.small {
+  font-size: 13px;
+  opacity: 0.8;
+}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="top">
-        <div>
-          <h1 class="title" id="setTitle">Sound Quiz</h1>
-          <p class="desc" id="setDesc"></p>
-        </div>
-        <div class="rightTop" id="progressTop">—</div>
+<div class="container">
+  <div class="card">
+    <h1>Sound Quiz</h1>
+    <div id="status">読み込み中…</div>
+
+    <div id="quizArea" style="display:none;">
+      <p id="progress"></p>
+      <p id="question"></p>
+
+      <audio id="audio" controls></audio>
+
+      <div id="choices"></div>
+
+      <div class="controls">
+        <button id="prevBtn">← 前へ</button>
+        <button id="retryBtn">🔁 この問題をやり直す</button>
+        <button id="nextBtn">次へ →</button>
       </div>
 
-      <div class="inner">
-        <div class="prompt" id="prompt">読み込み中…</div>
-
-        <div class="audioRow hidden" id="audioRow">
-          <div class="hp">🎧</div>
-          <audio id="audio" controls preload="auto"></audio>
-        </div>
-
-        <div class="choices" id="choices"></div>
-
-        <div class="feedback" id="feedback"></div>
-        <div class="subnote" id="subnote"></div>
-
-        <div class="btnRow">
-          <button class="btn" id="backBtn">⬅ 前へ</button>
-          <button class="btn" id="retryBtn">🔁 この問題をやり直す</button>
-          <button class="btn" id="nextBtn">次へ ▶</button>
-        </div>
-
-        <div class="meta">
-          <div class="pill" id="scorePill">正解数: 0</div>
-          <div class="pill" id="hintPill">間違えてもOK。やり直して覚えるタイプ。</div>
-        </div>
-      </div>
+      <p class="small">正解数: <span id="score">0</span></p>
+      <p class="small">間違えてもOK。やり直して覚えるタイプ。</p>
     </div>
   </div>
+</div>
 
 <script>
-  // ---- Utilities
-  function getParam(name, fallback=null){
-    const u = new URL(location.href);
-    return u.searchParams.get(name) ?? fallback;
+let data;
+let index = 0;
+let score = 0;
+let answered = false;
+
+fetch("sets/set-001.json")
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    document.getElementById("status").style.display = "none";
+    document.getElementById("quizArea").style.display = "block";
+    render();
+  });
+
+function render() {
+  answered = false;
+  const item = data.items[index];
+
+  document.getElementById("progress").textContent =
+    `${index + 1} / ${data.items.length}`;
+
+  document.getElementById("question").textContent = item.prompt;
+
+  const audio = document.getElementById("audio");
+  audio.src = item.audio;
+  audio.load();
+
+  const choices = document.getElementById("choices");
+  choices.innerHTML = "";
+
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = text;
+    btn.onclick = () => checkAnswer(btn, i);
+    choices.appendChild(btn);
+  });
+
+  document.getElementById("score").textContent = score;
+}
+
+function checkAnswer(button, choiceIndex) {
+  if (answered) return;
+  answered = true;
+
+  const correct = data.items[index].answerIndex;
+
+  if (choiceIndex === correct) {
+    button.classList.add("correct");
+    score++;
+  } else {
+    button.classList.add("wrong");
   }
 
-  // ---- State
-  let setData = null;
-  let idx = 0;
-  let score = 0;
-  // 0: 未回答 / 1: 正解 / -1: 不正解
-  let answered = [];
-  let locked = false;
+  document.getElementById("score").textContent = score;
+}
 
-  const el = {
-    setTitle: document.getElementById("setTitle"),
-    setDesc: document.getElementById("setDesc"),
-    progressTop: document.getElementById("progressTop"),
-    prompt: document.getElementById("prompt"),
-    audioRow: document.getElementById("audioRow"),
-    audio: document.getElementById("audio"),
-    choices: document.getElementById("choices"),
-    feedback: document.getElementById("feedback"),
-    subnote: document.getElementById("subnote"),
-    backBtn: document.getElementById("backBtn"),
-    retryBtn: document.getElementById("retryBtn"),
-    nextBtn: document.getElementById("nextBtn"),
-    scorePill: document.getElementById("scorePill"),
-  };
-
-  function setFeedback(kind, text, sub=""){
-    el.feedback.className = "feedback" + (kind ? " " + kind : "");
-    el.feedback.textContent = text || "";
-    el.subnote.textContent = sub || "";
+document.getElementById("nextBtn").onclick = () => {
+  if (index < data.items.length - 1) {
+    index++;
+    render();
   }
+};
 
-  function updateButtons(){
-    el.backBtn.disabled = (idx <= 0);
-
-    // 「次へ」はその問題に答えた後だけ
-    el.nextBtn.disabled = (answered[idx] === 0);
-
-    // 「この問題をやり直す」は、答えた後だけ表示したいなら disabled に
-    // （常に押せてもいいけど、学習UX的に “答えたら押す” が自然）
-    el.retryBtn.disabled = (answered[idx] === 0);
+document.getElementById("prevBtn").onclick = () => {
+  if (index > 0) {
+    index--;
+    render();
   }
+};
 
-  function updateTop(){
-    const total = setData?.items?.length ?? 0;
-    el.progressTop.textContent = total ? `${idx+1} / ${total}` : "—";
-    el.scorePill.textContent = `正解数: ${score} / ${total || 0}`;
-  }
-
-  function lockChoices(){
-    [...el.choices.querySelectorAll("button.choice")].forEach(b => b.disabled = true);
-    locked = true;
-  }
-
-  function renderQuestion(){
-    const q = setData.items[idx];
-    locked = false;
-
-    updateTop();
-    setFeedback("", "", "");
-
-    el.prompt.textContent = q.prompt || `Q${idx+1}`;
-
-    // Audio
-    if (q.audio && String(q.audio).trim() !== "") {
-      el.audioRow.classList.remove("hidden");
-      el.audio.src = q.audio;
-      el.audio.load();
-    } else {
-      el.audioRow.classList.add("hidden");
-      el.audio.removeAttribute("src");
-    }
-
-    // Choices
-    el.choices.innerHTML = "";
-    const choices = q.choices || [];
-    choices.forEach((label, i) => {
-      const b = document.createElement("button");
-      b.className = "choice";
-      b.textContent = label;
-      b.onclick = () => choose(i);
-      el.choices.appendChild(b);
-    });
-
-    // 回答済みならフィードバック表示（戻るで戻った時など）
-    if (answered[idx] !== 0) {
-      lockChoices();
-      if (answered[idx] === 1){
-        setFeedback("good", "⭕ 正解！", "その調子。次へ ▶");
-      } else {
-        setFeedback("bad", "❌ おしい！", "「この問題をやり直す」で再挑戦できるよ。
+document.getElementById("retryBtn").onclick = () => {
+  render();
+};
+</script>
+</body>
+</html>
