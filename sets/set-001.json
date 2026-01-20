@@ -3,11 +3,11 @@
   "description": "まずはテスト",
   "items": [
     {
-      "type": "mcq",
-      "prompt": "Q1. 正しいスペルは？",
-      "audio": "",
-      "choices": ["appel", "apple", "aple"],
-      "answerIndex": 1
+  "type": "mcq",
+  "prompt": "Q1. 音声を聞いて、正しいスペルを選びましょう",
+  "audio": "audio/apple.mp3",
+  "choices": ["appel", "apple", "aple"],
+  "answerIndex": 1 
     },
     {
       "type": "mcq",
