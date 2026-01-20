@@ -2,208 +2,386 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sound Quiz</title>
   <style>
-    :root { --bg:#0b0b10; --card:#141423; --text:#f2f2f7; --muted:#a6a6b3; --ok:#38d996; --ng:#ff5a6a; }
-    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-      background: linear-gradient(180deg, #0b0b10, #07070b); color:var(--text); }
-    .wrap { max-width: 560px; margin: 0 auto; padding: 16px; }
-    .card { background: rgba(20,20,35,.9); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 16px; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
-    .top { display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom: 12px; }
-    .badge { font-size: 12px; color: var(--muted); }
-    h1 { font-size: 18px; margin:0; }
-    .desc { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
-    .q { margin-top: 12px; font-size: 16px; line-height: 1.5; }
-    .audioRow { margin-top: 12px; display:flex; gap:10px; align-items:center; }
-    audio { width: 100%; }
-    .choices { margin-top: 14px; display:grid; gap:10px; }
-    button.choice {
-      width: 100%; text-align:left; padding: 14px 14px; border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text); font-size: 16px;
+    :root{
+      --bg:#0b0f1a;
+      --card:#141a2a;
+      --card2:#0f1424;
+      --text:#e9eefc;
+      --muted:#a9b3d6;
+      --line:rgba(255,255,255,.08);
+      --good:#43d19e;
+      --bad:#ff5c6c;
+      --btn:#1d2540;
+      --btn2:#202a4b;
+      --shadow: 0 14px 60px rgba(0,0,0,.45);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      background: radial-gradient(900px 600px at 20% 10%, #1a2350 0%, rgba(26,35,80,0) 60%),
+                  radial-gradient(900px 600px at 80% 0%, #2a1f4d 0%, rgba(42,31,77,0) 55%),
+                  var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:24px 14px 40px;
+    }
+    .wrap{width:min(920px, 100%);}
+    .card{
+      margin-top:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .inner{padding:22px 18px 18px;}
+    .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      padding:20px 18px 0;
+    }
+    .title{
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:.2px;
+      margin:0 0 4px 0;
+    }
+    .desc{margin:0;color:var(--muted);font-size:14px}
+    .rightTop{
+      text-align:right;
+      color:var(--muted);
+      font-size:14px;
+      white-space:nowrap;
+      padding-top:8px;
+    }
+    .prompt{
+      margin:18px 0 14px;
+      font-size:20px;
+      font-weight:700;
+      line-height:1.35;
+    }
+    .audioRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:10px 0 14px;
+    }
+    .hp{font-size:20px; opacity:.9}
+    audio{width:100%;}
+    .choices{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin:14px 0 6px;
+    }
+    .choice{
+      width:100%;
+      text-align:left;
+      padding:16px 16px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+      color:var(--text);
+      font-size:18px;
       cursor:pointer;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
     }
-    button.choice:active { transform: scale(.99); }
-    .imgGrid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    .imgChoice { border-radius: 14px; overflow:hidden; border: 2px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); }
-    .imgChoice button { padding:0; border:0; background:transparent; width:100%; cursor:pointer; }
-    .imgChoice img { width:100%; height:140px; object-fit:cover; display:block; }
-    .feedback { margin-top: 12px; font-weight: 700; }
-    .feedback.ok { color: var(--ok); }
-    .feedback.ng { color: var(--ng); }
-    .bottom { margin-top: 14px; display:flex; gap:10px; }
-    .pill {
-      flex:1; padding: 12px 14px; border-radius: 14px; border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.08); color: var(--text); font-weight:700; cursor:pointer;
+    .choice:active{transform: scale(.99);}
+    .choice:hover{background: rgba(255,255,255,.06);}
+    .choice[disabled]{opacity:.7; cursor:default}
+    .feedback{
+      margin:12px 0 2px;
+      font-weight:800;
+      font-size:18px;
+      min-height:24px;
     }
-    .pill.secondary { background: rgba(255,255,255,.04); font-weight:600; color: var(--muted); }
-    .tiny { margin-top: 10px; color: var(--muted); font-size: 12px; }
+    .feedback.good{color:var(--good)}
+    .feedback.bad{color:var(--bad)}
+    .subnote{
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:14px;
+      min-height:20px;
+    }
+    .btnRow{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+    }
+    .btn{
+      flex:1;
+      border:none;
+      border-radius:16px;
+      padding:14px 14px;
+      background: var(--btn);
+      color:var(--text);
+      font-weight:800;
+      font-size:16px;
+      cursor:pointer;
+      border:1px solid var(--line);
+    }
+    .btn:hover{background: var(--btn2);}
+    .btn:disabled{opacity:.5; cursor:default}
+    .meta{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .hidden{display:none !important}
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <div class="card">
       <div class="top">
         <div>
-          <h1 id="title">Sound Quiz</h1>
-          <div class="desc" id="description"></div>
+          <h1 class="title" id="setTitle">Sound Quiz</h1>
+          <p class="desc" id="setDesc"></p>
         </div>
-        <div class="badge" id="progress">- / -</div>
+        <div class="rightTop" id="progressTop">—</div>
       </div>
 
-      <div class="q" id="prompt">読み込み中…</div>
+      <div class="inner">
+        <div class="prompt" id="prompt">読み込み中…</div>
 
-      <div class="audioRow">
-        <span>🎧</span>
-        <audio id="audio" controls preload="auto"></audio>
+        <div class="audioRow hidden" id="audioRow">
+          <div class="hp">🎧</div>
+          <audio id="audio" controls preload="auto"></audio>
+        </div>
+
+        <div class="choices" id="choices"></div>
+
+        <div class="feedback" id="feedback"></div>
+        <div class="subnote" id="subnote"></div>
+
+        <div class="btnRow">
+          <button class="btn" id="backBtn">⬅ 前へ</button>
+          <button class="btn" id="restartBtn">🔁 最初から</button>
+          <button class="btn" id="nextBtn">次へ ▶</button>
+        </div>
+
+        <div class="meta">
+          <div class="pill" id="scorePill">正解数: 0</div>
+          <div class="pill" id="hintPill">間違えたら「最初から」でもOK</div>
+        </div>
       </div>
-
-      <div class="choices" id="choices"></div>
-
-      <div class="feedback" id="feedback" style="display:none;"></div>
-
-      <div class="bottom">
-        <button class="pill secondary" id="retryBtn">🔁 もう一度</button>
-        <button class="pill" id="nextBtn">次へ ▶</button>
-      </div>
-
-      <div class="tiny" id="score"></div>
     </div>
   </div>
 
 <script>
-  const qs = new URLSearchParams(location.search);
-  const setName = qs.get("set") || "set-001";
-  const setUrl = `sets/${setName}.json`;
+  // ---- Utilities
+  function getParam(name, fallback=null){
+    const u = new URL(location.href);
+    return u.searchParams.get(name) ?? fallback;
+  }
 
-  let data = null;
+  // ---- State
+  let setData = null;
   let idx = 0;
-  let correct = 0;
+  let score = 0;
+  // 0: 未回答 / 1: 正解 / -1: 不正解
+  let answered = [];
   let locked = false;
 
-  const el = (id) => document.getElementById(id);
+  const el = {
+    setTitle: document.getElementById("setTitle"),
+    setDesc: document.getElementById("setDesc"),
+    progressTop: document.getElementById("progressTop"),
+    prompt: document.getElementById("prompt"),
+    audioRow: document.getElementById("audioRow"),
+    audio: document.getElementById("audio"),
+    choices: document.getElementById("choices"),
+    feedback: document.getElementById("feedback"),
+    subnote: document.getElementById("subnote"),
+    backBtn: document.getElementById("backBtn"),
+    restartBtn: document.getElementById("restartBtn"),
+    nextBtn: document.getElementById("nextBtn"),
+    scorePill: document.getElementById("scorePill"),
+  };
 
-  function setFeedback(text, ok) {
-    const f = el("feedback");
-    f.style.display = "block";
-    f.textContent = text;
-    f.className = "feedback " + (ok ? "ok" : "ng");
+  function setFeedback(kind, text, sub=""){
+    el.feedback.className = "feedback" + (kind ? " " + kind : "");
+    el.feedback.textContent = text || "";
+    el.subnote.textContent = sub || "";
   }
 
-  function clearFeedback() {
-    const f = el("feedback");
-    f.style.display = "none";
-    f.textContent = "";
-    f.className = "feedback";
+  function updateButtons(){
+    el.backBtn.disabled = (idx <= 0);
+    // 次へは「答えた後だけ」進められる
+    el.nextBtn.disabled = (answered[idx] === 0);
   }
 
-  function render() {
+  function updateTop(){
+    const total = setData?.items?.length ?? 0;
+    el.progressTop.textContent = total ? `${idx+1} / ${total}` : "—";
+    el.scorePill.textContent = `正解数: ${score} / ${total || 0}`;
+  }
+
+  function renderQuestion(){
+    const q = setData.items[idx];
     locked = false;
-    clearFeedback();
-    el("choices").innerHTML = "";
 
-    const item = data.items[idx];
-    el("progress").textContent = `${idx + 1} / ${data.items.length}`;
-    el("prompt").textContent = item.prompt || "";
+    updateTop();
+    updateButtons();
+    setFeedback("", "", "");
 
-    const audio = el("audio");
-    if (item.audio) {
-      audio.src = item.audio;
-      audio.style.display = "";
+    el.prompt.textContent = q.prompt || `Q${idx+1}`;
+
+    // Audio
+    if (q.audio && String(q.audio).trim() !== "") {
+      el.audioRow.classList.remove("hidden");
+      el.audio.src = q.audio;
+      el.audio.load();
     } else {
-      audio.removeAttribute("src");
-      audio.style.display = "none";
+      el.audioRow.classList.add("hidden");
+      el.audio.removeAttribute("src");
     }
 
-    // Score text
-    el("score").textContent = `正解数: ${correct} / ${data.items.length}`;
+    // Choices
+    el.choices.innerHTML = "";
+    const choices = q.choices || [];
+    choices.forEach((label, i) => {
+      const b = document.createElement("button");
+      b.className = "choice";
+      b.textContent = label;
+      b.onclick = () => choose(i);
+      el.choices.appendChild(b);
+    });
 
-    if (item.type === "mcq") {
-      item.choices.forEach((c, i) => {
-        const b = document.createElement("button");
-        b.className = "choice";
-        b.textContent = c;
-        b.onclick = () => choose(i);
-        el("choices").appendChild(b);
-      });
-    } else if (item.type === "image-mcq") {
-      const grid = document.createElement("div");
-      grid.className = "imgGrid";
-
-      item.images.forEach((src, i) => {
-        const box = document.createElement("div");
-        box.className = "imgChoice";
-        const btn = document.createElement("button");
-        btn.onclick = () => choose(i);
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = `choice-${i+1}`;
-        btn.appendChild(img);
-        box.appendChild(btn);
-        grid.appendChild(box);
-      });
-
-      el("choices").appendChild(grid);
-    } else {
-      el("choices").innerHTML = `<div style="color:var(--muted)">このtypeはまだ未対応: ${item.type}</div>`;
+    // すでに回答済みなら、見た目だけ再現（戻った時用）
+    if (answered[idx] !== 0) {
+      lockChoices();
+      if (answered[idx] === 1){
+        setFeedback("good", "⭕ 正解！", "いい感じ。次へ進もう。");
+      } else {
+        setFeedback("bad", "❌ おしい！", "「最初から」か「前へ」でやり直せるよ。");
+      }
+      updateButtons();
     }
   }
 
-  function choose(choiceIndex) {
-    if (locked) return;
+  function lockChoices(){
+    [...el.choices.querySelectorAll("button.choice")].forEach(b => b.disabled = true);
     locked = true;
-
-    const item = data.items[idx];
-    const ok = choiceIndex === item.answerIndex;
-    if (ok) correct++;
-
-    setFeedback(ok ? "⭕ Correct!" : "❌ Almost…", ok);
-    el("score").textContent = `正解数: ${correct} / ${data.items.length}`;
   }
 
-  function next() {
-    if (!data) return;
-    if (idx < data.items.length - 1) {
-      idx++;
-      render();
+  function choose(choiceIndex){
+    if (locked) return;
+
+    const q = setData.items[idx];
+    const correct = (choiceIndex === q.answerIndex);
+
+    answered[idx] = correct ? 1 : -1;
+    if (correct) score += 1;
+
+    lockChoices();
+
+    if (correct){
+      setFeedback("good", "⭕ 正解！", "ナイス。次へ ▶");
     } else {
-      // Finish
-      el("prompt").textContent = "🎉 おつかれさま！";
-      el("choices").innerHTML = "";
-      el("audio").style.display = "none";
-      setFeedback(`結果: ${correct} / ${data.items.length}`, true);
-      el("progress").textContent = "Done";
+      setFeedback("bad", "❌ おしい！", "「最初から」か「前へ」でやり直せるよ。");
+    }
+
+    updateTop();
+    updateButtons();
+  }
+
+  function goNext(){
+    const total = setData.items.length;
+
+    // 未回答なら進ませない
+    if (answered[idx] === 0) return;
+
+    if (idx < total - 1) {
+      idx += 1;
+      renderQuestion();
+      return;
+    }
+
+    // Done screen
+    el.prompt.textContent = "🎉 おつかれさま！";
+    el.audioRow.classList.add("hidden");
+    el.choices.innerHTML = "";
+    const totalScore = score;
+    setFeedback("good", `結果：${totalScore} / ${total}`, "また挑戦してね。");
+
+    el.nextBtn.textContent = "Done";
+    el.nextBtn.disabled = true;
+    el.backBtn.disabled = false;
+  }
+
+  function goBack(){
+    if (idx <= 0) return;
+    idx -= 1;
+    renderQuestion();
+  }
+
+  function restartAll(){
+    idx = 0;
+    score = 0;
+    answered = Array(setData.items.length).fill(0);
+    el.nextBtn.textContent = "次へ ▶";
+    el.nextBtn.disabled = true;
+    renderQuestion();
+  }
+
+  async function init(){
+    try{
+      const setId = getParam("set", "set-001");
+      const url = `sets/${setId}.json`;
+      const res = await fetch(url, {cache:"no-store"});
+      if (!res.ok) throw new Error(`セットが読み込めませんでした: ${url}`);
+      setData = await res.json();
+
+      el.setTitle.textContent = setData.title || "Sound Quiz";
+      el.setDesc.textContent = setData.description || "";
+
+      answered = Array(setData.items.length).fill(0);
+      idx = 0;
+      score = 0;
+
+      // events
+      el.nextBtn.onclick = goNext;
+      el.backBtn.onclick = goBack;
+      el.restartBtn.onclick = restartAll;
+
+      renderQuestion();
+    } catch(err){
+      el.prompt.textContent = "読み込みエラー";
+      setFeedback("bad", "❌ セットが読み込めませんでした", String(err?.message || err));
+      el.audioRow.classList.add("hidden");
+      el.choices.innerHTML = "";
+      el.nextBtn.disabled = true;
+      el.backBtn.disabled = true;
     }
   }
 
-  function retry() {
-    const audio = el("audio");
-    if (audio && audio.src) {
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
-    }
-  }
-
-  el("nextBtn").addEventListener("click", next);
-  el("retryBtn").addEventListener("click", retry);
-
-  async function init() {
-    const res = await fetch(setUrl, { cache: "no-store" });
-    if (!res.ok) throw new Error("セットが見つからない: " + setUrl);
-    data = await res.json();
-    el("title").textContent = data.title || "Sound Quiz";
-    el("description").textContent = data.description || "";
-    render();
-  }
-
-  init().catch(err => {
-    el("prompt").textContent = "読み込みに失敗しました…";
-    el("choices").innerHTML = `<div style="color:var(--muted); margin-top:10px">${err.message}</div>`;
-    el("audio").style.display = "none";
-    el("progress").textContent = "-";
-  });
+  init();
 </script>
 </body>
 </html>
