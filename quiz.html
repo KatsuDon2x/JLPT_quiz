@@ -8,7 +8,6 @@
     :root{
       --bg:#0b0f1a;
       --card:#141a2a;
-      --card2:#0f1424;
       --text:#e9eefc;
       --muted:#a9b3d6;
       --line:rgba(255,255,255,.08);
@@ -129,6 +128,7 @@
       font-size:16px;
       cursor:pointer;
       border:1px solid var(--line);
+      white-space:nowrap;
     }
     .btn:hover{background: var(--btn2);}
     .btn:disabled{opacity:.5; cursor:default}
@@ -139,6 +139,7 @@
       display:flex;
       justify-content:space-between;
       gap:10px;
+      flex-wrap:wrap;
     }
     .pill{
       display:inline-flex;
@@ -181,13 +182,13 @@
 
         <div class="btnRow">
           <button class="btn" id="backBtn">⬅ 前へ</button>
-          <button class="btn" id="restartBtn">🔁 最初から</button>
+          <button class="btn" id="retryBtn">🔁 この問題をやり直す</button>
           <button class="btn" id="nextBtn">次へ ▶</button>
         </div>
 
         <div class="meta">
           <div class="pill" id="scorePill">正解数: 0</div>
-          <div class="pill" id="hintPill">間違えたら「最初から」でもOK</div>
+          <div class="pill" id="hintPill">間違えてもOK。やり直して覚えるタイプ。</div>
         </div>
       </div>
     </div>
@@ -219,7 +220,7 @@
     feedback: document.getElementById("feedback"),
     subnote: document.getElementById("subnote"),
     backBtn: document.getElementById("backBtn"),
-    restartBtn: document.getElementById("restartBtn"),
+    retryBtn: document.getElementById("retryBtn"),
     nextBtn: document.getElementById("nextBtn"),
     scorePill: document.getElementById("scorePill"),
   };
@@ -232,8 +233,13 @@
 
   function updateButtons(){
     el.backBtn.disabled = (idx <= 0);
-    // 次へは「答えた後だけ」進められる
+
+    // 「次へ」はその問題に答えた後だけ
     el.nextBtn.disabled = (answered[idx] === 0);
+
+    // 「この問題をやり直す」は、答えた後だけ表示したいなら disabled に
+    // （常に押せてもいいけど、学習UX的に “答えたら押す” が自然）
+    el.retryBtn.disabled = (answered[idx] === 0);
   }
 
   function updateTop(){
@@ -242,12 +248,16 @@
     el.scorePill.textContent = `正解数: ${score} / ${total || 0}`;
   }
 
+  function lockChoices(){
+    [...el.choices.querySelectorAll("button.choice")].forEach(b => b.disabled = true);
+    locked = true;
+  }
+
   function renderQuestion(){
     const q = setData.items[idx];
     locked = false;
 
     updateTop();
-    updateButtons();
     setFeedback("", "", "");
 
     el.prompt.textContent = q.prompt || `Q${idx+1}`;
@@ -273,115 +283,10 @@
       el.choices.appendChild(b);
     });
 
-    // すでに回答済みなら、見た目だけ再現（戻った時用）
+    // 回答済みならフィードバック表示（戻るで戻った時など）
     if (answered[idx] !== 0) {
       lockChoices();
       if (answered[idx] === 1){
-        setFeedback("good", "⭕ 正解！", "いい感じ。次へ進もう。");
+        setFeedback("good", "⭕ 正解！", "その調子。次へ ▶");
       } else {
-        setFeedback("bad", "❌ おしい！", "「最初から」か「前へ」でやり直せるよ。");
-      }
-      updateButtons();
-    }
-  }
-
-  function lockChoices(){
-    [...el.choices.querySelectorAll("button.choice")].forEach(b => b.disabled = true);
-    locked = true;
-  }
-
-  function choose(choiceIndex){
-    if (locked) return;
-
-    const q = setData.items[idx];
-    const correct = (choiceIndex === q.answerIndex);
-
-    answered[idx] = correct ? 1 : -1;
-    if (correct) score += 1;
-
-    lockChoices();
-
-    if (correct){
-      setFeedback("good", "⭕ 正解！", "ナイス。次へ ▶");
-    } else {
-      setFeedback("bad", "❌ おしい！", "「最初から」か「前へ」でやり直せるよ。");
-    }
-
-    updateTop();
-    updateButtons();
-  }
-
-  function goNext(){
-    const total = setData.items.length;
-
-    // 未回答なら進ませない
-    if (answered[idx] === 0) return;
-
-    if (idx < total - 1) {
-      idx += 1;
-      renderQuestion();
-      return;
-    }
-
-    // Done screen
-    el.prompt.textContent = "🎉 おつかれさま！";
-    el.audioRow.classList.add("hidden");
-    el.choices.innerHTML = "";
-    const totalScore = score;
-    setFeedback("good", `結果：${totalScore} / ${total}`, "また挑戦してね。");
-
-    el.nextBtn.textContent = "Done";
-    el.nextBtn.disabled = true;
-    el.backBtn.disabled = false;
-  }
-
-  function goBack(){
-    if (idx <= 0) return;
-    idx -= 1;
-    renderQuestion();
-  }
-
-  function restartAll(){
-    idx = 0;
-    score = 0;
-    answered = Array(setData.items.length).fill(0);
-    el.nextBtn.textContent = "次へ ▶";
-    el.nextBtn.disabled = true;
-    renderQuestion();
-  }
-
-  async function init(){
-    try{
-      const setId = getParam("set", "set-001");
-      const url = `sets/${setId}.json`;
-      const res = await fetch(url, {cache:"no-store"});
-      if (!res.ok) throw new Error(`セットが読み込めませんでした: ${url}`);
-      setData = await res.json();
-
-      el.setTitle.textContent = setData.title || "Sound Quiz";
-      el.setDesc.textContent = setData.description || "";
-
-      answered = Array(setData.items.length).fill(0);
-      idx = 0;
-      score = 0;
-
-      // events
-      el.nextBtn.onclick = goNext;
-      el.backBtn.onclick = goBack;
-      el.restartBtn.onclick = restartAll;
-
-      renderQuestion();
-    } catch(err){
-      el.prompt.textContent = "読み込みエラー";
-      setFeedback("bad", "❌ セットが読み込めませんでした", String(err?.message || err));
-      el.audioRow.classList.add("hidden");
-      el.choices.innerHTML = "";
-      el.nextBtn.disabled = true;
-      el.backBtn.disabled = true;
-    }
-  }
-
-  init();
-</script>
-</body>
-</html>
+        setFeedback("bad", "❌ おしい！", "「この問題をやり直す」で再挑戦できるよ。
