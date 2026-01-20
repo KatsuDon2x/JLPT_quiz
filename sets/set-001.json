@@ -9,12 +9,20 @@
   "choices": ["appel", "apple", "aple"],
   "answerIndex": 1 
     },
+    },
     {
       "type": "mcq",
       "prompt": "Q2. 正しいスペルは？",
       "audio": "audio/banana.mp3",
       "choices": ["bananna", "banana", "bannana"],
       "answerIndex": 1
-    }
+    },
+      {
+  "type": "mcq",
+  "prompt": "Q3. 音声を聞いて、正しいスペルを選びましょう",
+  "audio": "audio/mikeko.mp3",
+  "choices": ["とらこ", "ミケランジェロ", "みけこ"],
+  "answerIndex": 1 
+      }
   ]
 }
