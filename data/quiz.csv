@@ -1,2 +1,29 @@
-question,answer
-テストです,はい
+﻿id,type,key_sentence_jp,key_sentence_en,qtype_mix,qtype_jp_only,audio_file,image_list,choices,answer,script_kana,script_romaji
+L01-001,q_type_1_listen_only,【家電<rb>かでん</rb>の　名前<rb>なまえ</rb>】　写真<rb>しゃしん</rb>を　見<rb>み</rb>ながら、　音声<rb>おんせい</rb>を　聞<rb>き</rb>きましょう。,[Home Appliances] Look at the photos and listen.,聞<rb>き</rb>き ましょう。<br>Listen (kiki mashō),Listen (kiki mashō),家電.mp3,掃除機.png|洗濯機.png|冷蔵庫.png|電子レンジ.png,わかった  GOT IT!|わからない  I'm not sure…,わかった  GOT IT!,"掃除機<rb>そうじき</rb><br>
+洗濯機<rb>せんたっき / せんたくき</rb><br>
+冷蔵庫<rb>れいぞうこ</rb><br>
+電子<rb>でんし</rb>レンジ","sōjiki<br>
+sentakki <br>
+reizōko<br>
+denshi renji<br>"
+,,,,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+,ui,key,text,,,,,,,,
+,en,q_type_1_listen_only,,,,,,,,,
+,ja,q_type_1_listen_only,,,,,,,,,
+,en,q_type_2_mcq_text,Multiple Choice (mottomo yoi kotae wo erabi mashō),,,,,,,,
+,ja,q_type_2_mcq_text,最<rb>もっと</rb>も 良<rb>よ</rb>い 答<rb>こた</rb>えを 選<rb>えら</rb>び ましょう。,,,,,,,,
+,en,q_type_3_mcq_image,Multiple Choice (mottomo yoi kotae wo erabi mashō),,,,,,,,
+,ja,q_type_3_mcq_image,最<rb>もっと</rb>も 良<rb>よ</rb>い 答<rb>こた</rb>えを 選<rb>えら</rb>び ましょう。,,,,,,,,
+,en,q_type_4_reorder_text,Ordering (narabi kae mashō),,,,,,,,
+,ja,q_type_4_reorder_text,並<rb>なら</rb>び 替<rb>か</rb>え ましょう。,,,,,,,,
+,en,q_type_5_reorder_image,Ordering (narabi kae mashō),,,,,,,,
+,ja,q_type_5_reorder_image,並<rb>なら</rb>び 替<rb>か</rb>え ましょう。,,,,,,,,
+,en,q_type_6_input,Type (moji wo nyūryoku shi mashō),,,,,,,,
+,ja,q_type_6_input,文字<rb>もじ</rb>を 入力<rb>にゅうりょく</rb>し ましょう。,,,,,,,,
+,en,q_type_7_fill_in_the_blank,Fill in the Blank (ana wo ume mashō),,,,,,,,
+,ja,q_type_7_fill_in_the_blank,穴<rb>あな</rb>を 埋<rb>う</rb>め ましょう。,,,,,,,,
+,en,q_type_8_matching,Matching (kumi awase mashō),,,,,,,,
+,ja,q_type_8_matching,組<rb>く</rb>み 合<rb>あ</rb>わせ ましょう。,,,,,,,,
