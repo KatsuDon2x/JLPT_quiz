@@ -592,379 +592,123 @@
   <audio id="qAudio" preload="auto"></audio>
 
   <script>
-    // ============================================================
-    // CSV LOADER (loads first row from data/quiz.csv)
-    // Note: simple CSV only (no commas inside values unless you enhance parser)
-    // ============================================================
-    async function loadCSV(path){
-      const res = await fetch(path, { cache: "no-store" });
-      if (!res.ok) throw new Error(`CSV fetch failed: ${res.status} ${res.statusText}`);
-      return await res.text();
-    }
+/* =========================================================
+   CSV MULTI-QUESTION LOADER (works on GitHub Pages)
+   - loads ALL rows from data/quiz.csv
+   - uses your existing UI + bottom-ruby conversion
+   - Next question after CONTINUE
+   ========================================================= */
 
-    function parseCSVSimple(text){
-      const lines = text.replace(/\r/g,"").split("\n").filter(l => l.trim().length);
-      const headers = lines.shift().split(",").map(h=>h.trim());
+let QUESTIONS = [];
+let idx = 0;
 
-      return lines.map(line=>{
-        const cols = line.split(",").map(c=>c.trim());
-        const obj = {};
-        headers.forEach((h,i)=> obj[h] = (cols[i] ?? ""));
-        return obj;
-      });
-    }
+// ===== state =====
+let uiMode = "en";           // 初期：English UI
+let selectedChoice = null;
+let score = 0;
+let answered = false;
+let isPlaying = false;
 
-    function applyRowToQ(row){
-      // match your CSV headers exactly:
-      // id,type,key_sentence_jp,key_sentence_en,qtype_mix,qtype_jp_only,audio_file,image_list,choices,answer,script_kana,script_romaji
-      Q.id = row.id || Q.id;
-      Q.type = row.type || Q.type;
+const SAVE_KEY = "savedQuestions_v1";
+function loadSaved(){
+  try{
+    const raw = localStorage.getItem(SAVE_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return new Set(Array.isArray(arr) ? arr : []);
+  }catch(e){ return new Set(); }
+}
+function storeSaved(set){
+  localStorage.setItem(SAVE_KEY, JSON.stringify([...set]));
+}
+const savedSet = loadSaved();
 
-      Q.key_sentence_jp = row.key_sentence_jp || Q.key_sentence_jp;
-      Q.key_sentence_en = row.key_sentence_en || Q.key_sentence_en;
+// ===== elements =====
+const uiLabel = document.getElementById("uiLabel");
+const btnToggleUI = document.getElementById("btnToggleUI");
 
-      Q.qtype_mix = row.qtype_mix || Q.qtype_mix;
-      Q.qtype_jp_only = row.qtype_jp_only || Q.qtype_jp_only;
+const qTypeBox = document.getElementById("qTypeBox");
+const keySentence = document.getElementById("keySentence");
+const imgGrid = document.getElementById("imgGrid");
+const choicesEl = document.getElementById("choices");
+const btnCheck = document.getElementById("btnCheck");
+const btnTranslate = document.getElementById("btnTranslate");
+const btnSave = document.getElementById("btnSave");
 
-      Q.audio_file = row.audio_file || Q.audio_file;
-      Q.image_list = row.image_list || Q.image_list;
+const drawer = document.getElementById("drawer");
+const drawerClose = document.getElementById("drawerClose");
+const kanaText = document.getElementById("kanaText");
+const romajiText = document.getElementById("romajiText");
 
-      Q.choices = row.choices || Q.choices;
-      Q.answer  = row.answer  || Q.answer;
+const btnPlay = document.getElementById("btnPlay");
+const playIcon = document.getElementById("playIcon");
+const pauseIcon = document.getElementById("pauseIcon");
 
-      Q.script_kana   = row.script_kana   || Q.script_kana;
-      Q.script_romaji = row.script_romaji || Q.script_romaji;
-    }
+const qAudio = document.getElementById("qAudio");
+const sfxPin = document.getElementById("sfxPin");
+const sfxBu = document.getElementById("sfxBu");
 
-    // ============================================================
-    // 1 question fallback (used if CSV fails)
-    // ============================================================
-    let Q = {
-      id: "L01-001",
-      type: "q_type_1_listen_only",
+const pillScore = document.getElementById("pillScore");
+const pillQ = document.getElementById("pillQ");
 
-      key_sentence_jp:
-`【家電<rb>かでん</rb>の　名前<rb>なまえ</rb>】　写真<rb>しゃしん</rb>を　見<rb>み</rb>ながら、　音声<rb>おんせい</rb>を　聞<rb>き</rb>きましょう。`,
-      key_sentence_en:
-`[Home Appliances] Look at the photos and listen.`,
+const overlay = document.getElementById("overlay");
+const sheet = document.getElementById("sheet");
+const sheetBar = document.getElementById("sheetBar");
+const sheetBody = document.getElementById("sheetBody");
 
-      qtype_mix:
-`聞<rb>き</rb>きましょう。<br><span class="enSmall">Listen (kiki mashō)</span>`,
+// ===== helpers =====
+function safePlay(a){
+  try{ a.currentTime = 0; a.play(); }catch(e){}
+}
 
-      qtype_jp_only:
-`聞<rb>き</rb>きましょう。`,
+function parseChoiceLabel(raw){
+  const parts = raw.split(/ {2,}/);
+  if (parts.length >= 2) return { main: parts[0].trim(), sub: parts.slice(1).join(" ").trim() };
+  return { main: raw.trim(), sub: "" };
+}
 
-      audio_file: "家電.mp3",
-      image_list: "掃除機.png|洗濯機.png|冷蔵庫.png|電子レンジ.png",
+function setSavedUI(){
+  const Q = currentQ();
+  btnSave.classList.toggle("saved", Q && savedSet.has(Q.id));
+}
 
-      choices: "わかった  GOT IT!|わからない  I'm not sure…",
-      answer: "わかった  GOT IT!",
+function openDrawer(){
+  drawer.classList.add("open");
+  btnTranslate.classList.remove("hintPulse");
+}
+function closeDrawer(){ drawer.classList.remove("open"); }
 
-      script_kana:
-`掃除機<rb>そうじき</rb><br>
-洗濯機<rb>せんたっき / せんたくき</rb><br>
-冷蔵庫<rb>れいぞうこ</rb><br>
-電子<rb>でんし</rb>レンジ`,
-      script_romaji:
-`sōjiki<br>
-sentakki<br>
-reizōko<br>
-denshi renji<br>`
-    };
+function setPlayUI(playing){
+  isPlaying = playing;
+  playIcon.style.display = playing ? "none" : "block";
+  pauseIcon.style.display = playing ? "block" : "none";
+}
 
-    // ===== state =====
-    let uiMode = "en";
-    let selectedChoice = null;
-    let score = 0;
-    let answered = false;
-    let isPlaying = false;
+function updateCheckEnabled(){
+  btnCheck.disabled = !selectedChoice || answered;
+}
 
-    const SAVE_KEY = "savedQuestions_v1";
-    function loadSaved(){
-      try{
-        const raw = localStorage.getItem(SAVE_KEY);
-        const arr = raw ? JSON.parse(raw) : [];
-        return new Set(Array.isArray(arr) ? arr : []);
-      }catch(e){ return new Set(); }
-    }
-    function storeSaved(set){
-      localStorage.setItem(SAVE_KEY, JSON.stringify([...set]));
-    }
-    const savedSet = loadSaved();
+function hideSheet(){
+  overlay.classList.remove("show");
+  sheet.classList.remove("show");
+}
 
-    // ===== elements =====
-    const uiLabel = document.getElementById("uiLabel");
-    const btnToggleUI = document.getElementById("btnToggleUI");
+function showSheet(ok){
+  overlay.classList.add("show");
+  sheet.classList.add("show");
 
-    const qTypeBox = document.getElementById("qTypeBox");
-    const keySentence = document.getElementById("keySentence");
-    const imgGrid = document.getElementById("imgGrid");
-    const choicesEl = document.getElementById("choices");
-    const btnCheck = document.getElementById("btnCheck");
-    const btnTranslate = document.getElementById("btnTranslate");
-    const btnSave = document.getElementById("btnSave");
+  if (ok){
+    sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
+    sheetBar.style.color = "rgba(10,18,6,.98)";
+    sheetBar.style.textShadow = "0 1px 0 rgba(255,255,255,.25)";
+    sheetBar.style.boxShadow = "0 0 34px rgba(193,255,114,.30)";
+    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+      <span>〇 やった！</span><span style="opacity:.72">/ Yatta!</span><span style="font-size:22px;">🎉</span>
+    </div>`;
+  }else{
+    sheetBar.style.background = "linear-gradient(180deg, rgba(255,198,26,.98), rgba(255,198,26,.48))";
+    sheetBar.style.color = "rgba(30,18,0,.98)";
+    sheetBar.style.textShadow = "0 1px 0 rgba(255,255,255,.20)
 
-    const drawer = document.getElementById("drawer");
-    const drawerClose = document.getElementById("drawerClose");
-    const kanaText = document.getElementById("kanaText");
-    const romajiText = document.getElementById("romajiText");
-
-    const btnPlay = document.getElementById("btnPlay");
-    const playIcon = document.getElementById("playIcon");
-    const pauseIcon = document.getElementById("pauseIcon");
-
-    const qAudio = document.getElementById("qAudio");
-    const sfxPin = document.getElementById("sfxPin");
-    const sfxBu = document.getElementById("sfxBu");
-
-    const pillScore = document.getElementById("pillScore");
-    const overlay = document.getElementById("overlay");
-    const sheet = document.getElementById("sheet");
-    const sheetBar = document.getElementById("sheetBar");
-    const sheetBody = document.getElementById("sheetBody");
-
-    // ===== helpers =====
-    function safePlay(a){
-      try{ a.currentTime = 0; a.play(); }catch(e){}
-    }
-    function parseChoiceLabel(raw){
-      const parts = raw.split(/ {2,}/);
-      if (parts.length >= 2) return { main: parts[0].trim(), sub: parts.slice(1).join(" ").trim() };
-      return { main: raw.trim(), sub: "" };
-    }
-    function setSavedUI(){
-      btnSave.classList.toggle("saved", savedSet.has(Q.id));
-    }
-    function openDrawer(){
-      drawer.classList.add("open");
-      btnTranslate.classList.remove("hintPulse");
-    }
-    function closeDrawer(){ drawer.classList.remove("open"); }
-
-    function setPlayUI(playing){
-      isPlaying = playing;
-      playIcon.style.display = playing ? "none" : "block";
-      pauseIcon.style.display = playing ? "block" : "none";
-    }
-    function updateCheckEnabled(){
-      btnCheck.disabled = !selectedChoice || answered;
-    }
-
-    function showSheet(ok){
-      overlay.classList.add("show");
-      sheet.classList.add("show");
-
-      if (ok){
-        sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
-        sheetBar.style.color = "rgba(10,18,6,.98)";
-        sheetBar.style.textShadow = "0 1px 0 rgba(255,255,255,.25)";
-        sheetBar.style.boxShadow = "0 0 34px rgba(193,255,114,.30)";
-        sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-          <span>〇 やった！</span><span style="opacity:.72">/ Yatta!</span><span style="font-size:22px;">🎉</span>
-        </div>`;
-        sheetBody.innerHTML = `<button class="continueBtn" id="btnContinue">CONTINUE / つづける</button>`;
-      }else{
-        sheetBar.style.background = "linear-gradient(180deg, rgba(255,198,26,.98), rgba(255,198,26,.48))";
-        sheetBar.style.color = "rgba(30,18,0,.98)";
-        sheetBar.style.textShadow = "0 1px 0 rgba(255,255,255,.20)";
-        sheetBar.style.boxShadow = "0 0 34px rgba(255,198,26,.28)";
-        sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-          <span>× おしい！</span><span style="opacity:.72">/ Oshī!</span>
-        </div>`;
-        sheetBody.innerHTML = `<button class="continueBtn" id="btnContinue">CONTINUE / つづける</button>`;
-        btnTranslate.classList.add("hintPulse");
-      }
-
-      document.getElementById("btnContinue").addEventListener("click", hideSheet);
-    }
-    function hideSheet(){
-      overlay.classList.remove("show");
-      sheet.classList.remove("show");
-    }
-
-    // ===== 下ルビ変換 =====
-    function pseudoRubyBottom(html){
-      const container = document.createElement("div");
-      container.innerHTML = html;
-
-      const rbs = Array.from(container.querySelectorAll("rb"));
-      for (const rb of rbs){
-        const reading = (rb.textContent || "").trim();
-        const prev = rb.previousSibling;
-
-        if (!prev || prev.nodeType !== Node.TEXT_NODE){
-          rb.remove();
-          continue;
-        }
-
-        const txt = prev.textContent || "";
-        if (!txt.length){
-          rb.remove();
-          continue;
-        }
-
-        const m = txt.match(/([\u4E00-\u9FFF]+)$/);
-
-        let baseWord = "";
-        if (m && m[1]) {
-          baseWord = m[1];
-          prev.textContent = txt.slice(0, -baseWord.length);
-        } else {
-          baseWord = txt.slice(-1);
-          prev.textContent = txt.slice(0, -1);
-        }
-
-        rb.replaceWith(makeRubyBottom(baseWord, reading));
-      }
-
-      return container.innerHTML;
-    }
-
-    function makeRubyBottom(base, reading){
-      const wrap = document.createElement("span");
-      wrap.className = "rbWrapBottom";
-
-      const baseEl = document.createElement("span");
-      baseEl.className = "rbBase";
-      baseEl.textContent = base;
-
-      const bot = document.createElement("span");
-      bot.className = "rbBottom";
-      bot.textContent = reading;
-
-      wrap.appendChild(baseEl);
-      wrap.appendChild(bot);
-      return wrap;
-    }
-
-    function render(){
-      // reset per-render UI states that depend on question
-      uiLabel.textContent = (uiMode === "en") ? "English UI" : "日本語UI";
-
-      const qtypeHtml = (uiMode === "en") ? Q.qtype_mix : Q.qtype_jp_only;
-      qTypeBox.innerHTML = pseudoRubyBottom(qtypeHtml);
-
-      const jpHtml = pseudoRubyBottom(Q.key_sentence_jp || "");
-      const enLine = (uiMode === "en") ? `<div class="en">${Q.key_sentence_en || ""}</div>` : "";
-      keySentence.innerHTML = `<div class="jp">${jpHtml}</div>${enLine}`;
-
-      qAudio.src = "audio/" + (Q.audio_file || "");
-      qAudio.loop = true;
-
-      imgGrid.innerHTML = "";
-      const imgs = (Q.image_list || "").split("|").map(s=>s.trim()).filter(Boolean).slice(0,4);
-      for (const f of imgs){
-        const div = document.createElement("div");
-        div.className = "imgCard";
-        const img = document.createElement("img");
-        img.src = "images/" + f;
-        img.alt = f;
-        div.appendChild(img);
-        imgGrid.appendChild(div);
-      }
-
-      choicesEl.innerHTML = "";
-      const choices = (Q.choices || "").split("|").map(s=>s.trim()).filter(Boolean);
-      for (const c of choices){
-        const {main, sub} = parseChoiceLabel(c);
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "choiceBtn" + (selectedChoice===c ? " selected" : "");
-        const subHtml = (uiMode === "en" && sub) ? `<span class="sub">${sub}</span>` : (sub ? `<span class="sub">${sub}</span>` : "");
-        btn.innerHTML = `<span>${main}</span>${subHtml}`;
-        btn.addEventListener("click", ()=>{
-          if (answered) return;
-          selectedChoice = c;
-          render();
-          updateCheckEnabled();
-        });
-        choicesEl.appendChild(btn);
-      }
-
-      kanaText.innerHTML = pseudoRubyBottom(Q.script_kana || "");
-      romajiText.innerHTML = (Q.script_romaji || "");
-
-      pillScore.textContent = `score: ${score}/1`;
-      setSavedUI();
-      updateCheckEnabled();
-      setPlayUI(isPlaying);
-    }
-
-    function resetForNewQuestion(){
-      selectedChoice = null;
-      answered = false;
-      isPlaying = false;
-      try{ qAudio.pause(); }catch(e){}
-      setPlayUI(false);
-    }
-
-    // ===== events =====
-    btnToggleUI.addEventListener("click", ()=>{
-      uiMode = (uiMode === "en") ? "jp" : "en";
-      render();
-    });
-
-    document.getElementById("btnExit").addEventListener("click", ()=> location.reload());
-
-    btnTranslate.addEventListener("click", openDrawer);
-    drawerClose.addEventListener("click", closeDrawer);
-
-    btnSave.addEventListener("click", ()=>{
-      if (savedSet.has(Q.id)) savedSet.delete(Q.id);
-      else savedSet.add(Q.id);
-      storeSaved(savedSet);
-      setSavedUI();
-    });
-
-    btnPlay.addEventListener("click", ()=>{
-      try{
-        if (!isPlaying){
-          qAudio.play();
-          setPlayUI(true);
-        }else{
-          qAudio.pause();
-          setPlayUI(false);
-        }
-      }catch(e){}
-    });
-
-    btnCheck.addEventListener("click", ()=>{
-      if (!selectedChoice || answered) return;
-
-      const ok = (selectedChoice.trim() === (Q.answer || "").trim());
-      answered = true;
-
-      if (ok){
-        score = 1;
-        safePlay(sfxPin);
-        showSheet(true);
-      }else{
-        safePlay(sfxBu);
-        showSheet(false);
-      }
-      updateCheckEnabled();
-      render();
-    });
-
-    overlay.addEventListener("click", hideSheet);
-
-    // ============================================================
-    // start: load CSV first, then render (fallback to hardcoded Q)
-    // ============================================================
-    (async ()=>{
-      try{
-        const csvText = await loadCSV("data/quiz.csv");
-        const rows = parseCSVSimple(csvText);
-        if (rows.length > 0){
-          applyRowToQ(rows[0]); // first row only
-          resetForNewQuestion();
-        }
-      }catch(err){
-        console.error(err);
-        // fallback: use hardcoded Q
-      }
-      render();
-    })();
   </script>
 </body>
 </html>
