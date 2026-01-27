@@ -707,8 +707,312 @@ function showSheet(ok){
   }else{
     sheetBar.style.background = "linear-gradient(180deg, rgba(255,198,26,.98), rgba(255,198,26,.48))";
     sheetBar.style.color = "rgba(30,18,0,.98)";
-    sheetBar.style.textShadow = "0 1px 0 rgba(255,255,255,.20)
+    sheetBar.style.textShadow = "0 1px 0 rgba(255,255,255,.20)";
+    sheetBar.style.boxShadow = "0 0 34px rgba(255,198,26,.28)";
+    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+      <span>× おしい！</span><span style="opacity:.72">/ Oshī!</span>
+    </div>`;
+    btnTranslate.classList.add("hintPulse");
+  }
 
-  </script>
+  sheetBody.innerHTML = `<button class="continueBtn" id="btnContinue">CONTINUE / つづける</button>`;
+  document.getElementById("btnContinue").addEventListener("click", ()=>{
+    hideSheet();
+    goNext();   // ✅ next question after continue
+  });
+}
+
+// ===== “下ルビ” =====
+function pseudoRubyBottom(html){
+  const container = document.createElement("div");
+  container.innerHTML = html;
+
+  const rbs = Array.from(container.querySelectorAll("rb"));
+  for (const rb of rbs){
+    const reading = (rb.textContent || "").trim();
+    const prev = rb.previousSibling;
+
+    if (!prev || prev.nodeType !== Node.TEXT_NODE){
+      rb.remove();
+      continue;
+    }
+
+    const txt = prev.textContent || "";
+    if (!txt.length){
+      rb.remove();
+      continue;
+    }
+
+    const m = txt.match(/([\u4E00-\u9FFF]+)$/);
+
+    let baseWord = "";
+    if (m && m[1]) {
+      baseWord = m[1];
+      prev.textContent = txt.slice(0, -baseWord.length);
+    } else {
+      baseWord = txt.slice(-1);
+      prev.textContent = txt.slice(0, -1);
+    }
+
+    rb.replaceWith(makeRubyBottom(baseWord, reading));
+  }
+  return container.innerHTML;
+}
+
+function makeRubyBottom(base, reading){
+  const wrap = document.createElement("span");
+  wrap.className = "rbWrapBottom";
+
+  const baseEl = document.createElement("span");
+  baseEl.className = "rbBase";
+  baseEl.textContent = base;
+
+  const bot = document.createElement("span");
+  bot.className = "rbBottom";
+  bot.textContent = reading;
+
+  wrap.appendChild(baseEl);
+  wrap.appendChild(bot);
+  return wrap;
+}
+
+// ===== robust CSV parser (supports quoted commas + newlines) =====
+function parseCSV(text){
+  const rows = [];
+  let row = [];
+  let cur = "";
+  let inQuotes = false;
+
+  for (let i=0; i<text.length; i++){
+    const c = text[i];
+    const n = text[i+1];
+
+    if (inQuotes){
+      if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
+      if (c === '"'){ inQuotes = false; continue; }
+      cur += c;
+      continue;
+    }
+
+    if (c === '"'){ inQuotes = true; continue; }
+    if (c === ","){ row.push(cur); cur = ""; continue; }
+    if (c === "\r"){ continue; }
+    if (c === "\n"){
+      row.push(cur); cur = "";
+      // ignore fully blank lines
+      if (row.some(v => (v || "").trim().length)) rows.push(row);
+      row = [];
+      continue;
+    }
+    cur += c;
+  }
+  // last cell
+  row.push(cur);
+  if (row.some(v => (v || "").trim().length)) rows.push(row);
+
+  if (!rows.length) return [];
+  const headers = rows.shift().map(h => (h||"").trim());
+  return rows.map(cols=>{
+    const obj = {};
+    headers.forEach((h, i)=> obj[h] = (cols[i] ?? ""));
+    return obj;
+  });
+}
+
+async function loadAllQuestions(){
+  const res = await fetch("data/quiz.csv", { cache: "no-store" });
+  if (!res.ok) throw new Error("CSV fetch failed: " + res.status);
+  const text = await res.text();
+  const data = parseCSV(text);
+
+  // map CSV rows -> your Q structure
+  QUESTIONS = data.map(r => ({
+    id: (r.id || "").trim(),
+    type: (r.type || "").trim(),
+    key_sentence_jp: r.key_sentence_jp || "",
+    key_sentence_en: r.key_sentence_en || "",
+    qtype_mix: r.qtype_mix || "",
+    qtype_jp_only: r.qtype_jp_only || "",
+    audio_file: r.audio_file || "",
+    image_list: r.image_list || "",
+    choices: r.choices || "",
+    answer: r.answer || "",
+    script_kana: r.script_kana || "",
+    script_romaji: r.script_romaji || ""
+  })).filter(q => q.id);
+
+  if (!QUESTIONS.length){
+    throw new Error("No questions found in CSV.");
+  }
+}
+
+function currentQ(){
+  return QUESTIONS[idx] || null;
+}
+
+function resetPerQuestionState(){
+  selectedChoice = null;
+  answered = false;
+
+  // stop audio when switching questions
+  try{ qAudio.pause(); }catch(e){}
+  setPlayUI(false);
+}
+
+function goNext(){
+  if (idx < QUESTIONS.length - 1){
+    idx++;
+    resetPerQuestionState();
+    render();
+  }else{
+    // end
+    overlay.classList.add("show");
+    sheet.classList.add("show");
+    sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
+    sheetBar.style.color = "rgba(10,18,6,.98)";
+    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+      <span>🎉 FINISH!</span><span style="opacity:.72">/ おつかれさま！</span>
+    </div>`;
+    sheetBody.innerHTML = `<div style="font-weight:950;margin-bottom:10px;">score: ${score}/${QUESTIONS.length}</div>
+      <button class="continueBtn" id="btnRestart">RESTART / さいしょから</button>`;
+    document.getElementById("btnRestart").addEventListener("click", ()=> location.reload());
+  }
+}
+
+function render(){
+  const Q = currentQ();
+  if (!Q) return;
+
+  // top pills
+  pillQ.textContent = `Q ${idx+1}/${QUESTIONS.length}`;
+  pillScore.textContent = `score: ${score}/${QUESTIONS.length}`;
+
+  // toggle label
+  uiLabel.textContent = (uiMode === "en") ? "English UI" : "日本語UI";
+
+  // Question type
+  const qtypeHtml = (uiMode === "en") ? (Q.qtype_mix || "") : (Q.qtype_jp_only || "");
+  qTypeBox.innerHTML = pseudoRubyBottom(qtypeHtml);
+
+  // key sentence
+  const jpHtml = pseudoRubyBottom(Q.key_sentence_jp || "");
+  const enLine = (uiMode === "en") ? `<div class="en">${Q.key_sentence_en || ""}</div>` : "";
+  keySentence.innerHTML = `<div class="jp">${jpHtml}</div>${enLine}`;
+
+  // audio
+  qAudio.src = "audio/" + (Q.audio_file || "");
+  qAudio.loop = true;
+
+  // images
+  imgGrid.innerHTML = "";
+  const imgs = (Q.image_list || "").split("|").map(s=>s.trim()).filter(Boolean).slice(0,4);
+  for (const f of imgs){
+    const div = document.createElement("div");
+    div.className = "imgCard";
+    const img = document.createElement("img");
+    img.src = "images/" + f;
+    img.alt = f;
+    div.appendChild(img);
+    imgGrid.appendChild(div);
+  }
+
+  // choices
+  choicesEl.innerHTML = "";
+  const choices = (Q.choices || "").split("|").map(s=>s.trim()).filter(Boolean);
+  for (const c of choices){
+    const {main, sub} = parseChoiceLabel(c);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "choiceBtn" + (selectedChoice===c ? " selected" : "");
+    const subHtml = (uiMode === "en" && sub) ? `<span class="sub">${sub}</span>` : (sub ? `<span class="sub">${sub}</span>` : "");
+    btn.innerHTML = `<span>${main}</span>${subHtml}`;
+    btn.addEventListener("click", ()=>{
+      if (answered) return;
+      selectedChoice = c;
+      render();
+      updateCheckEnabled();
+    });
+    choicesEl.appendChild(btn);
+  }
+
+  // drawer
+  kanaText.innerHTML = pseudoRubyBottom(Q.script_kana || "");
+  romajiText.innerHTML = (Q.script_romaji || "");
+
+  setSavedUI();
+  updateCheckEnabled();
+  setPlayUI(isPlaying);
+}
+
+// ===== events =====
+btnToggleUI.addEventListener("click", ()=>{
+  uiMode = (uiMode === "en") ? "jp" : "en";
+  render();
+});
+
+document.getElementById("btnExit").addEventListener("click", ()=> location.reload());
+
+btnTranslate.addEventListener("click", openDrawer);
+drawerClose.addEventListener("click", closeDrawer);
+
+btnSave.addEventListener("click", ()=>{
+  const Q = currentQ();
+  if (!Q) return;
+  if (savedSet.has(Q.id)) savedSet.delete(Q.id);
+  else savedSet.add(Q.id);
+  storeSaved(savedSet);
+  setSavedUI();
+});
+
+// play/pause
+btnPlay.addEventListener("click", ()=>{
+  try{
+    if (!isPlaying){
+      qAudio.play();
+      setPlayUI(true);
+    }else{
+      qAudio.pause();
+      setPlayUI(false);
+    }
+  }catch(e){}
+});
+
+btnCheck.addEventListener("click", ()=>{
+  const Q = currentQ();
+  if (!Q) return;
+  if (!selectedChoice || answered) return;
+
+  const ok = (selectedChoice.trim() === (Q.answer || "").trim());
+  answered = true;
+
+  if (ok){
+    score++;
+    safePlay(sfxPin);
+    showSheet(true);
+  }else{
+    safePlay(sfxBu);
+    showSheet(false);
+  }
+  updateCheckEnabled();
+  render();
+});
+
+overlay.addEventListener("click", hideSheet);
+
+// ===== start =====
+(async ()=>{
+  try{
+    await loadAllQuestions();
+    idx = 0;
+    resetPerQuestionState();
+    render();
+  }catch(err){
+    console.error(err);
+    keySentence.innerHTML = `<div class="jp" style="font-size:18px;font-weight:900;">
+      CSV 読み込みエラー: ${String(err.message || err)}
+    </div>`;
+  }
+})();
+</script>
 </body>
 </html>
