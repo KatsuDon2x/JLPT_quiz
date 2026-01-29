@@ -20,7 +20,6 @@
       --gap:12px;
       --shadow: 0 18px 70px rgba(0,0,0,.62);
     }
-
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -32,7 +31,6 @@
         var(--bg);
       color:var(--text);
     }
-
     .wrap{ max-width: 980px; margin:0 auto; padding: 14px 14px 22px; }
 
     .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding: 8px 2px 14px; }
@@ -65,9 +63,15 @@
       display:flex; align-items:center; gap:10px;
       font-weight: 950;
       letter-spacing:.2px;
-      box-shadow: 0 0 0 2px rgba(193,255,114,.10) inset, 0 0 22px rgba(193,255,114,.18);
+      box-shadow:
+        0 0 0 2px rgba(193,255,114,.10) inset,
+        0 0 22px rgba(193,255,114,.18);
     }
-    .uiDot{ width:10px;height:10px;border-radius:999px; background: var(--lime); box-shadow: 0 0 22px rgba(193,255,114,.75); }
+    .uiDot{
+      width:10px;height:10px;border-radius:999px;
+      background: var(--lime);
+      box-shadow: 0 0 22px rgba(193,255,114,.75);
+    }
     .uiLabel{ font-size: 13px; opacity: .95; }
 
     .card{
@@ -89,7 +93,9 @@
       flex: 0 0 auto;
       position: relative;
       overflow:hidden;
-      box-shadow: 0 0 0 2px rgba(77,163,255,.10) inset, 0 0 24px rgba(77,163,255,.18);
+      box-shadow:
+        0 0 0 2px rgba(77,163,255,.10) inset,
+        0 0 24px rgba(77,163,255,.18);
     }
     .speakerBtn::after{
       content:"";
@@ -114,9 +120,20 @@
       justify-content:center;
       gap:6px;
     }
-
-    .qtype{ font-weight: 1000; letter-spacing:.2px; line-height:1.25; font-size: 18px; }
-    .qtype .enSmall{ display:block; margin-top:6px; font-size: 14px; font-weight: 900; color: var(--muted); letter-spacing:.1px; }
+    .qtype{
+      font-weight: 1000;
+      letter-spacing:.2px;
+      line-height:1.25;
+      font-size: 18px;
+    }
+    .qtype .enSmall{
+      display:block;
+      margin-top:6px;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--muted);
+      letter-spacing:.1px;
+    }
 
     .ks{
       margin-top: 12px;
@@ -126,25 +143,28 @@
       border-radius: 16px;
       line-height: 1.55;
     }
-    .ks .jp{ font-size: 30px; font-weight: 950; letter-spacing: .2px; line-height: 1.45; }
-    .ks .en{ margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.55; }
-
-    /* highlight */
-    .hl{
-      background: rgba(193,255,114,.22);
-      border: 1px solid rgba(193,255,114,.25);
-      padding: .06em .22em;
-      border-radius: .45em;
+    .ks .jp{
+      font-size: 30px;
+      font-weight: 950;
+      letter-spacing: .2px;
+      line-height: 1.45;
     }
-    .big{ font-size: 1.18em; }
-    .small{ font-size: .84em; opacity:.92; }
-
-    /* legacy bottom ruby with <rb>読み</rb> */
-    .rbWrapBottom{
-      display:inline-flex; flex-direction:column; align-items:center; line-height:1; margin: 0 .06em;
+    .ks .en{
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
     }
+
+    /* bottom ruby */
+    .rbWrapBottom{ display:inline-flex; flex-direction:column; align-items:center; line-height:1; margin: 0 .06em; }
     .rbWrapBottom .rbBase{ font-size: 1em; line-height: 1.05; letter-spacing:.02em; }
     .rbWrapBottom .rbBottom{ font-size: .56em; line-height: 1; opacity: .92; transform: translateY(.18em); white-space: nowrap; }
+
+    /* mini markup styles */
+    .hl{ background: rgba(193,255,114,.22); padding: .05em .18em; border-radius: .35em; }
+    .big{ font-size: 1.18em; }
+    .small{ font-size: .88em; opacity:.92; }
 
     .grid{
       margin-top: 12px;
@@ -192,11 +212,19 @@
       transition: transform 80ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
     }
     .choiceBtn:active{ transform: translateY(1px); }
-    .choiceBtn .sub{ display:block; margin-top:7px; color: var(--muted); font-weight: 850; font-size: 13px; }
+    .choiceBtn .sub{
+      display:block;
+      margin-top:7px;
+      color: var(--muted);
+      font-weight: 850;
+      font-size: 13px;
+    }
     .choiceBtn.selected{
       border-color: rgba(77,163,255,.75);
       background: rgba(77,163,255,.22);
-      box-shadow: 0 0 0 2px rgba(77,163,255,.14) inset, 0 0 26px rgba(77,163,255,.18);
+      box-shadow:
+        0 0 0 2px rgba(77,163,255,.14) inset,
+        0 0 26px rgba(77,163,255,.18);
     }
 
     .bottomRow{
@@ -207,6 +235,7 @@
       justify-content:space-between;
       flex-wrap:wrap;
     }
+
     .checkBtn{
       flex: 1 1 260px;
       min-height: 60px;
@@ -255,7 +284,6 @@
       background: rgba(255,255,255,.06);
     }
     .iconCircle svg{ width:18px;height:18px; fill: var(--text); opacity:.95; }
-
     .saveBtn.saved{
       background: rgba(255,255,255,.12);
       border-color: rgba(255,255,255,.26);
@@ -271,12 +299,17 @@
     .hintPulse{
       border-color: rgba(193,255,114,.75) !important;
       background: rgba(193,255,114,.12) !important;
-      box-shadow: 0 0 0 2px rgba(193,255,114,.16) inset, 0 0 34px rgba(193,255,114,.28), 0 0 80px rgba(193,255,114,.12);
+      box-shadow:
+        0 0 0 2px rgba(193,255,114,.16) inset,
+        0 0 34px rgba(193,255,114,.28),
+        0 0 80px rgba(193,255,114,.12);
       animation: pulse 1.05s infinite;
     }
-    @keyframes pulse{ 0%{ transform: translateY(0); } 50%{ transform: translateY(-2px); } 100%{ transform: translateY(0); } }
-    .hintPulse .iconCircle{ border-color: rgba(193,255,114,.85); background: rgba(193,255,114,.16); box-shadow: 0 0 26px rgba(193,255,114,.28); }
-    .hintPulse .iconCircle svg{ fill: var(--lime); opacity: 1; }
+    @keyframes pulse{
+      0%{ transform: translateY(0); }
+      50%{ transform: translateY(-2px); }
+      100%{ transform: translateY(0); }
+    }
 
     .drawer{
       position: fixed;
@@ -292,7 +325,13 @@
     }
     .drawer.open{ transform: translateY(0%); }
     .drawerInner{ max-width: 980px; margin:0 auto; }
-    .drawerTop{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 10px; }
+    .drawerTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 10px;
+    }
     .drawerClose{
       width:42px;height:42px;border-radius:999px;
       border:1px solid rgba(255,255,255,.16);
@@ -324,17 +363,16 @@
       z-index: 80;
     }
     .overlay.show{ opacity:1; pointer-events:auto; }
-
     .sheet{
       position: fixed;
       left:0; right:0; bottom:0;
       transform: translateY(110%);
       transition: transform 220ms ease;
       z-index: 90;
+      padding forwarding: 12px 16px 18px;
       padding: 12px 16px 18px;
     }
     .sheet.show{ transform: translateY(0%); }
-
     .sheetInner{
       max-width: 980px;
       margin:0 auto;
@@ -355,7 +393,6 @@
       letter-spacing:.2px;
     }
     .sheetBody{ padding: 14px 16px 16px; line-height: 1.55; color: rgba(238,245,255,.92); }
-
     .continueBtn{
       width: 100%;
       margin-top: 12px;
@@ -442,6 +479,7 @@
     </div>
   </div>
 
+  <!-- TRANSLATION DRAWER -->
   <div class="drawer" id="drawer">
     <div class="drawerInner">
       <div class="drawerTop">
@@ -463,6 +501,7 @@
     </div>
   </div>
 
+  <!-- FEEDBACK SHEET -->
   <div class="overlay" id="overlay"></div>
   <div class="sheet" id="sheet">
     <div class="sheetInner">
@@ -476,28 +515,22 @@
   <audio id="qAudio" preload="auto"></audio>
 
   <script>
-    // ===== paths =====
-    const PATH = {
-      questions: "assets/quiz/data/questions.csv",
-      audioBase: "assets/quiz/audio/",
-      imageBase: "assets/quiz/images/"
-    };
-
-    // ===== URL param =====
+    /* ===== query param ===== */
     const params = new URLSearchParams(location.search);
-    const SET_FILTER = (params.get("set") || "").trim(); // e.g. A1_SELF_001
+    const SET_ID = params.get("set") || "";
 
+    /* ===== state ===== */
     let QUESTIONS = [];
     let idx = 0;
-
-    // state
     let uiMode = "en";
     let selectedChoice = null;
     let score = 0;
     let answered = false;
     let isPlaying = false;
 
-    const SAVE_KEY = "savedQuestions_v2";
+    const SAVE_KEY = "savedQuestions_v1";
+    const TRIED_SETS = "mjh_tried_sets_v1";
+
     function loadSaved(){
       try{
         const raw = localStorage.getItem(SAVE_KEY);
@@ -508,9 +541,20 @@
     function storeSaved(set){
       localStorage.setItem(SAVE_KEY, JSON.stringify([...set]));
     }
+    function loadSet(key){
+      try{
+        const raw = localStorage.getItem(key);
+        const arr = raw ? JSON.parse(raw) : [];
+        return new Set(Array.isArray(arr) ? arr : []);
+      }catch(e){ return new Set(); }
+    }
+    function storeSet(key, set){
+      localStorage.setItem(key, JSON.stringify([...set]));
+    }
+
     const savedSet = loadSaved();
 
-    // elements
+    /* ===== elements ===== */
     const uiLabel = document.getElementById("uiLabel");
     const btnToggleUI = document.getElementById("btnToggleUI");
     const qTypeBox = document.getElementById("qTypeBox");
@@ -539,91 +583,21 @@
 
     function safePlay(a){ try{ a.currentTime = 0; a.play(); }catch(e){} }
 
-    // ===== CSV parser =====
-    function parseCSV(text){
-      const rows = [];
-      let row = [];
-      let cur = "";
-      let inQuotes = false;
-
-      for (let i=0; i<text.length; i++){
-        const c = text[i];
-        const n = text[i+1];
-
-        if (inQuotes){
-          if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
-          if (c === '"'){ inQuotes = false; continue; }
-          cur += c; continue;
-        }
-        if (c === '"'){ inQuotes = true; continue; }
-        if (c === ","){ row.push(cur); cur=""; continue; }
-        if (c === "\r"){ continue; }
-        if (c === "\n"){
-          row.push(cur); cur="";
-          if (row.some(v => (v||"").trim().length)) rows.push(row);
-          row = []; continue;
-        }
-        cur += c;
-      }
-      row.push(cur);
-      if (row.some(v => (v||"").trim().length)) rows.push(row);
-
-      if (!rows.length) return [];
-      const headers = rows.shift().map(h => (h||"").trim());
-      return rows.map(cols=>{
-        const obj = {};
-        headers.forEach((h,i)=> obj[h] = (cols[i] ?? ""));
-        return obj;
-      });
+    /* ===== mini markup: [b][u][i][hl][big][small] and \\n ===== */
+    function miniMarkupToHTML(text){
+      let s = String(text || "");
+      s = s.replaceAll("\r\n", "\n");
+      s = s.replaceAll("\n", "<br>");
+      s = s.replaceAll("[b]", "<b>").replaceAll("[/b]", "</b>");
+      s = s.replaceAll("[u]", "<u>").replaceAll("[/u]", "</u>");
+      s = s.replaceAll("[i]", "<i>").replaceAll("[/i]", "</i>");
+      s = s.replaceAll("[hl]", "<span class=\"hl\">").replaceAll("[/hl]", "</span>");
+      s = s.replaceAll("[big]", "<span class=\"big\">").replaceAll("[/big]", "</span>");
+      s = s.replaceAll("[small]", "<span class=\"small\">").replaceAll("[/small]", "</span>");
+      return s;
     }
 
-    // ===== markup renderer (CSV -> safe HTML) =====
-    function escapeHtml(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#39;");
-    }
-
-    function renderMarkup(input){
-      // 1) escape everything first
-      let s = escapeHtml(input);
-
-      // 2) line breaks
-      s = s.replaceAll("\\n","<br>").replaceAll("\n","<br>").replaceAll("[br]","<br>");
-
-      // 3) simple tags
-      const rules = [
-        [/\[b\]([\s\S]*?)\[\/b\]/g, "<b>$1</b>"],
-        [/\[u\]([\s\S]*?)\[\/u\]/g, "<u>$1</u>"],
-        [/\[i\]([\s\S]*?)\[\/i\]/g, "<i>$1</i>"],
-        [/\[hl\]([\s\S]*?)\[\/hl\]/g, '<span class="hl">$1</span>'],
-        [/\[big\]([\s\S]*?)\[\/big\]/g, '<span class="big">$1</span>'],
-        [/\[small\]([\s\S]*?)\[\/small\]/g, '<span class="small">$1</span>'],
-      ];
-      for (const [re, rep] of rules) s = s.replace(re, rep);
-
-      // 4) ruby: [ruby]漢字[rt]よみ[/rt][/ruby]
-      // allow multiple rt inside ruby block
-      s = s.replace(/\[ruby\]([\s\S]*?)\[\/ruby\]/g, (m, inner)=>{
-        let x = inner;
-        x = x.replace(/\[rt\]([\s\S]*?)\[\/rt\]/g, "<rt>$1</rt>");
-        return "<ruby>" + x + "</ruby>";
-      });
-
-      // 5) legacy bottom ruby: allow already-typed <rb> style AFTER escaping (we escaped it),
-      // so if user insists on <rb>, they must type [rb]...[/rb] instead.
-      // If you want, we can add:
-      // [rb]き[/rb] => <rb>き</rb>
-      s = s.replace(/\[rb\]([\s\S]*?)\[\/rb\]/g, "<rb>$1</rb>");
-
-      // 6) convert <rb>... into your bottom-ruby widgets
-      return pseudoRubyBottom(s);
-    }
-
-    // ===== legacy bottom-ruby converter: <rb>reading</rb> attaches to last kanji =====
+    /* ===== bottom ruby using <rb>reading</rb> convention ===== */
     function pseudoRubyBottom(html){
       const container = document.createElement("div");
       container.innerHTML = html;
@@ -637,14 +611,13 @@
           rb.remove();
           continue;
         }
-
         const txt = prev.textContent || "";
         if (!txt.length){
           rb.remove();
           continue;
         }
-
         const m = txt.match(/([\u4E00-\u9FFF]+)$/);
+
         let baseWord = "";
         if (m && m[1]) {
           baseWord = m[1];
@@ -658,7 +631,6 @@
       }
       return container.innerHTML;
     }
-
     function makeRubyBottom(base, reading){
       const wrap = document.createElement("span");
       wrap.className = "rbWrapBottom";
@@ -673,17 +645,83 @@
       return wrap;
     }
 
-    function parseChoiceLabel(raw){
-      const parts = raw.split(/ {2,}/);
-      if (parts.length >= 2) return { main: parts[0].trim(), sub: parts.slice(1).join(" ").trim() };
-      return { main: raw.trim(), sub: "" };
+    /* ===== CSV parser ===== */
+    function parseCSV(text){
+      const rows = [];
+      let row = [];
+      let cur = "";
+      let inQuotes = false;
+
+      for (let i=0; i<text.length; i++){
+        const c = text[i];
+        const n = text[i+1];
+
+        if (inQuotes){
+          if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
+          if (c === '"'){ inQuotes = false; continue; }
+          cur += c;
+          continue;
+        }
+        if (c === '"'){ inQuotes = true; continue; }
+        if (c === ","){ row.push(cur); cur = ""; continue; }
+        if (c === "\r"){ continue; }
+        if (c === "\n"){
+          row.push(cur); cur = "";
+          if (row.some(v => (v||"").trim().length)) rows.push(row);
+          row = [];
+          continue;
+        }
+        cur += c;
+      }
+      row.push(cur);
+      if (row.some(v => (v||"").trim().length)) rows.push(row);
+
+      if (!rows.length) return [];
+      const headers = rows.shift().map(h => (h||"").trim());
+      return rows.map(cols=>{
+        const obj = {};
+        headers.forEach((h, i)=> obj[h] = (cols[i] ?? ""));
+        return obj;
+      });
+    }
+
+    async function loadQuestionsForSet(){
+      if (!SET_ID) throw new Error("Missing set id. Open from index.html or use ?set=XXXX.");
+
+      const res = await fetch("assets/quiz/data/questions.csv", { cache: "no-store" });
+      if (!res.ok) throw new Error("questions.csv fetch failed: " + res.status);
+      const data = parseCSV(await res.text());
+
+      QUESTIONS = data
+        .map(r => ({
+          question_id: (r.question_id||"").trim(),
+          set_id: (r.set_id||"").trim(),
+          type: (r.type||"").trim(),
+          prompt_ja: r.prompt_ja || "",
+          prompt_en: r.prompt_en || "",
+          audio: r.audio || "",
+          image: r.image || "",
+          choices_json: r.choices_json || "",
+          answer_json: r.answer_json || "",
+          notes: r.notes || ""
+        }))
+        .filter(q => q.question_id && q.set_id === SET_ID);
+
+      if (!QUESTIONS.length){
+        throw new Error("No questions found for set: " + SET_ID);
+      }
+
+      // mark set as tried
+      const tried = loadSet(TRIED_SETS);
+      tried.add(SET_ID);
+      storeSet(TRIED_SETS, tried);
     }
 
     function currentQ(){ return QUESTIONS[idx] || null; }
 
     function setSavedUI(){
-      const Q = currentQ();
-      btnSave.classList.toggle("saved", Q && savedSet.has(Q.question_id));
+      const q = currentQ();
+      btnSave.classList.toggle("saved", q && savedSet.has(q.question_id));
     }
 
     function openDrawer(){ drawer.classList.add("open"); btnTranslate.classList.remove("hintPulse"); }
@@ -695,12 +733,11 @@
       pauseIcon.style.display = playing ? "block" : "none";
     }
 
-    function updateCheckEnabled(){ btnCheck.disabled = !selectedChoice || answered; }
-
-    function hideSheet(){
-      overlay.classList.remove("show");
-      sheet.classList.remove("show");
+    function updateCheckEnabled(){
+      btnCheck.disabled = !selectedChoice || answered;
     }
+
+    function hideSheet(){ overlay.classList.remove("show"); sheet.classList.remove("show"); }
 
     function showSheet(ok){
       overlay.classList.add("show");
@@ -749,66 +786,77 @@
           <span>🎉 FINISH!</span><span style="opacity:.72">/ おつかれさま！</span>
         </div>`;
         sheetBody.innerHTML = `<div style="font-weight:950;margin-bottom:10px;">score: ${score}/${QUESTIONS.length}</div>
-          <button class="continueBtn" id="btnRestart">RESTART / さいしょから</button>`;
-        document.getElementById("btnRestart").addEventListener("click", ()=> location.reload());
+          <button class="continueBtn" id="btnBack">BACK / もどる</button>`;
+        document.getElementById("btnBack").addEventListener("click", ()=> location.href = "index.html");
       }
     }
 
+    function parseChoices(q){
+      // You can evolve this later per type.
+      // For now, expect choices_json like: {"choices":["apple","banana",...]}
+      try{
+        const obj = q.choices_json ? JSON.parse(q.choices_json) : null;
+        if (obj && Array.isArray(obj.choices)) return obj.choices.map(String);
+      }catch(e){}
+      return [];
+    }
+
+    function isCorrect(q, picked){
+      // Expect answer_json like: {"correct_index":0} OR {"correct":"apple"}
+      try{
+        const ans = q.answer_json ? JSON.parse(q.answer_json) : null;
+        if (!ans) return false;
+
+        if (typeof ans.correct_index === "number"){
+          const choices = parseChoices(q);
+          return choices[ans.correct_index] === picked;
+        }
+        if (typeof ans.correct === "string"){
+          return ans.correct.trim() === String(picked).trim();
+        }
+      }catch(e){}
+      return false;
+    }
+
     function render(){
-      const Q = currentQ();
-      if (!Q) return;
+      const q = currentQ();
+      if (!q) return;
 
       pillQ.textContent = `Q ${idx+1}/${QUESTIONS.length}`;
       pillScore.textContent = `score: ${score}/${QUESTIONS.length}`;
       uiLabel.textContent = (uiMode === "en") ? "English UI" : "日本語UI";
 
-      // type label
-      const qtypeHtml = (uiMode === "en") ? (Q.prompt_en || "") : (Q.prompt_ja || "");
-      qTypeBox.innerHTML = renderMarkup(qtypeHtml);
+      // prompt (qTypeBox) – you can change later per type
+      const prompt = (uiMode === "en") ? q.prompt_en : q.prompt_ja;
+      qTypeBox.innerHTML = pseudoRubyBottom(miniMarkupToHTML(prompt));
 
-      // main sentence: use notes or answer_json if you want later; for now use prompt fields
-      const jpHtml = renderMarkup(Q.prompt_ja || "");
-      const enLine = (uiMode === "en") ? `<div class="en">${escapeHtml(Q.prompt_en || "")}</div>` : "";
-      keySentence.innerHTML = `<div class="jp">${jpHtml}</div>${enLine}`;
+      // keySentence area: optional (use notes or leave empty)
+      keySentence.innerHTML = `<div class="jp">${pseudoRubyBottom(miniMarkupToHTML(q.notes || ""))}</div>` + (uiMode==="en" ? "" : "");
 
-      // audio (if any)
-      const audio = (Q.audio || "").trim();
-      qAudio.src = audio ? audio : "";  // allow full path in CSV
+      // audio
+      qAudio.src = q.audio ? q.audio : "";
       qAudio.loop = true;
 
-      // image (if any)
+      // image (optional)
       imgGrid.innerHTML = "";
-      const image = (Q.image || "").trim();
-      if (image){
+      if (q.image){
         const div = document.createElement("div");
         div.className = "imgCard";
         const img = document.createElement("img");
-        img.src = image;
-        img.alt = "";
+        img.src = q.image;
+        img.alt = "image";
         div.appendChild(img);
         imgGrid.appendChild(div);
-        // keep 2-column layout pretty
-        const filler = document.createElement("div");
-        filler.className = "imgCard";
-        filler.style.opacity = "0";
-        imgGrid.appendChild(filler);
       }
 
       // choices
       choicesEl.innerHTML = "";
-      let choices = [];
-      try{
-        const cj = (Q.choices_json||"").trim();
-        if (cj) choices = JSON.parse(cj).choices || [];
-      }catch(e){ choices = []; }
-
+      const choices = parseChoices(q);
       for (const c of choices){
-        const {main, sub} = parseChoiceLabel(c);
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "choiceBtn" + (selectedChoice===c ? " selected" : "");
-        const subHtml = (uiMode === "en" && sub) ? `<span class="sub">${escapeHtml(sub)}</span>` : (sub ? `<span class="sub">${escapeHtml(sub)}</span>` : "");
-        btn.innerHTML = `<span>${escapeHtml(main)}</span>${subHtml}`;
+        btn.innerHTML = `<span>${pseudoRubyBottom(miniMarkupToHTML(c))}</span>`;
         btn.addEventListener("click", ()=>{
           if (answered) return;
           selectedChoice = c;
@@ -818,46 +866,26 @@
         choicesEl.appendChild(btn);
       }
 
-      // drawer text (use notes column for now)
-      kanaText.innerHTML = renderMarkup(Q.notes || "");
-      romajiText.textContent = ""; // optional later
+      // drawer (simple for now)
+      kanaText.innerHTML = "";
+      romajiText.innerHTML = "";
 
       setSavedUI();
       updateCheckEnabled();
-    }
-
-    async function loadQuestions(){
-      const res = await fetch(PATH.questions, { cache:"no-store" });
-      if (!res.ok) throw new Error("questions.csv fetch failed: " + res.status);
-      const text = await res.text();
-      const data = parseCSV(text);
-
-      // filter by set_id from URL
-      const all = data.filter(r => (r.question_id||"").trim());
-      const filtered = SET_FILTER ? all.filter(r => (r.set_id||"").trim() === SET_FILTER) : all;
-
-      if (!filtered.length){
-        throw new Error(SET_FILTER ? `No questions for set: ${SET_FILTER}` : "No questions found.");
-      }
-      QUESTIONS = filtered;
+      setPlayUI(isPlaying);
     }
 
     // events
     btnToggleUI.addEventListener("click", ()=>{ uiMode = (uiMode === "en") ? "jp" : "en"; render(); });
-
-    document.getElementById("btnExit").addEventListener("click", ()=>{
-      // go back to menu if exists
-      location.href = "index.html";
-    });
-
+    document.getElementById("btnExit").addEventListener("click", ()=> location.href = "index.html");
     btnTranslate.addEventListener("click", openDrawer);
     drawerClose.addEventListener("click", closeDrawer);
 
     btnSave.addEventListener("click", ()=>{
-      const Q = currentQ();
-      if (!Q) return;
-      if (savedSet.has(Q.question_id)) savedSet.delete(Q.question_id);
-      else savedSet.add(Q.question_id);
+      const q = currentQ();
+      if (!q) return;
+      if (savedSet.has(q.question_id)) savedSet.delete(q.question_id);
+      else savedSet.add(q.question_id);
       storeSaved(savedSet);
       setSavedUI();
     });
@@ -870,28 +898,12 @@
     });
 
     btnCheck.addEventListener("click", ()=>{
-      const Q = currentQ();
-      if (!Q) return;
-      if (!selectedChoice || answered) return;
+      const q = currentQ();
+      if (!q || !selectedChoice || answered) return;
 
-      let correctIndex = -1;
-      try{
-        const aj = (Q.answer_json||"").trim();
-        if (aj) correctIndex = Number(JSON.parse(aj).correct_index);
-      }catch(e){}
-
-      let ok = false;
-      if (correctIndex >= 0){
-        // compare to choices order
-        let choices = [];
-        try{
-          const cj = (Q.choices_json||"").trim();
-          if (cj) choices = JSON.parse(cj).choices || [];
-        }catch(e){}
-        ok = (choices[correctIndex] === selectedChoice);
-      }
-
+      const ok = isCorrect(q, selectedChoice);
       answered = true;
+
       if (ok){
         score++;
         safePlay(sfxPin);
@@ -908,14 +920,14 @@
 
     (async ()=>{
       try{
-        await loadQuestions();
+        await loadQuestionsForSet();
         idx = 0;
         resetPerQuestionState();
         render();
       }catch(err){
         console.error(err);
         keySentence.innerHTML = `<div class="jp" style="font-size:18px;font-weight:900;">
-          Load error: ${escapeHtml(String(err.message || err))}
+          Error: ${String(err.message || err)}
         </div>`;
       }
     })();
