@@ -1,0 +1,5 @@
+﻿question_id,set_id,type,prompt_ja,prompt_en,audio,image,choices_json,answer_json,notes
+L01_001,A1_SELF_001,listen_only,[ruby]聞[rt]き[/rt][/ruby]ましょう。,Listen.,assets/quiz/audio/L01_001.mp3,,,"{""mode"":""listen_only""}",
+L01_002,A1_SELF_001,listen_only,もう[ruby]一度[rt]いちど[/rt][/ruby][ruby]聞[rt]き[/rt][/ruby]きましょう,Listen again.,assets/quiz/audio/L01_002.mp3,,,"{""mode"":""listen_only""}",
+MC01_001,A1_FOOD_001,multiple_choice_text,これは]ruby]何[rt]なん[/rt][/ruby]ですか。,What is this?,,assets/quiz/images/apple.png,"{""choices"":[""apple"",""banana"",""coffee"",""water""]}","{""correct_index"":0}",
+RO01_001,A2_FILM_001,reorder_text,[ruby]並[rt]なら[/rt][/ruby]び [ruby]替[rt]か[/rt][/ruby]えて ください。,Reorder the words.,,,"{""tokens"":[""えいが"",""が"",""すき"",""です""]}","{""correct"":[""えいが"",""が"",""すき"",""です""]}",
