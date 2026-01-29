@@ -1,4 +1,0 @@
-﻿set_id,title_ja,title_en,subtitle_en,level_cefr,level_jlpt,level_band,topic,subtopic,thumb_image,tags,is_published,sort_order
-A1_SELF_001,はじめまして,Nice to meet you,Self-introduction basics,A1,N5,Beginner,Self-introduction,Greetings,assets/quiz/images/thumbs/self.png,hello|intro|polite,TRUE,10
-A1_FOOD_001,たべもの,Food words,Simple food nouns,A1,N5,Beginner,Food,Everyday nouns,assets/quiz/images/thumbs/food.png,food|nouns,TRUE,20
-A2_FILM_001,映画が好きです,I like watching movies,Likes & preferences,A2,N4,Elementary,Film,Likes & preferences,assets/quiz/images/thumbs/film.png,movies|likes|suki,TRUE,30

@@ -1,5 +1,0 @@
-﻿question_id,set_id,type,prompt_ja,prompt_en,audio,image,choices_json,answer_json,notes
-L01_001,A1_SELF_001,listen_only,"聞いてください。","Listen.",assets/quiz/audio/L01_001.mp3,,,"{""mode"":""listen_only""}",""
-L01_002,A1_SELF_001,listen_only,"もう一度聞いてください。","Listen again.",assets/quiz/audio/L01_002.mp3,,,"{""mode"":""listen_only""}",""
-MC01_001,A1_FOOD_001,multiple_choice_text,"これは何？","What is this?",,assets/quiz/images/apple.png,"{""choices"":[""apple"",""banana"",""coffee"",""water""]}","{""correct_index"":0}",""
-RO01_001,A2_FILM_001,reorder_text,"並べ替えてください。","Reorder the words.",,,"{""tokens"":[""えいが"",""が"",""すき"",""です""]}","{""correct"":[""えいが"",""が"",""すき"",""です""]}",""
