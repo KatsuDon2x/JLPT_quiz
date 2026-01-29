@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Micro Japanese Hack Quiz</title>
+  <title>Micro Japanese Hack — Choose a Quiz</title>
   <style>
     :root{
       --bg:#05070b;
       --panel: rgba(18,24,33,.78);
+      --panel2: rgba(10,14,20,.72);
       --line: rgba(255,255,255,.10);
       --text:#eef5ff;
       --muted: rgba(238,245,255,.72);
       --lime:#C1FF72;
+      --orange:#FFC61A;
+      --blue:#4da3ff;
       --r:18px;
       --gap:12px;
       --shadow: 0 18px 70px rgba(0,0,0,.62);
@@ -27,116 +30,123 @@
         var(--bg);
       color:var(--text);
     }
-    .wrap{ max-width: 980px; margin:0 auto; padding: 14px 14px 22px; }
+    .wrap{ max-width: 980px; margin:0 auto; padding: 14px 14px 26px; }
 
-    .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding: 8px 2px 14px; }
+    /* top */
+    .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding: 6px 0 14px; }
     .xbtn{
       width:42px;height:42px;border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.06);
       color: var(--text);
-      font-size:18px;
+      font-size:20px;
       cursor:pointer;
       display:grid;place-items:center;
     }
+    .brand{
+      font-weight:1000; letter-spacing:.2px;
+      opacity:.92;
+    }
 
-    .title{
-      font-weight: 1000;
-      letter-spacing:.2px;
-      line-height:1.15;
-      font-size: 28px;
-      margin: 10px 0 14px;
-    }
-    .subtitle{
-      margin-top:6px;
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
+    h1{ margin: 6px 0 6px; font-size: 34px; letter-spacing:.2px; }
+    .sub{ color: var(--muted); margin-bottom: 12px; }
 
     .panel{
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border:1px solid var(--line);
       border-radius: var(--r);
       box-shadow: var(--shadow);
-      overflow:hidden;
       padding: 14px;
     }
 
-    .filters{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .filters{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-bottom: 12px;
+    }
     select{
       background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.14);
       color: var(--text);
       border-radius: 999px;
       padding: 10px 12px;
-      font-weight: 850;
+      font-weight: 900;
       outline:none;
+      cursor:pointer;
     }
 
     .grid{
-      margin-top: 14px;
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
     }
-
     .card{
+      position:relative;
       border-radius: 16px;
+      overflow:hidden;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
-      overflow:hidden;
       cursor:pointer;
-      transition: transform 80ms ease, border-color 160ms ease, box-shadow 160ms ease;
       min-height: 120px;
-      position:relative;
+      transition: transform 80ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
     }
     .card:active{ transform: translateY(1px); }
     .card.selected{
       border-color: rgba(193,255,114,.75);
-      box-shadow: 0 0 0 2px rgba(193,255,114,.14) inset, 0 0 26px rgba(193,255,114,.18);
+      background: rgba(193,255,114,.10);
+      box-shadow:
+        0 0 0 2px rgba(193,255,114,.12) inset,
+        0 0 34px rgba(193,255,114,.18);
     }
     .thumb{
-      width:100%;
-      height: 92px;
-      object-fit: cover;
-      display:block;
+      position:absolute; inset:0;
+      background-size: cover;
+      background-position: center;
+      filter: saturate(.95) contrast(.95);
       opacity:.92;
-      filter: saturate(1.05) contrast(1.05);
     }
-    .info{ padding: 10px 10px 12px; }
-    .name{
-      font-weight: 1000;
-      font-size: 14px;
-      line-height: 1.2;
+    .shade{
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(0,0,0,.60), rgba(0,0,0,.20));
     }
     .meta{
-      margin-top: 6px;
-      font-size: 12px;
-      color: var(--muted);
+      position:relative;
+      padding: 12px 12px 12px;
       display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
+      flex-direction:column;
+      gap:6px;
     }
-    .badge{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      padding: 4px 8px;
-      border-radius: 999px;
+    .titleRow{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:8px;
+    }
+    .title{
+      font-weight: 1000;
+      line-height:1.2;
+      text-shadow: 0 10px 34px rgba(0,0,0,.35);
+    }
+    .subtitle{
+      color: rgba(238,245,255,.85);
       font-weight: 900;
+      font-size: 13px;
+      opacity: .95;
     }
+    .small{
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      opacity:.9;
+    }
+    .badges{
+      display:flex; gap:6px; align-items:center; justify-content:flex-end;
+      font-size: 16px;
+      min-width: 56px;
+    }
+    .badgeDim{ opacity:.35; }
 
-    .actions{
-      margin-top: 14px;
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
+    .startRow{
+      display:flex; gap: 12px; margin-top: 14px; align-items:center;
     }
     .startBtn{
-      flex: 1 1 260px;
+      flex:1 1 auto;
       min-height: 60px;
       border-radius: 16px;
       border:1px solid rgba(193,255,114,.55);
@@ -153,16 +163,17 @@
       text-shadow: 0 1px 0 rgba(255,255,255,.25);
     }
     .startBtn:disabled{
-      opacity:.42;
-      cursor:not-allowed;
-      filter: grayscale(.35);
+      opacity:.42; cursor:not-allowed; filter: grayscale(.35);
       background: linear-gradient(180deg, rgba(193,255,114,.35), rgba(193,255,114,.16));
       box-shadow: 0 0 0 2px rgba(255,255,255,.05) inset;
     }
 
-    @media (max-width: 820px){
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
       .grid{ grid-template-columns: 1fr; }
-      .title{ font-size: 24px; }
+      h1{ font-size: 30px; }
     }
   </style>
 </head>
@@ -170,46 +181,49 @@
   <div class="wrap">
     <div class="topbar">
       <button class="xbtn" id="btnExit" aria-label="exit">×</button>
-      <div style="opacity:.85;font-weight:900;">Micro Japanese Hack</div>
+      <div class="brand">Micro Japanese Hack</div>
       <div style="width:42px;"></div>
     </div>
 
-    <div class="title">Choose a Quiz</div>
-    <div class="subtitle">Pick one set. (Single select for now.)</div>
+    <h1>Choose a Quiz</h1>
+    <div class="sub">Pick one set. (Single select for now.)</div>
 
     <div class="panel">
       <div class="filters">
-        <select id="levelFilter">
-          <option value="ALL">All levels</option>
-          <option value="A1">A1 / N5</option>
-          <option value="A2">A2 / N4</option>
-          <option value="B1">B1 / N3</option>
-          <option value="B2">B2 / N2</option>
-          <option value="C1">C1 / N1</option>
-          <option value="C2">C2 / N1</option>
-        </select>
-
-        <select id="topicFilter">
-          <option value="ALL">All topics</option>
-        </select>
+        <select id="levelFilter"></select>
+        <select id="topicFilter"></select>
       </div>
 
-      <div class="grid" id="cards"></div>
+      <div class="grid" id="setGrid"></div>
 
-      <div class="actions">
+      <div class="startRow">
         <button class="startBtn" id="btnStart" disabled>START</button>
       </div>
     </div>
   </div>
 
   <script>
-    const PATH = {
-      sets: "assets/quiz/data/sets.csv"
-    };
+    // ===== localStorage keys (simple & stable) =====
+    const LS_TRIED = "mjh_tried_sets_v1";   // Set of set_id
+    const LS_SAVED = "savedQuestions_v1";   // Set of question_id (you already use this)
+    const LS_WRONG = "mjh_wrong_qids_v1";   // Set of question_id
 
-    let SETS = [];
-    let selectedSetId = null;
+    function loadSet(key){
+      try{
+        const raw = localStorage.getItem(key);
+        const arr = raw ? JSON.parse(raw) : [];
+        return new Set(Array.isArray(arr) ? arr : []);
+      }catch(e){ return new Set(); }
+    }
+    function storeSet(key, set){
+      localStorage.setItem(key, JSON.stringify([...set]));
+    }
 
+    const triedSets = loadSet(LS_TRIED);
+    const savedQ = loadSet(LS_SAVED);
+    const wrongQ = loadSet(LS_WRONG);
+
+    // ===== CSV parser (quoted commas + newlines) =====
     function parseCSV(text){
       const rows = [];
       let row = [];
@@ -223,15 +237,17 @@
         if (inQuotes){
           if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
           if (c === '"'){ inQuotes = false; continue; }
-          cur += c; continue;
+          cur += c;
+          continue;
         }
         if (c === '"'){ inQuotes = true; continue; }
-        if (c === ","){ row.push(cur); cur=""; continue; }
+        if (c === ","){ row.push(cur); cur = ""; continue; }
         if (c === "\r"){ continue; }
         if (c === "\n"){
-          row.push(cur); cur="";
+          row.push(cur); cur = "";
           if (row.some(v => (v||"").trim().length)) rows.push(row);
-          row = []; continue;
+          row = [];
+          continue;
         }
         cur += c;
       }
@@ -247,98 +263,151 @@
       });
     }
 
-    async function loadSets(){
-      const res = await fetch(PATH.sets, { cache:"no-store" });
-      if (!res.ok) throw new Error("sets.csv fetch failed: " + res.status);
-      const text = await res.text();
-      return parseCSV(text);
+    // ===== app state =====
+    let SETS = [];
+    let selectedSetId = null;
+
+    const levelFilter = document.getElementById("levelFilter");
+    const topicFilter = document.getElementById("topicFilter");
+    const setGrid = document.getElementById("setGrid");
+    const btnStart = document.getElementById("btnStart");
+
+    function uniq(arr){
+      return [...new Set(arr.filter(Boolean))];
     }
 
-    function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
+    function fillSelect(el, labelAll, values){
+      el.innerHTML = "";
+      const opt0 = document.createElement("option");
+      opt0.value = "";
+      opt0.textContent = labelAll;
+      el.appendChild(opt0);
 
-    function buildTopicFilter(){
-      const sel = document.getElementById("topicFilter");
-      const topics = uniq(SETS.map(s => (s.topic||"").trim()));
-      for (const t of topics){
-        const opt = document.createElement("option");
-        opt.value = t;
-        opt.textContent = t;
-        sel.appendChild(opt);
+      for (const v of values){
+        const o = document.createElement("option");
+        o.value = v;
+        o.textContent = v;
+        el.appendChild(o);
       }
     }
 
-    function passesFilters(s){
-      const lv = document.getElementById("levelFilter").value;
-      const tp = document.getElementById("topicFilter").value;
+    function computeBadges(setId){
+      // ✅ tried = set visited at least once
+      const tried = triedSets.has(setId);
 
-      const cefr = (s.level_cefr||"").trim();
-      const topic = (s.topic||"").trim();
+      // 🔖 saved = any question in this set is bookmarked
+      // (We don't have question->set mapping here without reading questions.csv.
+      //  So in v1: show 🔖 only after user enters the set screen (quiz.html can store "set has saved".)
+      //  For now, show dim bookmark always, or only tried.
+      const bookmark = tried ? "🔖" : "🔖";
 
-      if (lv !== "ALL" && cefr !== lv) return false;
-      if (tp !== "ALL" && topic !== tp) return false;
-      return true;
+      // Optional: 🔎 wrong review exists (same limitation as above, v1 keep dim)
+      const review = tried ? "🔎" : "🔎";
+
+      return { tried, bookmark, review };
     }
 
     function render(){
-      const wrap = document.getElementById("cards");
-      wrap.innerHTML = "";
+      const lv = levelFilter.value;
+      const tp = topicFilter.value;
 
-      const visible = SETS.filter(passesFilters).sort((a,b)=> (Number(a.sort_order||0) - Number(b.sort_order||0)));
+      const filtered = SETS.filter(s=>{
+        if (!s.is_published || String(s.is_published).toUpperCase() !== "TRUE") return false;
+        if (lv && s.level_band !== lv) return false;    // use level_band = Beginner/Elementary/...
+        if (tp && s.topic !== tp) return false;
+        return true;
+      }).sort((a,b)=> (Number(a.sort_order||0) - Number(b.sort_order||0)));
 
-      for (const s of visible){
+      setGrid.innerHTML = "";
+
+      for (const s of filtered){
         const card = document.createElement("div");
-        card.className = "card" + (selectedSetId===s.set_id ? " selected" : "");
-        const thumb = (s.thumb_image||"").trim();
-
-        const titleEn = (s.title_en||"").trim();
-        const titleJa = (s.title_ja||"").trim();
-        const band = (s.level_band||"").trim();
-        const jlpt = (s.level_jlpt||"").trim();
-        const cefr = (s.level_cefr||"").trim();
-
+        card.className = "card" + (s.set_id === selectedSetId ? " selected" : "");
+        const thumb = (s.thumb_image || "").trim();
         card.innerHTML = `
-          ${thumb ? `<img class="thumb" src="${thumb}" alt="">` : `<div style="height:92px;background:rgba(255,255,255,.06)"></div>`}
-          <div class="info">
-            <div class="name">${titleEn || titleJa || s.set_id}</div>
-            <div class="meta">
-              <span class="badge">${cefr || "-"}/${jlpt || "-"}</span>
-              ${band ? `<span class="badge">${band}</span>` : ``}
-              ${(s.topic||"") ? `<span class="badge">${s.topic}</span>` : ``}
+          <div class="thumb" style="background-image:url('${thumb}')"></div>
+          <div class="shade"></div>
+          <div class="meta">
+            <div class="titleRow">
+              <div>
+                <div class="title">${escapeHTML(s.title_en || "")}</div>
+                <div class="subtitle">${escapeHTML(s.subtitle_en || "")}</div>
+              </div>
+              <div class="badges">
+                <span class="${triedSets.has(s.set_id) ? "" : "badgeDim"}">✅</span>
+                <span class="badgeDim">🔖</span>
+              </div>
             </div>
+            <div class="small">${escapeHTML((s.level_cefr||"") + "/" + (s.level_jlpt||""))} ・ ${escapeHTML(s.level_band||"")} ・ ${escapeHTML(s.topic||"")}</div>
           </div>
         `;
-
         card.addEventListener("click", ()=>{
           selectedSetId = s.set_id;
-          document.getElementById("btnStart").disabled = !selectedSetId;
+          btnStart.disabled = !selectedSetId;
           render();
         });
-
-        wrap.appendChild(card);
+        setGrid.appendChild(card);
       }
 
-      document.getElementById("btnStart").disabled = !selectedSetId;
+      btnStart.disabled = !selectedSetId;
     }
 
-    document.getElementById("btnStart").addEventListener("click", ()=>{
+    function escapeHTML(x){
+      return String(x||"")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
+    }
+
+    btnStart.addEventListener("click", ()=>{
       if (!selectedSetId) return;
+      // linkable per set ✅
       location.href = `quiz.html?set=${encodeURIComponent(selectedSetId)}`;
     });
 
-    document.getElementById("levelFilter").addEventListener("change", render);
-    document.getElementById("topicFilter").addEventListener("change", render);
+    document.getElementById("btnExit").addEventListener("click", ()=> {
+      // keep simple for now
+      location.href = "index.html";
+    });
 
-    document.getElementById("btnExit").addEventListener("click", ()=>{ /* optional */ });
+    levelFilter.addEventListener("change", render);
+    topicFilter.addEventListener("change", render);
 
-    (async ()=>{
-      try{
-        SETS = await loadSets();
-        buildTopicFilter();
-        render();
-      }catch(e){
-        alert("Menu load error: " + (e.message || e));
-      }
-    })();
+    async function init(){
+      const res = await fetch("assets/quiz/data/sets.csv", { cache:"no-store" });
+      if (!res.ok) throw new Error("sets.csv fetch failed: " + res.status);
+      const data = parseCSV(await res.text());
+
+      SETS = data.map(r => ({
+        set_id: (r.set_id||"").trim(),
+        title_ja: r.title_ja || "",
+        title_en: r.title_en || "",
+        subtitle_en: r.subtitle_en || "",
+        level_cefr: r.level_cefr || "",
+        level_jlpt: r.level_jlpt || "",
+        level_band: r.level_band || "",
+        topic: r.topic || "",
+        subtopic: r.subtopic || "",
+        thumb_image: r.thumb_image || "",
+        tags: r.tags || "",
+        is_published: r.is_published || "",
+        sort_order: r.sort_order || "0"
+      })).filter(s => s.set_id);
+
+      const levelBands = uniq(SETS.map(s=>s.level_band)).sort();
+      const topics = uniq(SETS.map(s=>s.topic)).sort();
+
+      fillSelect(levelFilter, "All levels", levelBands);
+      fillSelect(topicFilter, "All topics", topics);
+
+      render();
+    }
+
+    init().catch(err=>{
+      console.error(err);
+      setGrid.innerHTML = `<div style="color:rgba(238,245,255,.85);font-weight:900;">Error: ${escapeHTML(err.message||String(err))}</div>`;
+    });
   </script>
 </body>
 </html>
