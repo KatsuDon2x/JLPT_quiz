@@ -32,7 +32,6 @@
       color:var(--text);
     }
     .wrap{ max-width: 980px; margin:0 auto; padding: 14px 14px 22px; }
-
     .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding: 8px 2px 14px; }
     .leftTop{ display:flex; align-items:center; gap:10px; min-width:220px; }
     .xbtn{
@@ -53,6 +52,7 @@
       font-size: 13px;
       letter-spacing:.2px;
     }
+
     .uiToggle{
       border:1px solid rgba(193,255,114,.35);
       background: rgba(193,255,114,.10);
@@ -67,11 +67,7 @@
         0 0 0 2px rgba(193,255,114,.10) inset,
         0 0 22px rgba(193,255,114,.18);
     }
-    .uiDot{
-      width:10px;height:10px;border-radius:999px;
-      background: var(--lime);
-      box-shadow: 0 0 22px rgba(193,255,114,.75);
-    }
+    .uiDot{ width:10px;height:10px;border-radius:999px; background: var(--lime); box-shadow: 0 0 22px rgba(193,255,114,.75); }
     .uiLabel{ font-size: 13px; opacity: .95; }
 
     .card{
@@ -120,20 +116,8 @@
       justify-content:center;
       gap:6px;
     }
-    .qtype{
-      font-weight: 1000;
-      letter-spacing:.2px;
-      line-height:1.25;
-      font-size: 18px;
-    }
-    .qtype .enSmall{
-      display:block;
-      margin-top:6px;
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--muted);
-      letter-spacing:.1px;
-    }
+    .qtype{ font-weight: 1000; letter-spacing:.2px; line-height:1.25; font-size: 18px; }
+    .qtype .enSmall{ display:block; margin-top:6px; font-size: 14px; font-weight: 900; color: var(--muted); }
 
     .ks{
       margin-top: 12px;
@@ -143,28 +127,8 @@
       border-radius: 16px;
       line-height: 1.55;
     }
-    .ks .jp{
-      font-size: 30px;
-      font-weight: 950;
-      letter-spacing: .2px;
-      line-height: 1.45;
-    }
-    .ks .en{
-      margin-top: 10px;
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    /* bottom ruby */
-    .rbWrapBottom{ display:inline-flex; flex-direction:column; align-items:center; line-height:1; margin: 0 .06em; }
-    .rbWrapBottom .rbBase{ font-size: 1em; line-height: 1.05; letter-spacing:.02em; }
-    .rbWrapBottom .rbBottom{ font-size: .56em; line-height: 1; opacity: .92; transform: translateY(.18em); white-space: nowrap; }
-
-    /* mini markup styles */
-    .hl{ background: rgba(193,255,114,.22); padding: .05em .18em; border-radius: .35em; }
-    .big{ font-size: 1.18em; }
-    .small{ font-size: .88em; opacity:.92; }
+    .ks .jp{ font-size: 30px; font-weight: 950; letter-spacing: .2px; line-height: 1.45; }
+    .ks .en{ margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.55; }
 
     .grid{
       margin-top: 12px;
@@ -212,19 +176,29 @@
       transition: transform 80ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
     }
     .choiceBtn:active{ transform: translateY(1px); }
-    .choiceBtn .sub{
-      display:block;
-      margin-top:7px;
-      color: var(--muted);
-      font-weight: 850;
-      font-size: 13px;
-    }
     .choiceBtn.selected{
       border-color: rgba(77,163,255,.75);
       background: rgba(77,163,255,.22);
-      box-shadow:
-        0 0 0 2px rgba(77,163,255,.14) inset,
-        0 0 26px rgba(77,163,255,.18);
+      box-shadow: 0 0 0 2px rgba(77,163,255,.14) inset, 0 0 26px rgba(77,163,255,.18);
+    }
+
+    .reorderWrap{ margin-top: 14px; }
+    .tokenRow{
+      display:flex; flex-wrap:wrap; gap:10px;
+      padding: 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      min-height: 64px;
+    }
+    .token{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 950;
+      cursor:pointer;
+      user-select:none;
     }
 
     .bottomRow{
@@ -235,7 +209,6 @@
       justify-content:space-between;
       flex-wrap:wrap;
     }
-
     .checkBtn{
       flex: 1 1 260px;
       min-height: 60px;
@@ -258,11 +231,11 @@
       opacity:.42;
       cursor:not-allowed;
       filter: grayscale(.35);
-      box-shadow: 0 0 0 2px rgba(255,255,255,.05) inset;
       background: linear-gradient(180deg, rgba(193,255,114,.35), rgba(193,255,114,.16));
+      box-shadow: 0 0 0 2px rgba(255,255,255,.05) inset;
     }
 
-    .rightIcons{ display:flex; gap:10px; align-items:center; justify-content:flex-end; flex: 0 0 auto; }
+    .rightIcons{ display:flex; gap:10px; align-items:center; justify-content:flex-end; }
     .iconBtn{
       min-height:60px;
       border-radius:16px;
@@ -274,9 +247,7 @@
       display:flex; align-items:center; gap:10px;
       font-weight: 900;
       letter-spacing:.2px;
-      transition: transform 80ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
     }
-    .iconBtn:active{ transform: translateY(1px); }
     .iconCircle{
       width:34px;height:34px;border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
@@ -284,98 +255,25 @@
       background: rgba(255,255,255,.06);
     }
     .iconCircle svg{ width:18px;height:18px; fill: var(--text); opacity:.95; }
-    .saveBtn.saved{
-      background: rgba(255,255,255,.12);
-      border-color: rgba(255,255,255,.26);
-      color:#fff;
-      box-shadow: 0 0 18px rgba(255,255,255,.08);
-    }
-    .saveBtn:not(.saved){
-      background: rgba(255,255,255,.04);
-      border-color: rgba(255,255,255,.10);
-      color: rgba(231,238,252,.70);
-    }
-
-    .hintPulse{
-      border-color: rgba(193,255,114,.75) !important;
-      background: rgba(193,255,114,.12) !important;
-      box-shadow:
-        0 0 0 2px rgba(193,255,114,.16) inset,
-        0 0 34px rgba(193,255,114,.28),
-        0 0 80px rgba(193,255,114,.12);
-      animation: pulse 1.05s infinite;
-    }
-    @keyframes pulse{
-      0%{ transform: translateY(0); }
-      50%{ transform: translateY(-2px); }
-      100%{ transform: translateY(0); }
-    }
-
-    .drawer{
-      position: fixed;
-      left:0; right:0; bottom:0;
-      transform: translateY(110%);
-      transition: transform 220ms ease;
-      background: rgba(10,14,20,.92);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 -18px 70px rgba(0,0,0,.70);
-      padding: 14px 16px 18px;
-      z-index: 60;
-    }
-    .drawer.open{ transform: translateY(0%); }
-    .drawerInner{ max-width: 980px; margin:0 auto; }
-    .drawerTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom: 10px;
-    }
-    .drawerClose{
-      width:42px;height:42px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      cursor:pointer;
-      font-size:18px;
-      display:grid;place-items:center;
-    }
-    .drawerTitle{ font-weight: 1000; letter-spacing:.2px; opacity:.9; }
-    .drawerCols{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .drawerBox{
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,.05);
-      line-height: 1.75;
-      min-height: 92px;
-    }
-    .label{ color: var(--muted); font-size: 12px; font-weight: 1000; letter-spacing:.2px; margin-bottom: 6px; }
 
     .overlay{
-      position: fixed;
-      inset:0;
+      position: fixed; inset:0;
       background: rgba(0,0,0,.42);
-      opacity:0;
-      pointer-events:none;
+      opacity:0; pointer-events:none;
       transition: opacity 180ms ease;
       z-index: 80;
     }
     .overlay.show{ opacity:1; pointer-events:auto; }
     .sheet{
-      position: fixed;
-      left:0; right:0; bottom:0;
+      position: fixed; left:0; right:0; bottom:0;
       transform: translateY(110%);
       transition: transform 220ms ease;
       z-index: 90;
-      padding forwarding: 12px 16px 18px;
       padding: 12px 16px 18px;
     }
     .sheet.show{ transform: translateY(0%); }
     .sheetInner{
-      max-width: 980px;
-      margin:0 auto;
+      max-width: 980px; margin:0 auto;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.14);
       overflow:hidden;
@@ -385,12 +283,9 @@
     }
     .sheetBar{
       padding: 14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       gap:10px;
-      font-weight: 1100;
-      letter-spacing:.2px;
+      font-weight: 1100; letter-spacing:.2px;
     }
     .sheetBody{ padding: 14px 16px 16px; line-height: 1.55; color: rgba(238,245,255,.92); }
     .continueBtn{
@@ -405,12 +300,9 @@
       font-weight: 1000;
       cursor:pointer;
     }
-
     @media (max-width: 720px){
       .choices{ grid-template-columns: 1fr; }
-      .drawerCols{ grid-template-columns: 1fr; }
       .ks .jp{ font-size: 26px; }
-      .qtype{ font-size: 17px; }
     }
   </style>
 </head>
@@ -450,28 +342,29 @@
         </div>
 
         <div class="ks" id="keySentence"></div>
+
         <div class="grid" id="imgGrid"></div>
+
         <div class="choices" id="choices"></div>
+
+        <div class="reorderWrap" id="reorderWrap" style="display:none;">
+          <div style="color:rgba(238,245,255,.75);font-weight:900;margin:10px 0 8px;">
+            Tap tokens to build the sentence:
+          </div>
+          <div class="tokenRow" id="builtRow"></div>
+          <div style="height:10px;"></div>
+          <div class="tokenRow" id="poolRow"></div>
+        </div>
 
         <div class="bottomRow">
           <button class="checkBtn" id="btnCheck" type="button" disabled>チェックする / CHECK</button>
 
           <div class="rightIcons">
-            <button class="iconBtn" id="btnTranslate" type="button" aria-label="translation">
+            <button class="iconBtn" id="btnBack" type="button" aria-label="back">
               <span class="iconCircle" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M10 4a6 6 0 1 0 3.47 10.92l4.3 4.3a1 1 0 0 0 1.42-1.42l-4.3-4.3A6 6 0 0 0 10 4zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
               </span>
-            </button>
-
-            <button class="iconBtn saveBtn" id="btnSave" type="button" aria-label="save">
-              <span class="iconCircle" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2zm0 2v14.76l6-3 6 3V4H6z"/>
-                </svg>
-              </span>
-              Save
+              Back
             </button>
           </div>
         </div>
@@ -479,29 +372,6 @@
     </div>
   </div>
 
-  <!-- TRANSLATION DRAWER -->
-  <div class="drawer" id="drawer">
-    <div class="drawerInner">
-      <div class="drawerTop">
-        <button class="drawerClose" id="drawerClose" type="button" aria-label="close">×</button>
-        <div class="drawerTitle">Word List</div>
-        <div style="width:42px;"></div>
-      </div>
-
-      <div class="drawerCols">
-        <div class="drawerBox">
-          <div class="label">かな</div>
-          <div id="kanaText"></div>
-        </div>
-        <div class="drawerBox">
-          <div class="label">romaji</div>
-          <div id="romajiText"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FEEDBACK SHEET -->
   <div class="overlay" id="overlay"></div>
   <div class="sheet" id="sheet">
     <div class="sheetInner">
@@ -510,427 +380,460 @@
     </div>
   </div>
 
-  <audio id="sfxPin" preload="auto" src="assets/quiz/audio/effect_pin.mp3"></audio>
-  <audio id="sfxBu" preload="auto" src="assets/quiz/audio/effect_bu.mp3"></audio>
   <audio id="qAudio" preload="auto"></audio>
 
-  <script>
-    /* ===== query param ===== */
-    const params = new URLSearchParams(location.search);
-    const SET_ID = params.get("set") || "";
+<script>
+/* =========================================================
+   quiz.html
+   - loads ./data/questions.csv  ✅ fixes your 404
+   - filters by URL param ?set=A1_SELF_001
+   - supports: listen_only, multiple_choice_text, reorder_text
+   - supports mini-markup: [ruby][rt], [b][u][hl][big][small], \n
+   ========================================================= */
 
-    /* ===== state ===== */
-    let QUESTIONS = [];
-    let idx = 0;
-    let uiMode = "en";
-    let selectedChoice = null;
-    let score = 0;
-    let answered = false;
-    let isPlaying = false;
+let QUESTIONS = [];
+let idx = 0;
 
-    const SAVE_KEY = "savedQuestions_v1";
-    const TRIED_SETS = "mjh_tried_sets_v1";
+let uiMode = "en";
+let score = 0;
+let answered = false;
+let isPlaying = false;
 
-    function loadSaved(){
-      try{
-        const raw = localStorage.getItem(SAVE_KEY);
-        const arr = raw ? JSON.parse(raw) : [];
-        return new Set(Array.isArray(arr) ? arr : []);
-      }catch(e){ return new Set(); }
+let selectedChoiceIndex = null;
+
+// reorder state
+let pool = [];
+let built = [];
+
+// ===== elements =====
+const uiLabel = document.getElementById("uiLabel");
+const btnToggleUI = document.getElementById("btnToggleUI");
+
+const qTypeBox = document.getElementById("qTypeBox");
+const keySentence = document.getElementById("keySentence");
+const imgGrid = document.getElementById("imgGrid");
+const choicesEl = document.getElementById("choices");
+
+const reorderWrap = document.getElementById("reorderWrap");
+const builtRow = document.getElementById("builtRow");
+const poolRow = document.getElementById("poolRow");
+
+const btnCheck = document.getElementById("btnCheck");
+const btnBack = document.getElementById("btnBack");
+
+const btnPlay = document.getElementById("btnPlay");
+const playIcon = document.getElementById("playIcon");
+const pauseIcon = document.getElementById("pauseIcon");
+const qAudio = document.getElementById("qAudio");
+
+const pillScore = document.getElementById("pillScore");
+const pillQ = document.getElementById("pillQ");
+
+const overlay = document.getElementById("overlay");
+const sheet = document.getElementById("sheet");
+const sheetBar = document.getElementById("sheetBar");
+const sheetBody = document.getElementById("sheetBody");
+
+// ===== helpers =====
+function getParam(name){
+  const u = new URL(location.href);
+  return u.searchParams.get(name) || "";
+}
+
+function setPlayUI(playing){
+  isPlaying = playing;
+  playIcon.style.display = playing ? "none" : "block";
+  pauseIcon.style.display = playing ? "block" : "none";
+}
+
+function updateCheckEnabled(){
+  const Q = currentQ();
+  if (!Q) { btnCheck.disabled = true; return; }
+
+  if (answered) { btnCheck.disabled = true; return; }
+
+  if (Q.type === "listen_only") { btnCheck.disabled = false; return; }
+
+  if (Q.type === "multiple_choice_text") {
+    btnCheck.disabled = (selectedChoiceIndex === null);
+    return;
+  }
+
+  if (Q.type === "reorder_text") {
+    btnCheck.disabled = (built.length === 0);
+    return;
+  }
+
+  btnCheck.disabled = true;
+}
+
+// mini markup → HTML
+function applyMiniMarkup(s){
+  s = String(s ?? "");
+  s = s.replace(/\\n/g, "<br>");
+  s = s.replace(/\[ruby\]([\s\S]*?)\[rt\]([\s\S]*?)\[\/rt\]\[\/ruby\]/g, "<ruby>$1<rt>$2</rt></ruby>");
+  s = s.replace(/\[b\]([\s\S]*?)\[\/b\]/g, "<b>$1</b>");
+  s = s.replace(/\[u\]([\s\S]*?)\[\/u\]/g, "<u>$1</u>");
+  s = s.replace(/\[hl\]([\s\S]*?)\[\/hl\]/g, '<span style="background:rgba(193,255,114,.22);padding:.06em .25em;border-radius:.35em;">$1</span>');
+  s = s.replace(/\[big\]([\s\S]*?)\[\/big\]/g, '<span style="font-size:1.15em;font-weight:950;">$1</span>');
+  s = s.replace(/\[small\]([\s\S]*?)\[\/small\]/g, '<span style="font-size:.92em;opacity:.9;">$1</span>');
+  return s;
+}
+
+// CSV parser
+function parseCSV(text){
+  const rows = [];
+  let row = [];
+  let cur = "";
+  let inQuotes = false;
+
+  for (let i=0; i<text.length; i++){
+    const c = text[i], n = text[i+1];
+
+    if (inQuotes){
+      if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
+      if (c === '"'){ inQuotes = false; continue; }
+      cur += c; continue;
     }
-    function storeSaved(set){
-      localStorage.setItem(SAVE_KEY, JSON.stringify([...set]));
-    }
-    function loadSet(key){
-      try{
-        const raw = localStorage.getItem(key);
-        const arr = raw ? JSON.parse(raw) : [];
-        return new Set(Array.isArray(arr) ? arr : []);
-      }catch(e){ return new Set(); }
-    }
-    function storeSet(key, set){
-      localStorage.setItem(key, JSON.stringify([...set]));
-    }
-
-    const savedSet = loadSaved();
-
-    /* ===== elements ===== */
-    const uiLabel = document.getElementById("uiLabel");
-    const btnToggleUI = document.getElementById("btnToggleUI");
-    const qTypeBox = document.getElementById("qTypeBox");
-    const keySentence = document.getElementById("keySentence");
-    const imgGrid = document.getElementById("imgGrid");
-    const choicesEl = document.getElementById("choices");
-    const btnCheck = document.getElementById("btnCheck");
-    const btnTranslate = document.getElementById("btnTranslate");
-    const btnSave = document.getElementById("btnSave");
-    const drawer = document.getElementById("drawer");
-    const drawerClose = document.getElementById("drawerClose");
-    const kanaText = document.getElementById("kanaText");
-    const romajiText = document.getElementById("romajiText");
-    const btnPlay = document.getElementById("btnPlay");
-    const playIcon = document.getElementById("playIcon");
-    const pauseIcon = document.getElementById("pauseIcon");
-    const qAudio = document.getElementById("qAudio");
-    const sfxPin = document.getElementById("sfxPin");
-    const sfxBu = document.getElementById("sfxBu");
-    const pillScore = document.getElementById("pillScore");
-    const pillQ = document.getElementById("pillQ");
-    const overlay = document.getElementById("overlay");
-    const sheet = document.getElementById("sheet");
-    const sheetBar = document.getElementById("sheetBar");
-    const sheetBody = document.getElementById("sheetBody");
-
-    function safePlay(a){ try{ a.currentTime = 0; a.play(); }catch(e){} }
-
-    /* ===== mini markup: [b][u][i][hl][big][small] and \\n ===== */
-    function miniMarkupToHTML(text){
-      let s = String(text || "");
-      s = s.replaceAll("\r\n", "\n");
-      s = s.replaceAll("\n", "<br>");
-      s = s.replaceAll("[b]", "<b>").replaceAll("[/b]", "</b>");
-      s = s.replaceAll("[u]", "<u>").replaceAll("[/u]", "</u>");
-      s = s.replaceAll("[i]", "<i>").replaceAll("[/i]", "</i>");
-      s = s.replaceAll("[hl]", "<span class=\"hl\">").replaceAll("[/hl]", "</span>");
-      s = s.replaceAll("[big]", "<span class=\"big\">").replaceAll("[/big]", "</span>");
-      s = s.replaceAll("[small]", "<span class=\"small\">").replaceAll("[/small]", "</span>");
-      return s;
-    }
-
-    /* ===== bottom ruby using <rb>reading</rb> convention ===== */
-    function pseudoRubyBottom(html){
-      const container = document.createElement("div");
-      container.innerHTML = html;
-
-      const rbs = Array.from(container.querySelectorAll("rb"));
-      for (const rb of rbs){
-        const reading = (rb.textContent || "").trim();
-        const prev = rb.previousSibling;
-
-        if (!prev || prev.nodeType !== Node.TEXT_NODE){
-          rb.remove();
-          continue;
-        }
-        const txt = prev.textContent || "";
-        if (!txt.length){
-          rb.remove();
-          continue;
-        }
-        const m = txt.match(/([\u4E00-\u9FFF]+)$/);
-
-        let baseWord = "";
-        if (m && m[1]) {
-          baseWord = m[1];
-          prev.textContent = txt.slice(0, -baseWord.length);
-        } else {
-          baseWord = txt.slice(-1);
-          prev.textContent = txt.slice(0, -1);
-        }
-
-        rb.replaceWith(makeRubyBottom(baseWord, reading));
-      }
-      return container.innerHTML;
-    }
-    function makeRubyBottom(base, reading){
-      const wrap = document.createElement("span");
-      wrap.className = "rbWrapBottom";
-      const baseEl = document.createElement("span");
-      baseEl.className = "rbBase";
-      baseEl.textContent = base;
-      const bot = document.createElement("span");
-      bot.className = "rbBottom";
-      bot.textContent = reading;
-      wrap.appendChild(baseEl);
-      wrap.appendChild(bot);
-      return wrap;
-    }
-
-    /* ===== CSV parser ===== */
-    function parseCSV(text){
-      const rows = [];
-      let row = [];
-      let cur = "";
-      let inQuotes = false;
-
-      for (let i=0; i<text.length; i++){
-        const c = text[i];
-        const n = text[i+1];
-
-        if (inQuotes){
-          if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
-          if (c === '"'){ inQuotes = false; continue; }
-          cur += c;
-          continue;
-        }
-        if (c === '"'){ inQuotes = true; continue; }
-        if (c === ","){ row.push(cur); cur = ""; continue; }
-        if (c === "\r"){ continue; }
-        if (c === "\n"){
-          row.push(cur); cur = "";
-          if (row.some(v => (v||"").trim().length)) rows.push(row);
-          row = [];
-          continue;
-        }
-        cur += c;
-      }
-      row.push(cur);
+    if (c === '"'){ inQuotes = true; continue; }
+    if (c === ","){ row.push(cur); cur=""; continue; }
+    if (c === "\r"){ continue; }
+    if (c === "\n"){
+      row.push(cur); cur="";
       if (row.some(v => (v||"").trim().length)) rows.push(row);
+      row=[]; continue;
+    }
+    cur += c;
+  }
+  row.push(cur);
+  if (row.some(v => (v||"").trim().length)) rows.push(row);
 
-      if (!rows.length) return [];
-      const headers = rows.shift().map(h => (h||"").trim());
-      return rows.map(cols=>{
-        const obj = {};
-        headers.forEach((h, i)=> obj[h] = (cols[i] ?? ""));
-        return obj;
+  if (!rows.length) return [];
+  const headers = rows.shift().map(h => (h||"").trim());
+  return rows.map(cols=>{
+    const obj = {};
+    headers.forEach((h,i)=> obj[h] = (cols[i] ?? ""));
+    return obj;
+  });
+}
+
+function currentQ(){
+  return QUESTIONS[idx] || null;
+}
+
+function hideSheet(){
+  overlay.classList.remove("show");
+  sheet.classList.remove("show");
+}
+
+function showSheet(ok, extraHtml=""){
+  overlay.classList.add("show");
+  sheet.classList.add("show");
+
+  if (ok){
+    sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
+    sheetBar.style.color = "rgba(10,18,6,.98)";
+    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+      <span>〇 やった！</span><span style="opacity:.72">/ Yatta!</span><span style="font-size:22px;">🎉</span>
+    </div>`;
+  }else{
+    sheetBar.style.background = "linear-gradient(180deg, rgba(255,198,26,.98), rgba(255,198,26,.48))";
+    sheetBar.style.color = "rgba(30,18,0,.98)";
+    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+      <span>× おしい！</span><span style="opacity:.72">/ Oshī!</span>
+    </div>`;
+  }
+
+  sheetBody.innerHTML = `
+    ${extraHtml}
+    <button class="continueBtn" id="btnContinue">CONTINUE / つづける</button>
+  `;
+  document.getElementById("btnContinue").addEventListener("click", ()=>{
+    hideSheet();
+    goNext();
+  });
+}
+
+function goNext(){
+  if (idx < QUESTIONS.length - 1){
+    idx++;
+    resetPerQuestionState();
+    render();
+  }else{
+    overlay.classList.add("show");
+    sheet.classList.add("show");
+    sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
+    sheetBar.style.color = "rgba(10,18,6,.98)";
+    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+      <span>🎉 FINISH!</span><span style="opacity:.72">/ おつかれさま！</span>
+    </div>`;
+    sheetBody.innerHTML = `<div style="font-weight:950;margin-bottom:10px;">score: ${score}/${QUESTIONS.length}</div>
+      <button class="continueBtn" id="btnRestart">RESTART / さいしょから</button>`;
+    document.getElementById("btnRestart").addEventListener("click", ()=> location.href = "index.html");
+  }
+}
+
+function resetPerQuestionState(){
+  answered = false;
+  selectedChoiceIndex = null;
+
+  // audio stop
+  try{ qAudio.pause(); }catch(e){}
+  setPlayUI(false);
+
+  // reorder reset
+  pool = [];
+  built = [];
+}
+
+function render(){
+  const Q = currentQ();
+  if (!Q) return;
+
+  pillQ.textContent = `Q ${idx+1}/${QUESTIONS.length}`;
+  pillScore.textContent = `score: ${score}/${QUESTIONS.length}`;
+  uiLabel.textContent = (uiMode === "en") ? "English UI" : "日本語UI";
+
+  // Q type line
+  const typeLabelEN = ({
+    listen_only: "Listen",
+    multiple_choice_text: "Choose the answer",
+    reorder_text: "Reorder the words"
+  })[Q.type] || Q.type;
+
+  const typeLabelJP = ({
+    listen_only: "聞いてください。",
+    multiple_choice_text: "選んでください。",
+    reorder_text: "並べ替えてください。"
+  })[Q.type] || Q.type;
+
+  const qtypeHtml = (uiMode === "en")
+    ? `${applyMiniMarkup(typeLabelJP)}<span class="enSmall">${applyMiniMarkup(typeLabelEN)}</span>`
+    : `${applyMiniMarkup(typeLabelJP)}`;
+
+  qTypeBox.innerHTML = qtypeHtml;
+
+  // prompt
+  const jp = applyMiniMarkup(Q.prompt_ja || "");
+  const en = applyMiniMarkup(Q.prompt_en || "");
+  keySentence.innerHTML = `<div class="jp">${jp}</div>${uiMode==="en" ? `<div class="en">${en}</div>` : ""}`;
+
+  // images
+  imgGrid.innerHTML = "";
+  if (Q.image){
+    const div = document.createElement("div");
+    div.className = "imgCard";
+    const img = document.createElement("img");
+    img.src = Q.image;     // you already store full relative path like assets/quiz/images/...
+    img.alt = "image";
+    div.appendChild(img);
+    imgGrid.appendChild(div);
+  }
+
+  // audio
+  qAudio.src = Q.audio ? Q.audio : "";
+  qAudio.loop = true;
+
+  // show/hide areas by type
+  choicesEl.style.display = "none";
+  reorderWrap.style.display = "none";
+
+  if (Q.type === "multiple_choice_text"){
+    choicesEl.style.display = "grid";
+    choicesEl.innerHTML = "";
+
+    const list = Q.choices || [];
+    list.forEach((label, i)=>{
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choiceBtn" + (selectedChoiceIndex===i ? " selected" : "");
+      btn.innerHTML = applyMiniMarkup(label);
+      btn.addEventListener("click", ()=>{
+        if (answered) return;
+        selectedChoiceIndex = i;
+        render();
+        updateCheckEnabled();
       });
-    }
+      choicesEl.appendChild(btn);
+    });
+  }
 
-    async function loadQuestionsForSet(){
-      if (!SET_ID) throw new Error("Missing set id. Open from index.html or use ?set=XXXX.");
+  if (Q.type === "reorder_text"){
+    reorderWrap.style.display = "block";
 
-      const res = await fetch("assets/quiz/data/questions.csv", { cache: "no-store" });
-      if (!res.ok) throw new Error("questions.csv fetch failed: " + res.status);
-      const data = parseCSV(await res.text());
-
-      QUESTIONS = data
-        .map(r => ({
-          question_id: (r.question_id||"").trim(),
-          set_id: (r.set_id||"").trim(),
-          type: (r.type||"").trim(),
-          prompt_ja: r.prompt_ja || "",
-          prompt_en: r.prompt_en || "",
-          audio: r.audio || "",
-          image: r.image || "",
-          choices_json: r.choices_json || "",
-          answer_json: r.answer_json || "",
-          notes: r.notes || ""
-        }))
-        .filter(q => q.question_id && q.set_id === SET_ID);
-
-      if (!QUESTIONS.length){
-        throw new Error("No questions found for set: " + SET_ID);
-      }
-
-      // mark set as tried
-      const tried = loadSet(TRIED_SETS);
-      tried.add(SET_ID);
-      storeSet(TRIED_SETS, tried);
-    }
-
-    function currentQ(){ return QUESTIONS[idx] || null; }
-
-    function setSavedUI(){
-      const q = currentQ();
-      btnSave.classList.toggle("saved", q && savedSet.has(q.question_id));
-    }
-
-    function openDrawer(){ drawer.classList.add("open"); btnTranslate.classList.remove("hintPulse"); }
-    function closeDrawer(){ drawer.classList.remove("open"); }
-
-    function setPlayUI(playing){
-      isPlaying = playing;
-      playIcon.style.display = playing ? "none" : "block";
-      pauseIcon.style.display = playing ? "block" : "none";
-    }
-
-    function updateCheckEnabled(){
-      btnCheck.disabled = !selectedChoice || answered;
-    }
-
-    function hideSheet(){ overlay.classList.remove("show"); sheet.classList.remove("show"); }
-
-    function showSheet(ok){
-      overlay.classList.add("show");
-      sheet.classList.add("show");
-
-      if (ok){
-        sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
-        sheetBar.style.color = "rgba(10,18,6,.98)";
-        sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-          <span>〇 やった！</span><span style="opacity:.72">/ Yatta!</span><span style="font-size:22px;">🎉</span>
-        </div>`;
-      }else{
-        sheetBar.style.background = "linear-gradient(180deg, rgba(255,198,26,.98), rgba(255,198,26,.48))";
-        sheetBar.style.color = "rgba(30,18,0,.98)";
-        sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-          <span>× おしい！</span><span style="opacity:.72">/ Oshī!</span>
-        </div>`;
-        btnTranslate.classList.add("hintPulse");
-      }
-
-      sheetBody.innerHTML = `<button class="continueBtn" id="btnContinue">CONTINUE / つづける</button>`;
-      document.getElementById("btnContinue").addEventListener("click", ()=>{
-        hideSheet();
-        goNext();
+    // render built
+    builtRow.innerHTML = "";
+    for (let i=0; i<built.length; i++){
+      const t = document.createElement("div");
+      t.className = "token";
+      t.textContent = built[i];
+      t.addEventListener("click", ()=>{
+        if (answered) return;
+        const back = built.splice(i,1)[0];
+        pool.push(back);
+        render();
+        updateCheckEnabled();
       });
+      builtRow.appendChild(t);
     }
 
-    function resetPerQuestionState(){
-      selectedChoice = null;
-      answered = false;
-      try{ qAudio.pause(); }catch(e){}
+    // render pool
+    poolRow.innerHTML = "";
+    for (let i=0; i<pool.length; i++){
+      const t = document.createElement("div");
+      t.className = "token";
+      t.textContent = pool[i];
+      t.addEventListener("click", ()=>{
+        if (answered) return;
+        const take = pool.splice(i,1)[0];
+        built.push(take);
+        render();
+        updateCheckEnabled();
+      });
+      poolRow.appendChild(t);
+    }
+  }
+
+  updateCheckEnabled();
+  setPlayUI(isPlaying);
+}
+
+// ===== evaluate =====
+function checkAnswer(){
+  const Q = currentQ();
+  if (!Q || answered) return;
+
+  let ok = true;
+  let extra = "";
+
+  if (Q.type === "listen_only"){
+    ok = true;
+  }
+
+  if (Q.type === "multiple_choice_text"){
+    const correct = Number(Q.answer?.correct_index ?? -1);
+    ok = (selectedChoiceIndex === correct);
+    if (!ok && correct >= 0){
+      extra = `<div style="opacity:.9;">Correct: <b>${applyMiniMarkup((Q.choices||[])[correct] || "")}</b></div>`;
+    }
+  }
+
+  if (Q.type === "reorder_text"){
+    const correct = (Q.answer?.correct || []);
+    ok = JSON.stringify(built) === JSON.stringify(correct);
+    if (!ok){
+      extra = `<div style="opacity:.9;">Correct: <b>${correct.join(" ")}</b></div>`;
+    }
+  }
+
+  answered = true;
+  if (ok) score++;
+  showSheet(ok, extra);
+  updateCheckEnabled();
+}
+
+// ===== events =====
+btnToggleUI.addEventListener("click", ()=>{ uiMode = (uiMode==="en") ? "jp" : "en"; render(); });
+document.getElementById("btnExit").addEventListener("click", ()=> location.href = "index.html");
+
+btnBack.addEventListener("click", ()=>{
+  if (idx > 0){
+    idx--;
+    resetPerQuestionState();
+    render();
+  }
+});
+
+btnPlay.addEventListener("click", ()=>{
+  try{
+    if (!isPlaying && qAudio.src){
+      qAudio.play();
+      setPlayUI(true);
+    }else{
+      qAudio.pause();
       setPlayUI(false);
     }
+  }catch(e){}
+});
 
-    function goNext(){
-      if (idx < QUESTIONS.length - 1){
-        idx++;
-        resetPerQuestionState();
-        render();
-      }else{
-        overlay.classList.add("show");
-        sheet.classList.add("show");
-        sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
-        sheetBar.style.color = "rgba(10,18,6,.98)";
-        sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-          <span>🎉 FINISH!</span><span style="opacity:.72">/ おつかれさま！</span>
-        </div>`;
-        sheetBody.innerHTML = `<div style="font-weight:950;margin-bottom:10px;">score: ${score}/${QUESTIONS.length}</div>
-          <button class="continueBtn" id="btnBack">BACK / もどる</button>`;
-        document.getElementById("btnBack").addEventListener("click", ()=> location.href = "index.html");
-      }
-    }
+btnCheck.addEventListener("click", checkAnswer);
+overlay.addEventListener("click", hideSheet);
 
-    function parseChoices(q){
-      // You can evolve this later per type.
-      // For now, expect choices_json like: {"choices":["apple","banana",...]}
-      try{
-        const obj = q.choices_json ? JSON.parse(q.choices_json) : null;
-        if (obj && Array.isArray(obj.choices)) return obj.choices.map(String);
-      }catch(e){}
-      return [];
-    }
+// ===== load questions =====
+async function loadQuestions(){
+  const setId = getParam("set").trim();
+  if (!setId) throw new Error("Missing ?set=... in URL");
 
-    function isCorrect(q, picked){
-      // Expect answer_json like: {"correct_index":0} OR {"correct":"apple"}
-      try{
-        const ans = q.answer_json ? JSON.parse(q.answer_json) : null;
-        if (!ans) return false;
+  // IMPORTANT: this is the 404 fix
+  const res = await fetch("./data/questions.csv", { cache:"no-store" });
+  if (!res.ok) throw new Error("questions.csv fetch failed: " + res.status);
 
-        if (typeof ans.correct_index === "number"){
-          const choices = parseChoices(q);
-          return choices[ans.correct_index] === picked;
-        }
-        if (typeof ans.correct === "string"){
-          return ans.correct.trim() === String(picked).trim();
-        }
-      }catch(e){}
-      return false;
-    }
+  const text = await res.text();
+  const data = parseCSV(text);
 
-    function render(){
-      const q = currentQ();
-      if (!q) return;
+  const filtered = data.filter(r => (r.set_id||"").trim() === setId);
 
-      pillQ.textContent = `Q ${idx+1}/${QUESTIONS.length}`;
-      pillScore.textContent = `score: ${score}/${QUESTIONS.length}`;
-      uiLabel.textContent = (uiMode === "en") ? "English UI" : "日本語UI";
+  QUESTIONS = filtered.map(r=>{
+    let choices = [];
+    let answer = {};
+    try{ choices = r.choices_json ? JSON.parse(r.choices_json) : []; }catch(e){ choices = []; }
+    try{ answer = r.answer_json ? JSON.parse(r.answer_json) : {}; }catch(e){ answer = {}; }
 
-      // prompt (qTypeBox) – you can change later per type
-      const prompt = (uiMode === "en") ? q.prompt_en : q.prompt_ja;
-      qTypeBox.innerHTML = pseudoRubyBottom(miniMarkupToHTML(prompt));
+    return {
+      question_id: (r.question_id||"").trim(),
+      set_id: (r.set_id||"").trim(),
+      type: (r.type||"").trim(),
+      prompt_ja: r.prompt_ja || "",
+      prompt_en: r.prompt_en || "",
+      audio: r.audio || "",
+      image: r.image || "",
+      choices,
+      answer,
+      notes: r.notes || ""
+    };
+  });
 
-      // keySentence area: optional (use notes or leave empty)
-      keySentence.innerHTML = `<div class="jp">${pseudoRubyBottom(miniMarkupToHTML(q.notes || ""))}</div>` + (uiMode==="en" ? "" : "");
+  // init reorder pools per first question
+  resetPerQuestionState();
+}
 
-      // audio
-      qAudio.src = q.audio ? q.audio : "";
-      qAudio.loop = true;
+function initPerType(){
+  const Q = currentQ();
+  if (!Q) return;
 
-      // image (optional)
-      imgGrid.innerHTML = "";
-      if (q.image){
-        const div = document.createElement("div");
-        div.className = "imgCard";
-        const img = document.createElement("img");
-        img.src = q.image;
-        img.alt = "image";
-        div.appendChild(img);
-        imgGrid.appendChild(div);
-      }
+  // set up reorder pool/built when entering reorder question
+  if (Q.type === "reorder_text"){
+    const tokens = (Q.choices?.tokens || Q.answer?.tokens || []);
+    pool = Array.isArray(tokens) ? [...tokens] : [];
+    built = [];
+  }
+}
 
-      // choices
-      choicesEl.innerHTML = "";
-      const choices = parseChoices(q);
-      for (const c of choices){
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "choiceBtn" + (selectedChoice===c ? " selected" : "");
-        btn.innerHTML = `<span>${pseudoRubyBottom(miniMarkupToHTML(c))}</span>`;
-        btn.addEventListener("click", ()=>{
-          if (answered) return;
-          selectedChoice = c;
-          render();
-          updateCheckEnabled();
-        });
-        choicesEl.appendChild(btn);
-      }
+(async ()=>{
+  try{
+    await loadQuestions();
+    if (!QUESTIONS.length) throw new Error("No questions for this set.");
+    idx = 0;
+    resetPerQuestionState();
+    initPerType();
+    render();
+  }catch(err){
+    console.error(err);
+    keySentence.innerHTML = `<div class="jp" style="font-size:18px;font-weight:900;">
+      Error: ${String(err.message || err)}
+    </div>`;
+    btnCheck.disabled = true;
+  }
+})();
 
-      // drawer (simple for now)
-      kanaText.innerHTML = "";
-      romajiText.innerHTML = "";
+// when moving next/prev, init type-specific state
+const _goNext = goNext;
+goNext = function(){
+  _goNext();
+  initPerType();
+};
+btnBack.addEventListener("click", ()=>{ initPerType(); });
 
-      setSavedUI();
-      updateCheckEnabled();
-      setPlayUI(isPlaying);
-    }
-
-    // events
-    btnToggleUI.addEventListener("click", ()=>{ uiMode = (uiMode === "en") ? "jp" : "en"; render(); });
-    document.getElementById("btnExit").addEventListener("click", ()=> location.href = "index.html");
-    btnTranslate.addEventListener("click", openDrawer);
-    drawerClose.addEventListener("click", closeDrawer);
-
-    btnSave.addEventListener("click", ()=>{
-      const q = currentQ();
-      if (!q) return;
-      if (savedSet.has(q.question_id)) savedSet.delete(q.question_id);
-      else savedSet.add(q.question_id);
-      storeSaved(savedSet);
-      setSavedUI();
-    });
-
-    btnPlay.addEventListener("click", ()=>{
-      try{
-        if (!isPlaying){ qAudio.play(); setPlayUI(true); }
-        else{ qAudio.pause(); setPlayUI(false); }
-      }catch(e){}
-    });
-
-    btnCheck.addEventListener("click", ()=>{
-      const q = currentQ();
-      if (!q || !selectedChoice || answered) return;
-
-      const ok = isCorrect(q, selectedChoice);
-      answered = true;
-
-      if (ok){
-        score++;
-        safePlay(sfxPin);
-        showSheet(true);
-      }else{
-        safePlay(sfxBu);
-        showSheet(false);
-      }
-      updateCheckEnabled();
-      render();
-    });
-
-    overlay.addEventListener("click", hideSheet);
-
-    (async ()=>{
-      try{
-        await loadQuestionsForSet();
-        idx = 0;
-        resetPerQuestionState();
-        render();
-      }catch(err){
-        console.error(err);
-        keySentence.innerHTML = `<div class="jp" style="font-size:18px;font-weight:900;">
-          Error: ${String(err.message || err)}
-        </div>`;
-      }
-    })();
-  </script>
+</script>
 </body>
 </html>
