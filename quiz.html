@@ -32,7 +32,11 @@
       color:var(--text);
     }
     .wrap{ max-width: 980px; margin:0 auto; padding: 14px 14px 22px; }
-    .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding: 8px 2px 14px; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; padding: 8px 2px 14px;
+    }
     .leftTop{ display:flex; align-items:center; gap:10px; min-width:220px; }
     .xbtn{
       width:42px;height:42px;border-radius:999px;
@@ -52,7 +56,6 @@
       font-size: 13px;
       letter-spacing:.2px;
     }
-
     .uiToggle{
       border:1px solid rgba(193,255,114,.35);
       background: rgba(193,255,114,.10);
@@ -67,7 +70,11 @@
         0 0 0 2px rgba(193,255,114,.10) inset,
         0 0 22px rgba(193,255,114,.18);
     }
-    .uiDot{ width:10px;height:10px;border-radius:999px; background: var(--lime); box-shadow: 0 0 22px rgba(193,255,114,.75); }
+    .uiDot{
+      width:10px;height:10px;border-radius:999px;
+      background: var(--lime);
+      box-shadow: 0 0 22px rgba(193,255,114,.75);
+    }
     .uiLabel{ font-size: 13px; opacity: .95; }
 
     .card{
@@ -102,6 +109,7 @@
     }
     .speakerBtn > *{ position:relative; z-index:1; }
     .speakerBtn:active{ transform: translateY(1px); }
+
     .speakerIcon{ width:28px;height:28px; fill: var(--text); opacity:.95; }
 
     .bubble{
@@ -116,8 +124,20 @@
       justify-content:center;
       gap:6px;
     }
-    .qtype{ font-weight: 1000; letter-spacing:.2px; line-height:1.25; font-size: 18px; }
-    .qtype .enSmall{ display:block; margin-top:6px; font-size: 14px; font-weight: 900; color: var(--muted); }
+    .qtype{
+      font-weight: 1000;
+      letter-spacing:.2px;
+      line-height:1.25;
+      font-size: 18px;
+    }
+    .qtype .enSmall{
+      display:block;
+      margin-top:6px;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--muted);
+      letter-spacing:.1px;
+    }
 
     .ks{
       margin-top: 12px;
@@ -127,32 +147,17 @@
       border-radius: 16px;
       line-height: 1.55;
     }
-    .ks .jp{ font-size: 30px; font-weight: 950; letter-spacing: .2px; line-height: 1.45; }
-    .ks .en{ margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.55; }
-
-    .grid{
-      margin-top: 12px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .ks .jp{
+      font-size: 30px;
+      font-weight: 950;
+      letter-spacing: .2px;
+      line-height: 1.45;
     }
-    .imgCard{
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      overflow:hidden;
-      aspect-ratio: 5 / 4;
-      display:grid;
-      place-items:center;
-      padding: 10px;
-    }
-    .imgCard img{
-      width:100%;
-      height:100%;
-      object-fit: contain;
-      background: rgba(255,255,255,.94);
-      border-radius: 12px;
-      display:block;
+    .ks .en{
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
     }
 
     .choices{
@@ -179,26 +184,9 @@
     .choiceBtn.selected{
       border-color: rgba(77,163,255,.75);
       background: rgba(77,163,255,.22);
-      box-shadow: 0 0 0 2px rgba(77,163,255,.14) inset, 0 0 26px rgba(77,163,255,.18);
-    }
-
-    .reorderWrap{ margin-top: 14px; }
-    .tokenRow{
-      display:flex; flex-wrap:wrap; gap:10px;
-      padding: 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      min-height: 64px;
-    }
-    .token{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: 950;
-      cursor:pointer;
-      user-select:none;
+      box-shadow:
+        0 0 0 2px rgba(77,163,255,.14) inset,
+        0 0 26px rgba(77,163,255,.18);
     }
 
     .bottomRow{
@@ -231,31 +219,16 @@
       opacity:.42;
       cursor:not-allowed;
       filter: grayscale(.35);
-      background: linear-gradient(180deg, rgba(193,255,114,.35), rgba(193,255,114,.16));
       box-shadow: 0 0 0 2px rgba(255,255,255,.05) inset;
+      background: linear-gradient(180deg, rgba(193,255,114,.35), rgba(193,255,114,.16));
     }
 
-    .rightIcons{ display:flex; gap:10px; align-items:center; justify-content:flex-end; }
-    .iconBtn{
-      min-height:60px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      cursor:pointer;
-      padding: 0 14px;
-      display:flex; align-items:center; gap:10px;
-      font-weight: 900;
-      letter-spacing:.2px;
-    }
-    .iconCircle{
-      width:34px;height:34px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      display:grid;place-items:center;
-      background: rgba(255,255,255,.06);
-    }
-    .iconCircle svg{ width:18px;height:18px; fill: var(--text); opacity:.95; }
+    /* mini markup styles */
+    .hl{ background: rgba(193,255,114,.22); padding: .05em .25em; border-radius: .35em; }
+    .big{ font-size: 1.12em; font-weight: 1000; }
+    .small{ font-size: .92em; opacity: .92; }
 
+    /* feedback */
     .overlay{
       position: fixed; inset:0;
       background: rgba(0,0,0,.42);
@@ -285,9 +258,10 @@
       padding: 14px 16px;
       display:flex; align-items:center; justify-content:space-between;
       gap:10px;
-      font-weight: 1100; letter-spacing:.2px;
+      font-weight: 1100;
+      letter-spacing:.2px;
     }
-    .sheetBody{ padding: 14px 16px 16px; line-height: 1.55; color: rgba(238,245,255,.92); }
+    .sheetBody{ padding: 14px 16px 16px; line-height: 1.55; }
     .continueBtn{
       width: 100%;
       margin-top: 12px;
@@ -300,9 +274,11 @@
       font-weight: 1000;
       cursor:pointer;
     }
+
     @media (max-width: 720px){
       .choices{ grid-template-columns: 1fr; }
       .ks .jp{ font-size: 26px; }
+      .qtype{ font-size: 17px; }
     }
   </style>
 </head>
@@ -343,35 +319,16 @@
 
         <div class="ks" id="keySentence"></div>
 
-        <div class="grid" id="imgGrid"></div>
-
         <div class="choices" id="choices"></div>
-
-        <div class="reorderWrap" id="reorderWrap" style="display:none;">
-          <div style="color:rgba(238,245,255,.75);font-weight:900;margin:10px 0 8px;">
-            Tap tokens to build the sentence:
-          </div>
-          <div class="tokenRow" id="builtRow"></div>
-          <div style="height:10px;"></div>
-          <div class="tokenRow" id="poolRow"></div>
-        </div>
 
         <div class="bottomRow">
           <button class="checkBtn" id="btnCheck" type="button" disabled>チェックする / CHECK</button>
-
-          <div class="rightIcons">
-            <button class="iconBtn" id="btnBack" type="button" aria-label="back">
-              <span class="iconCircle" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-              </span>
-              Back
-            </button>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- FEEDBACK SHEET -->
   <div class="overlay" id="overlay"></div>
   <div class="sheet" id="sheet">
     <div class="sheetInner">
@@ -382,458 +339,292 @@
 
   <audio id="qAudio" preload="auto"></audio>
 
-<script>
-/* =========================================================
-   quiz.html
-   - loads ./data/questions.csv  ✅ fixes your 404
-   - filters by URL param ?set=A1_SELF_001
-   - supports: listen_only, multiple_choice_text, reorder_text
-   - supports mini-markup: [ruby][rt], [b][u][hl][big][small], \n
-   ========================================================= */
-
-let QUESTIONS = [];
-let idx = 0;
-
-let uiMode = "en";
-let score = 0;
-let answered = false;
-let isPlaying = false;
-
-let selectedChoiceIndex = null;
-
-// reorder state
-let pool = [];
-let built = [];
-
-// ===== elements =====
-const uiLabel = document.getElementById("uiLabel");
-const btnToggleUI = document.getElementById("btnToggleUI");
-
-const qTypeBox = document.getElementById("qTypeBox");
-const keySentence = document.getElementById("keySentence");
-const imgGrid = document.getElementById("imgGrid");
-const choicesEl = document.getElementById("choices");
-
-const reorderWrap = document.getElementById("reorderWrap");
-const builtRow = document.getElementById("builtRow");
-const poolRow = document.getElementById("poolRow");
-
-const btnCheck = document.getElementById("btnCheck");
-const btnBack = document.getElementById("btnBack");
-
-const btnPlay = document.getElementById("btnPlay");
-const playIcon = document.getElementById("playIcon");
-const pauseIcon = document.getElementById("pauseIcon");
-const qAudio = document.getElementById("qAudio");
-
-const pillScore = document.getElementById("pillScore");
-const pillQ = document.getElementById("pillQ");
-
-const overlay = document.getElementById("overlay");
-const sheet = document.getElementById("sheet");
-const sheetBar = document.getElementById("sheetBar");
-const sheetBody = document.getElementById("sheetBody");
-
-// ===== helpers =====
-function getParam(name){
-  const u = new URL(location.href);
-  return u.searchParams.get(name) || "";
-}
-
-function setPlayUI(playing){
-  isPlaying = playing;
-  playIcon.style.display = playing ? "none" : "block";
-  pauseIcon.style.display = playing ? "block" : "none";
-}
-
-function updateCheckEnabled(){
-  const Q = currentQ();
-  if (!Q) { btnCheck.disabled = true; return; }
-
-  if (answered) { btnCheck.disabled = true; return; }
-
-  if (Q.type === "listen_only") { btnCheck.disabled = false; return; }
-
-  if (Q.type === "multiple_choice_text") {
-    btnCheck.disabled = (selectedChoiceIndex === null);
-    return;
-  }
-
-  if (Q.type === "reorder_text") {
-    btnCheck.disabled = (built.length === 0);
-    return;
-  }
-
-  btnCheck.disabled = true;
-}
-
-// mini markup → HTML
-function applyMiniMarkup(s){
-  s = String(s ?? "");
-  s = s.replace(/\\n/g, "<br>");
-  s = s.replace(/\[ruby\]([\s\S]*?)\[rt\]([\s\S]*?)\[\/rt\]\[\/ruby\]/g, "<ruby>$1<rt>$2</rt></ruby>");
-  s = s.replace(/\[b\]([\s\S]*?)\[\/b\]/g, "<b>$1</b>");
-  s = s.replace(/\[u\]([\s\S]*?)\[\/u\]/g, "<u>$1</u>");
-  s = s.replace(/\[hl\]([\s\S]*?)\[\/hl\]/g, '<span style="background:rgba(193,255,114,.22);padding:.06em .25em;border-radius:.35em;">$1</span>');
-  s = s.replace(/\[big\]([\s\S]*?)\[\/big\]/g, '<span style="font-size:1.15em;font-weight:950;">$1</span>');
-  s = s.replace(/\[small\]([\s\S]*?)\[\/small\]/g, '<span style="font-size:.92em;opacity:.9;">$1</span>');
-  return s;
-}
-
-// CSV parser
-function parseCSV(text){
-  const rows = [];
-  let row = [];
-  let cur = "";
-  let inQuotes = false;
-
-  for (let i=0; i<text.length; i++){
-    const c = text[i], n = text[i+1];
-
-    if (inQuotes){
-      if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
-      if (c === '"'){ inQuotes = false; continue; }
-      cur += c; continue;
+  <script>
+    // ---------- URL param ----------
+    function getParam(name){
+      const u = new URL(location.href);
+      return u.searchParams.get(name) || "";
     }
-    if (c === '"'){ inQuotes = true; continue; }
-    if (c === ","){ row.push(cur); cur=""; continue; }
-    if (c === "\r"){ continue; }
-    if (c === "\n"){
-      row.push(cur); cur="";
-      if (row.some(v => (v||"").trim().length)) rows.push(row);
-      row=[]; continue;
+    const SET_ID = getParam("set"); // e.g. A1_SELF_001
+
+    // ---------- state ----------
+    let QUESTIONS = [];
+    let idx = 0;
+    let uiMode = "en";
+    let selectedChoice = "";
+    let score = 0;
+    let answered = false;
+    let isPlaying = false;
+
+    // ---------- elements ----------
+    const uiLabel = document.getElementById("uiLabel");
+    const btnToggleUI = document.getElementById("btnToggleUI");
+
+    const qTypeBox = document.getElementById("qTypeBox");
+    const keySentence = document.getElementById("keySentence");
+    const choicesEl = document.getElementById("choices");
+    const btnCheck = document.getElementById("btnCheck");
+
+    const btnPlay = document.getElementById("btnPlay");
+    const playIcon = document.getElementById("playIcon");
+    const pauseIcon = document.getElementById("pauseIcon");
+    const qAudio = document.getElementById("qAudio");
+
+    const pillScore = document.getElementById("pillScore");
+    const pillQ = document.getElementById("pillQ");
+
+    const overlay = document.getElementById("overlay");
+    const sheet = document.getElementById("sheet");
+    const sheetBar = document.getElementById("sheetBar");
+    const sheetBody = document.getElementById("sheetBody");
+
+    // ---------- mini markup (CSV-friendly) ----------
+    function miniMarkup(s){
+      s = String(s || "");
+
+      // normalize newlines
+      s = s.replace(/\r\n/g, "\n");
+
+      // escape nothing (you control CSV), but convert your pseudo tags:
+      const reps = [
+        [/\[b\]/g, "<b>"], [/\[\/b\]/g, "</b>"],
+        [/\[u\]/g, "<u>"], [/\[\/u\]/g, "</u>"],
+        [/\[hl\]/g, '<span class="hl">'], [/\[\/hl\]/g, "</span>"],
+        [/\[big\]/g, '<span class="big">'], [/\[\/big\]/g, "</span>"],
+        [/\[small\]/g, '<span class="small">'], [/\[\/small\]/g, "</span>"],
+        [/\[ruby\]/g, "<ruby>"], [/\[\/ruby\]/g, "</ruby>"],
+        [/\[rt\]/g, "<rt>"], [/\[\/rt\]/g, "</rt>"],
+      ];
+      for (const [a,b] of reps) s = s.replace(a,b);
+
+      // line breaks (keep it simple)
+      s = s.replace(/\n/g, "<br>");
+      return s;
     }
-    cur += c;
-  }
-  row.push(cur);
-  if (row.some(v => (v||"").trim().length)) rows.push(row);
 
-  if (!rows.length) return [];
-  const headers = rows.shift().map(h => (h||"").trim());
-  return rows.map(cols=>{
-    const obj = {};
-    headers.forEach((h,i)=> obj[h] = (cols[i] ?? ""));
-    return obj;
-  });
-}
+    // ---------- CSV parser (quoted commas OK) ----------
+    function parseCSV(text){
+      const rows = [];
+      let row = [];
+      let cur = "";
+      let inQuotes = false;
 
-function currentQ(){
-  return QUESTIONS[idx] || null;
-}
+      for (let i=0; iJBEL) return;
 
-function hideSheet(){
-  overlay.classList.remove("show");
-  sheet.classList.remove("show");
-}
+      // (We don't use answer_json for listen_only; for MC we do)
+      function resetPerQuestionState(){
+        selectedChoice = "";
+        answered = false;
+        try{ qAudio.pause(); }catch(e){}
+        setPlayUI(false);
+      }
 
-function showSheet(ok, extraHtml=""){
-  overlay.classList.add("show");
-  sheet.classList.add("show");
+      function setPlayUI(playing){
+        isPlaying = playing;
+        playIcon.style.display = playing ? "none" : "block";
+        pauseIcon.style.display = playing ? "block" : "none";
+      }
 
-  if (ok){
-    sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
-    sheetBar.style.color = "rgba(10,18,6,.98)";
-    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-      <span>〇 やった！</span><span style="opacity:.72">/ Yatta!</span><span style="font-size:22px;">🎉</span>
-    </div>`;
-  }else{
-    sheetBar.style.background = "linear-gradient(180deg, rgba(255,198,26,.98), rgba(255,198,26,.48))";
-    sheetBar.style.color = "rgba(30,18,0,.98)";
-    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-      <span>× おしい！</span><span style="opacity:.72">/ Oshī!</span>
-    </div>`;
-  }
+      function updateCheckEnabled(){
+        btnCheck.disabled = !selectedChoice || answered;
+      }
 
-  sheetBody.innerHTML = `
-    ${extraHtml}
-    <button class="continueBtn" id="btnContinue">CONTINUE / つづける</button>
-  `;
-  document.getElementById("btnContinue").addEventListener("click", ()=>{
-    hideSheet();
-    goNext();
-  });
-}
+      function hideSheet(){
+        overlay.classList.remove("show");
+        sheet.classList.remove("show");
+      }
 
-function goNext(){
-  if (idx < QUESTIONS.length - 1){
-    idx++;
-    resetPerQuestionState();
-    render();
-  }else{
-    overlay.classList.add("show");
-    sheet.classList.add("show");
-    sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
-    sheetBar.style.color = "rgba(10,18,6,.98)";
-    sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
-      <span>🎉 FINISH!</span><span style="opacity:.72">/ おつかれさま！</span>
-    </div>`;
-    sheetBody.innerHTML = `<div style="font-weight:950;margin-bottom:10px;">score: ${score}/${QUESTIONS.length}</div>
-      <button class="continueBtn" id="btnRestart">RESTART / さいしょから</button>`;
-    document.getElementById("btnRestart").addEventListener("click", ()=> location.href = "index.html");
-  }
-}
+      function showSheet(ok){
+        overlay.classList.add("show");
+        sheet.classList.add("show");
 
-function resetPerQuestionState(){
-  answered = false;
-  selectedChoiceIndex = null;
+        if (ok){
+          sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
+          sheetBar.style.color = "rgba(10,18,6,.98)";
+          sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+            <span>〇 やった！</span><span style="opacity:.72">/ Yatta!</span><span style="font-size:22px;">🎉</span>
+          </div>`;
+        }else{
+          sheetBar.style.background = "linear-gradient(180deg, rgba(255,198,26,.98), rgba(255,198,26,.48))";
+          sheetBar.style.color = "rgba(30,18,0,.98)";
+          sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+            <span>× おしい！</span><span style="opacity:.72">/ Oshī!</span>
+          </div>`;
+        }
 
-  // audio stop
-  try{ qAudio.pause(); }catch(e){}
-  setPlayUI(false);
+        sheetBody.innerHTML = `<button class="continueBtn" id="btnContinue">CONTINUE / つづける</button>`;
+        document.getElementById("btnContinue").addEventListener("click", ()=>{
+          hideSheet();
+          goNext();
+        });
+      }
 
-  // reorder reset
-  pool = [];
-  built = [];
-}
+      function goNext(){
+        if (idx < QUESTIONS.length - 1){
+          idx++;
+          resetPerQuestionState();
+          render();
+        }else{
+          overlay.classList.add("show");
+          sheet.classList.add("show");
+          sheetBar.style.background = "linear-gradient(180deg, rgba(193,255,114,.95), rgba(193,255,114,.45))";
+          sheetBar.style.color = "rgba(10,18,6,.98)";
+          sheetBar.innerHTML = `<div style="display:flex;align-items:center;gap:10px;font-weight:1100;">
+            <span>🎉 FINISH!</span><span style="opacity:.72">/ おつかれさま！</span>
+          </div>`;
+          sheetBody.innerHTML = `<div style="font-weight:950;margin-bottom:10px;">score: ${score}/${QUESTIONS.length}</div>
+            <button class="continueBtn" id="btnRestart">RESTART / さいしょから</button>`;
+          document.getElementById("btnRestart").addEventListener("click", ()=> location.href = "index.html");
+        }
+      }
 
-function render(){
-  const Q = currentQ();
-  if (!Q) return;
+      function currentQ(){
+        return QUESTIONS[idx] || null;
+      }
 
-  pillQ.textContent = `Q ${idx+1}/${QUESTIONS.length}`;
-  pillScore.textContent = `score: ${score}/${QUESTIONS.length}`;
-  uiLabel.textContent = (uiMode === "en") ? "English UI" : "日本語UI";
+      // ---------- rendering ----------
+      function render(){
+        const Q = currentQ();
+        if (!Q) return;
 
-  // Q type line
-  const typeLabelEN = ({
-    listen_only: "Listen",
-    multiple_choice_text: "Choose the answer",
-    reorder_text: "Reorder the words"
-  })[Q.type] || Q.type;
+        pillQ.textContent = `Q ${idx+1}/${QUESTIONS.length}`;
+        pillScore.textContent = `score: ${score}/${QUESTIONS.length}`;
+        uiLabel.textContent = (uiMode === "en") ? "English UI" : "日本語UI";
 
-  const typeLabelJP = ({
-    listen_only: "聞いてください。",
-    multiple_choice_text: "選んでください。",
-    reorder_text: "並べ替えてください。"
-  })[Q.type] || Q.type;
+        // qtype
+        const qtypeText = (uiMode === "en")
+          ? (Q.prompt_en || "")
+          : (Q.prompt_ja || "");
+        qTypeBox.innerHTML = miniMarkup(qtypeText);
 
-  const qtypeHtml = (uiMode === "en")
-    ? `${applyMiniMarkup(typeLabelJP)}<span class="enSmall">${applyMiniMarkup(typeLabelEN)}</span>`
-    : `${applyMiniMarkup(typeLabelJP)}`;
+        // “key sentence” area: for now show same as prompt (you can later add separate fields)
+        keySentence.innerHTML = `<div class="jp">${miniMarkup(Q.prompt_ja || "")}</div>`
+          + ((uiMode === "en") ? `<div class="en">${miniMarkup(Q.prompt_en || "")}</div>` : "");
 
-  qTypeBox.innerHTML = qtypeHtml;
+        // audio
+        qAudio.src = Q.audio || "";
+        qAudio.loop = true;
 
-  // prompt
-  const jp = applyMiniMarkup(Q.prompt_ja || "");
-  const en = applyMiniMarkup(Q.prompt_en || "");
-  keySentence.innerHTML = `<div class="jp">${jp}</div>${uiMode==="en" ? `<div class="en">${en}</div>` : ""}`;
+        // choices
+        choicesEl.innerHTML = "";
+        const ch = Q.choices || [];
+        for (let i=0; i<ch.length; i++){
+          const label = ch[i];
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "choiceBtn" + ((selectedChoice===String(i)) ? " selected" : "");
+          btn.innerHTML = miniMarkup(label);
+          btn.addEventListener("click", ()=>{
+            if (answered) return;
+            selectedChoice = String(i);
+            updateCheckEnabled();
+            render();
+          });
+          choicesEl.appendChild(btn);
+        }
 
-  // images
-  imgGrid.innerHTML = "";
-  if (Q.image){
-    const div = document.createElement("div");
-    div.className = "imgCard";
-    const img = document.createElement("img");
-    img.src = Q.image;     // you already store full relative path like assets/quiz/images/...
-    img.alt = "image";
-    div.appendChild(img);
-    imgGrid.appendChild(div);
-  }
-
-  // audio
-  qAudio.src = Q.audio ? Q.audio : "";
-  qAudio.loop = true;
-
-  // show/hide areas by type
-  choicesEl.style.display = "none";
-  reorderWrap.style.display = "none";
-
-  if (Q.type === "multiple_choice_text"){
-    choicesEl.style.display = "grid";
-    choicesEl.innerHTML = "";
-
-    const list = Q.choices || [];
-    list.forEach((label, i)=>{
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "choiceBtn" + (selectedChoiceIndex===i ? " selected" : "");
-      btn.innerHTML = applyMiniMarkup(label);
-      btn.addEventListener("click", ()=>{
-        if (answered) return;
-        selectedChoiceIndex = i;
-        render();
         updateCheckEnabled();
-      });
-      choicesEl.appendChild(btn);
-    });
-  }
+      }
 
-  if (Q.type === "reorder_text"){
-    reorderWrap.style.display = "block";
+      // ---------- load + map CSV ----------
+      async function loadQuestions(){
+        // IMPORTANT: correct path
+        const res = await fetch("data/questions.csv", { cache: "no-store" });
+        if (!res.ok) throw new Error("questions.csv fetch failed: " + res.status);
+        const text = await res.text();
+        const rows = parseCSV(text);
 
-    // render built
-    builtRow.innerHTML = "";
-    for (let i=0; i<built.length; i++){
-      const t = document.createElement("div");
-      t.className = "token";
-      t.textContent = built[i];
-      t.addEventListener("click", ()=>{
-        if (answered) return;
-        const back = built.splice(i,1)[0];
-        pool.push(back);
+        // filter by set (if provided)
+        const filtered = SET_ID ? rows.filter(r => String(r.set_id||"").trim() === SET_ID) : rows;
+
+        QUESTIONS = filtered.map(r => {
+          let choices = [];
+          let answer = {};
+          try{ choices = JSON.parse(r.choices_json || "[]"); }catch(e){ choices = []; }
+          try{ answer = JSON.parse(r.answer_json || "{}"); }catch(e){ answer = {}; }
+
+          return {
+            question_id: (r.question_id||"").trim(),
+            set_id: (r.set_id||"").trim(),
+            type: (r.type||"").trim(),
+            prompt_ja: r.prompt_ja || "",
+            prompt_en: r.prompt_en || "",
+            audio: r.audio || "",
+            image: r.image || "",
+            choices,
+            answer
+          };
+        }).filter(q => q.question_id);
+
+        if (!QUESTIONS.length){
+          throw new Error("No questions for set=" + (SET_ID||"(none)"));
+        }
+      }
+
+      // ---------- check answer ----------
+      function isCorrect(Q){
+        if (Q.type === "listen_only"){
+          return true; // listen_only always “ok” (tap -> continue)
+        }
+        // multiple_choice_text: answer_json = {"correct_index":0}
+        const ci = (Q.answer && typeof Q.answer.correct_index !== "undefined") ? String(Q.answer.correct_index) : "";
+        return selectedChoice === ci;
+      }
+
+      // ---------- events ----------
+      btnToggleUI.addEventListener("click", ()=>{
+        uiMode = (uiMode === "en") ? "jp" : "en";
         render();
-        updateCheckEnabled();
       });
-      builtRow.appendChild(t);
-    }
 
-    // render pool
-    poolRow.innerHTML = "";
-    for (let i=0; i<pool.length; i++){
-      const t = document.createElement("div");
-      t.className = "token";
-      t.textContent = pool[i];
-      t.addEventListener("click", ()=>{
+      document.getElementById("btnExit").addEventListener("click", ()=> location.href="index.html");
+
+      btnPlay.addEventListener("click", ()=>{
+        try{
+          if (!isPlaying){ qAudio.play(); setPlayUI(true); }
+          else { qAudio.pause(); setPlayUI(false); }
+        }catch(e){}
+      });
+
+      btnCheck.addEventListener("click", ()=>{
+        const Q = currentQ();
+        if (!Q) return;
         if (answered) return;
-        const take = pool.splice(i,1)[0];
-        built.push(take);
+
+        // listen_only: don’t require choice
+        if (Q.type === "listen_only"){
+          answered = true;
+          score++;
+          showSheet(true);
+          render();
+          return;
+        }
+
+        if (!selectedChoice) return;
+
+        answered = true;
+        const ok = isCorrect(Q);
+        if (ok) score++;
+        showSheet(ok);
         render();
-        updateCheckEnabled();
       });
-      poolRow.appendChild(t);
-    }
-  }
 
-  updateCheckEnabled();
-  setPlayUI(isPlaying);
-}
+      overlay.addEventListener("click", hideSheet);
 
-// ===== evaluate =====
-function checkAnswer(){
-  const Q = currentQ();
-  if (!Q || answered) return;
-
-  let ok = true;
-  let extra = "";
-
-  if (Q.type === "listen_only"){
-    ok = true;
-  }
-
-  if (Q.type === "multiple_choice_text"){
-    const correct = Number(Q.answer?.correct_index ?? -1);
-    ok = (selectedChoiceIndex === correct);
-    if (!ok && correct >= 0){
-      extra = `<div style="opacity:.9;">Correct: <b>${applyMiniMarkup((Q.choices||[])[correct] || "")}</b></div>`;
-    }
-  }
-
-  if (Q.type === "reorder_text"){
-    const correct = (Q.answer?.correct || []);
-    ok = JSON.stringify(built) === JSON.stringify(correct);
-    if (!ok){
-      extra = `<div style="opacity:.9;">Correct: <b>${correct.join(" ")}</b></div>`;
-    }
-  }
-
-  answered = true;
-  if (ok) score++;
-  showSheet(ok, extra);
-  updateCheckEnabled();
-}
-
-// ===== events =====
-btnToggleUI.addEventListener("click", ()=>{ uiMode = (uiMode==="en") ? "jp" : "en"; render(); });
-document.getElementById("btnExit").addEventListener("click", ()=> location.href = "index.html");
-
-btnBack.addEventListener("click", ()=>{
-  if (idx > 0){
-    idx--;
-    resetPerQuestionState();
-    render();
-  }
-});
-
-btnPlay.addEventListener("click", ()=>{
-  try{
-    if (!isPlaying && qAudio.src){
-      qAudio.play();
-      setPlayUI(true);
-    }else{
-      qAudio.pause();
-      setPlayUI(false);
-    }
-  }catch(e){}
-});
-
-btnCheck.addEventListener("click", checkAnswer);
-overlay.addEventListener("click", hideSheet);
-
-// ===== load questions =====
-async function loadQuestions(){
-  const setId = getParam("set").trim();
-  if (!setId) throw new Error("Missing ?set=... in URL");
-
-  // IMPORTANT: this is the 404 fix
-  const res = await fetch("./data/questions.csv", { cache:"no-store" });
-  if (!res.ok) throw new Error("questions.csv fetch failed: " + res.status);
-
-  const text = await res.text();
-  const data = parseCSV(text);
-
-  const filtered = data.filter(r => (r.set_id||"").trim() === setId);
-
-  QUESTIONS = filtered.map(r=>{
-    let choices = [];
-    let answer = {};
-    try{ choices = r.choices_json ? JSON.parse(r.choices_json) : []; }catch(e){ choices = []; }
-    try{ answer = r.answer_json ? JSON.parse(r.answer_json) : {}; }catch(e){ answer = {}; }
-
-    return {
-      question_id: (r.question_id||"").trim(),
-      set_id: (r.set_id||"").trim(),
-      type: (r.type||"").trim(),
-      prompt_ja: r.prompt_ja || "",
-      prompt_en: r.prompt_en || "",
-      audio: r.audio || "",
-      image: r.image || "",
-      choices,
-      answer,
-      notes: r.notes || ""
-    };
-  });
-
-  // init reorder pools per first question
-  resetPerQuestionState();
-}
-
-function initPerType(){
-  const Q = currentQ();
-  if (!Q) return;
-
-  // set up reorder pool/built when entering reorder question
-  if (Q.type === "reorder_text"){
-    const tokens = (Q.choices?.tokens || Q.answer?.tokens || []);
-    pool = Array.isArray(tokens) ? [...tokens] : [];
-    built = [];
-  }
-}
-
-(async ()=>{
-  try{
-    await loadQuestions();
-    if (!QUESTIONS.length) throw new Error("No questions for this set.");
-    idx = 0;
-    resetPerQuestionState();
-    initPerType();
-    render();
-  }catch(err){
-    console.error(err);
-    keySentence.innerHTML = `<div class="jp" style="font-size:18px;font-weight:900;">
-      Error: ${String(err.message || err)}
-    </div>`;
-    btnCheck.disabled = true;
-  }
-})();
-
-// when moving next/prev, init type-specific state
-const _goNext = goNext;
-goNext = function(){
-  _goNext();
-  initPerType();
-};
-btnBack.addEventListener("click", ()=>{ initPerType(); });
-
-</script>
+      // ---------- start ----------
+      (async ()=>{
+        try{
+          await loadQuestions();
+          idx = 0;
+          resetPerQuestionState();
+          render();
+        }catch(err){
+          console.error(err);
+          keySentence.innerHTML = `<div class="jp" style="font-size:18px;font-weight:900;">
+            Error: ${String(err.message || err)}
+          </div>`;
+        }
+      })();
+  </script>
 </body>
 </html>
