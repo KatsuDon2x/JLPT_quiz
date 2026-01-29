@@ -3,26 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Micro Japanese Hack — Choose a Quiz</title>
+  <title>Micro Japanese Hack</title>
   <style>
     :root{
       --bg:#05070b;
       --panel: rgba(18,24,33,.78);
-      --panel2: rgba(10,14,20,.72);
       --line: rgba(255,255,255,.10);
       --text:#eef5ff;
       --muted: rgba(238,245,255,.72);
       --lime:#C1FF72;
-      --orange:#FFC61A;
-      --blue:#4da3ff;
       --r:18px;
-      --gap:12px;
       --shadow: 0 18px 70px rgba(0,0,0,.62);
     }
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP",sans-serif;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       background:
         radial-gradient(1200px 700px at 20% -10%, rgba(193,255,114,.22), transparent 55%),
         radial-gradient(900px 520px at 95% 10%, rgba(255,198,26,.18), transparent 55%),
@@ -30,123 +26,71 @@
         var(--bg);
       color:var(--text);
     }
-    .wrap{ max-width: 980px; margin:0 auto; padding: 14px 14px 26px; }
-
-    /* top */
-    .topbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding: 6px 0 14px; }
+    .wrap{ max-width: 980px; margin:0 auto; padding: 14px 14px 22px; }
+    .topbar{ display:flex; align-items:center; justify-content:space-between; padding: 8px 2px 14px; }
     .xbtn{
       width:42px;height:42px;border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.06);
       color: var(--text);
-      font-size:20px;
+      font-size:18px;
       cursor:pointer;
       display:grid;place-items:center;
     }
-    .brand{
-      font-weight:1000; letter-spacing:.2px;
-      opacity:.92;
-    }
-
-    h1{ margin: 6px 0 6px; font-size: 34px; letter-spacing:.2px; }
-    .sub{ color: var(--muted); margin-bottom: 12px; }
-
-    .panel{
+    .title{ text-align:center; font-weight:900; letter-spacing:.2px; opacity:.9; }
+    .card{
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border:1px solid var(--line);
       border-radius: var(--r);
       box-shadow: var(--shadow);
-      padding: 14px;
+      overflow:hidden;
     }
-
-    .filters{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-      margin-bottom: 12px;
-    }
+    .inner{ padding: 18px; }
+    h1{ margin:0 0 6px; font-size: 34px; letter-spacing:.2px; }
+    .sub{ color:var(--muted); margin-bottom: 14px; }
+    .filters{ display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 14px; }
     select{
       background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.14);
       color: var(--text);
-      border-radius: 999px;
       padding: 10px 12px;
-      font-weight: 900;
+      border-radius: 999px;
+      font-weight: 800;
       outline:none;
-      cursor:pointer;
     }
-
-    .grid{
+    .setList{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap:10px;
+      margin-top: 10px;
     }
-    .card{
-      position:relative;
+    .setRow{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      padding: 12px 12px;
       border-radius: 16px;
-      overflow:hidden;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      cursor:pointer;
-      min-height: 120px;
-      transition: transform 80ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
-    }
-    .card:active{ transform: translateY(1px); }
-    .card.selected{
-      border-color: rgba(193,255,114,.75);
-      background: rgba(193,255,114,.10);
-      box-shadow:
-        0 0 0 2px rgba(193,255,114,.12) inset,
-        0 0 34px rgba(193,255,114,.18);
+      background: rgba(255,255,255,.04);
     }
     .thumb{
-      position:absolute; inset:0;
-      background-size: cover;
-      background-position: center;
-      filter: saturate(.95) contrast(.95);
-      opacity:.92;
+      width:52px;height:52px;border-radius:14px;
+      background: rgba(255,255,255,.92);
+      display:grid; place-items:center;
+      overflow:hidden;
+      flex: 0 0 auto;
     }
-    .shade{
-      position:absolute; inset:0;
-      background: linear-gradient(90deg, rgba(0,0,0,.60), rgba(0,0,0,.20));
-    }
-    .meta{
-      position:relative;
-      padding: 12px 12px 12px;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-    .titleRow{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:8px;
-    }
-    .title{
-      font-weight: 1000;
-      line-height:1.2;
-      text-shadow: 0 10px 34px rgba(0,0,0,.35);
-    }
-    .subtitle{
-      color: rgba(238,245,255,.85);
-      font-weight: 900;
-      font-size: 13px;
-      opacity: .95;
-    }
-    .small{
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      opacity:.9;
-    }
-    .badges{
-      display:flex; gap:6px; align-items:center; justify-content:flex-end;
-      font-size: 16px;
-      min-width: 56px;
-    }
-    .badgeDim{ opacity:.35; }
-
-    .startRow{
-      display:flex; gap: 12px; margin-top: 14px; align-items:center;
+    .thumb img{ width:100%;height:100%; object-fit:cover; display:block; }
+    .meta{ flex:1; min-width: 220px; }
+    .meta .ja{ font-weight:950; font-size: 18px; line-height:1.2; }
+    .meta .en{ color:var(--muted); font-weight:800; margin-top:4px; font-size: 13px; }
+    .tagline{ color: rgba(238,245,255,.86); font-size: 13px; margin-top:6px; }
+    .pick{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900;
     }
     .startBtn{
-      flex:1 1 auto;
+      width:100%;
+      margin-top: 14px;
       min-height: 60px;
       border-radius: 16px;
       border:1px solid rgba(193,255,114,.55);
@@ -155,7 +99,6 @@
       font-size: 16px;
       font-weight: 1000;
       cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
       box-shadow:
         0 0 0 2px rgba(255,255,255,.08) inset,
         0 0 34px rgba(193,255,114,.35),
@@ -163,17 +106,9 @@
       text-shadow: 0 1px 0 rgba(255,255,255,.25);
     }
     .startBtn:disabled{
-      opacity:.42; cursor:not-allowed; filter: grayscale(.35);
+      opacity:.35; cursor:not-allowed; filter: grayscale(.35);
       background: linear-gradient(180deg, rgba(193,255,114,.35), rgba(193,255,114,.16));
       box-shadow: 0 0 0 2px rgba(255,255,255,.05) inset;
-    }
-
-    @media (max-width: 860px){
-      .grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 560px){
-      .grid{ grid-template-columns: 1fr; }
-      h1{ font-size: 30px; }
     }
   </style>
 </head>
@@ -181,233 +116,204 @@
   <div class="wrap">
     <div class="topbar">
       <button class="xbtn" id="btnExit" aria-label="exit">×</button>
-      <div class="brand">Micro Japanese Hack</div>
+      <div class="title">Micro Japanese Hack</div>
       <div style="width:42px;"></div>
     </div>
 
-    <h1>Choose a Quiz</h1>
-    <div class="sub">Pick one set. (Single select for now.)</div>
+    <div class="card">
+      <div class="inner">
+        <h1>Choose a Quiz</h1>
+        <div class="sub">Pick one set. (Single select for now.)</div>
 
-    <div class="panel">
-      <div class="filters">
-        <select id="levelFilter"></select>
-        <select id="topicFilter"></select>
-      </div>
+        <div class="filters">
+          <select id="fLevel">
+            <option value="">All levels</option>
+          </select>
+          <select id="fTopic">
+            <option value="">All topics</option>
+          </select>
+        </div>
 
-      <div class="grid" id="setGrid"></div>
+        <div class="setList" id="setList"></div>
 
-      <div class="startRow">
         <button class="startBtn" id="btnStart" disabled>START</button>
       </div>
     </div>
   </div>
 
-  <script>
-    // ===== localStorage keys (simple & stable) =====
-    const LS_TRIED = "mjh_tried_sets_v1";   // Set of set_id
-    const LS_SAVED = "savedQuestions_v1";   // Set of question_id (you already use this)
-    const LS_WRONG = "mjh_wrong_qids_v1";   // Set of question_id
+<script>
+  // ===== mini markup -> HTML (safe enough for your own CSV) =====
+  function applyMiniMarkup(s){
+    s = String(s ?? "");
+    // convert \n to <br>
+    s = s.replace(/\\n/g, "<br>");
 
-    function loadSet(key){
-      try{
-        const raw = localStorage.getItem(key);
-        const arr = raw ? JSON.parse(raw) : [];
-        return new Set(Array.isArray(arr) ? arr : []);
-      }catch(e){ return new Set(); }
-    }
-    function storeSet(key, set){
-      localStorage.setItem(key, JSON.stringify([...set]));
-    }
+    // ruby: [ruby]漢字[rt]かんじ[/rt][/ruby]
+    s = s.replace(/\[ruby\]([\s\S]*?)\[rt\]([\s\S]*?)\[\/rt\]\[\/ruby\]/g, "<ruby>$1<rt>$2</rt></ruby>");
 
-    const triedSets = loadSet(LS_TRIED);
-    const savedQ = loadSet(LS_SAVED);
-    const wrongQ = loadSet(LS_WRONG);
+    // basic tags
+    s = s.replace(/\[b\]([\s\S]*?)\[\/b\]/g, "<b>$1</b>");
+    s = s.replace(/\[u\]([\s\S]*?)\[\/u\]/g, "<u>$1</u>");
+    s = s.replace(/\[hl\]([\s\S]*?)\[\/hl\]/g, '<span style="background:rgba(193,255,114,.22);padding:.06em .25em;border-radius:.35em;">$1</span>');
+    s = s.replace(/\[big\]([\s\S]*?)\[\/big\]/g, '<span style="font-size:1.15em;font-weight:950;">$1</span>');
+    s = s.replace(/\[small\]([\s\S]*?)\[\/small\]/g, '<span style="font-size:.92em;opacity:.9;">$1</span>');
 
-    // ===== CSV parser (quoted commas + newlines) =====
-    function parseCSV(text){
-      const rows = [];
-      let row = [];
-      let cur = "";
-      let inQuotes = false;
+    return s;
+  }
 
-      for (let i=0; i<text.length; i++){
-        const c = text[i];
-        const n = text[i+1];
+  // ===== CSV parser (quoted commas/newlines OK) =====
+  function parseCSV(text){
+    const rows = [];
+    let row = [];
+    let cur = "";
+    let inQuotes = false;
 
-        if (inQuotes){
-          if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
-          if (c === '"'){ inQuotes = false; continue; }
-          cur += c;
-          continue;
-        }
-        if (c === '"'){ inQuotes = true; continue; }
-        if (c === ","){ row.push(cur); cur = ""; continue; }
-        if (c === "\r"){ continue; }
-        if (c === "\n"){
-          row.push(cur); cur = "";
-          if (row.some(v => (v||"").trim().length)) rows.push(row);
-          row = [];
-          continue;
-        }
-        cur += c;
+    for (let i=0; i<text.length; i++){
+      const c = text[i], n = text[i+1];
+
+      if (inQuotes){
+        if (c === '"' && n === '"'){ cur += '"'; i++; continue; }
+        if (c === '"'){ inQuotes = false; continue; }
+        cur += c; continue;
       }
-      row.push(cur);
-      if (row.some(v => (v||"").trim().length)) rows.push(row);
+      if (c === '"'){ inQuotes = true; continue; }
+      if (c === ","){ row.push(cur); cur=""; continue; }
+      if (c === "\r"){ continue; }
+      if (c === "\n"){
+        row.push(cur); cur="";
+        if (row.some(v => (v||"").trim().length)) rows.push(row);
+        row=[]; continue;
+      }
+      cur += c;
+    }
+    row.push(cur);
+    if (row.some(v => (v||"").trim().length)) rows.push(row);
 
-      if (!rows.length) return [];
-      const headers = rows.shift().map(h => (h||"").trim());
-      return rows.map(cols=>{
-        const obj = {};
-        headers.forEach((h,i)=> obj[h] = (cols[i] ?? ""));
-        return obj;
+    if (!rows.length) return [];
+    const headers = rows.shift().map(h => (h||"").trim());
+    return rows.map(cols=>{
+      const obj = {};
+      headers.forEach((h,i)=> obj[h] = (cols[i] ?? ""));
+      return obj;
+    });
+  }
+
+  const els = {
+    list: document.getElementById("setList"),
+    start: document.getElementById("btnStart"),
+    fLevel: document.getElementById("fLevel"),
+    fTopic: document.getElementById("fTopic"),
+    exit: document.getElementById("btnExit"),
+  };
+
+  let sets = [];
+  let selectedSetId = "";
+
+  function uniq(arr){
+    return [...new Set(arr.filter(Boolean))];
+  }
+
+  function buildFilters(){
+    const levels = uniq(sets.map(s => (s.level_band || "").trim()));
+    const topics = uniq(sets.map(s => (s.topic || "").trim()));
+
+    for (const lv of levels){
+      const o = document.createElement("option");
+      o.value = lv; o.textContent = lv;
+      els.fLevel.appendChild(o);
+    }
+    for (const tp of topics){
+      const o = document.createElement("option");
+      o.value = tp; o.textContent = tp;
+      els.fTopic.appendChild(o);
+    }
+  }
+
+  function getFilteredSets(){
+    const lv = els.fLevel.value;
+    const tp = els.fTopic.value;
+    return sets.filter(s=>{
+      if ((s.is_published||"").trim().toUpperCase() === "FALSE") return false;
+      if (lv && (s.level_band||"").trim() !== lv) return false;
+      if (tp && (s.topic||"").trim() !== tp) return false;
+      return true;
+    }).sort((a,b)=> Number(a.sort_order||0) - Number(b.sort_order||0));
+  }
+
+  function render(){
+    const list = getFilteredSets();
+    els.list.innerHTML = "";
+
+    for (const s of list){
+      const row = document.createElement("div");
+      row.className = "setRow";
+
+      const thumb = document.createElement("div");
+      thumb.className = "thumb";
+      const img = document.createElement("img");
+      img.src = s.thumb_image || "";
+      img.alt = "thumb";
+      thumb.appendChild(img);
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `
+        <div class="ja">${applyMiniMarkup(s.title_ja || "")}</div>
+        <div class="en">${applyMiniMarkup(s.title_en || "")}</div>
+        <div class="tagline">${applyMiniMarkup(s.subtitle_en || "")}</div>
+      `;
+
+      const pick = document.createElement("label");
+      pick.className = "pick";
+      pick.innerHTML = `
+        <input type="radio" name="pickSet" ${selectedSetId===s.set_id ? "checked":""}/>
+        Select
+      `;
+      pick.addEventListener("click", ()=>{
+        selectedSetId = (s.set_id || "").trim();
+        els.start.disabled = !selectedSetId;
+        render();
       });
+
+      row.appendChild(thumb);
+      row.appendChild(meta);
+      row.appendChild(pick);
+      els.list.appendChild(row);
     }
 
-    // ===== app state =====
-    let SETS = [];
-    let selectedSetId = null;
+    els.start.disabled = !selectedSetId;
+  }
 
-    const levelFilter = document.getElementById("levelFilter");
-    const topicFilter = document.getElementById("topicFilter");
-    const setGrid = document.getElementById("setGrid");
-    const btnStart = document.getElementById("btnStart");
+  async function loadSets(){
+    // IMPORTANT: use ./data/... to avoid weird base path issues
+    const res = await fetch("./data/sets.csv", { cache:"no-store" });
+    if (!res.ok) throw new Error("sets.csv fetch failed: " + res.status);
+    const text = await res.text();
+    sets = parseCSV(text);
+  }
 
-    function uniq(arr){
-      return [...new Set(arr.filter(Boolean))];
-    }
+  els.fLevel.addEventListener("change", ()=>{ selectedSetId=""; render(); });
+  els.fTopic.addEventListener("change", ()=>{ selectedSetId=""; render(); });
 
-    function fillSelect(el, labelAll, values){
-      el.innerHTML = "";
-      const opt0 = document.createElement("option");
-      opt0.value = "";
-      opt0.textContent = labelAll;
-      el.appendChild(opt0);
+  els.start.addEventListener("click", ()=>{
+    if (!selectedSetId) return;
+    location.href = `quiz.html?set=${encodeURIComponent(selectedSetId)}`;
+  });
 
-      for (const v of values){
-        const o = document.createElement("option");
-        o.value = v;
-        o.textContent = v;
-        el.appendChild(o);
-      }
-    }
+  els.exit.addEventListener("click", ()=> location.reload());
 
-    function computeBadges(setId){
-      // ✅ tried = set visited at least once
-      const tried = triedSets.has(setId);
-
-      // 🔖 saved = any question in this set is bookmarked
-      // (We don't have question->set mapping here without reading questions.csv.
-      //  So in v1: show 🔖 only after user enters the set screen (quiz.html can store "set has saved".)
-      //  For now, show dim bookmark always, or only tried.
-      const bookmark = tried ? "🔖" : "🔖";
-
-      // Optional: 🔎 wrong review exists (same limitation as above, v1 keep dim)
-      const review = tried ? "🔎" : "🔎";
-
-      return { tried, bookmark, review };
-    }
-
-    function render(){
-      const lv = levelFilter.value;
-      const tp = topicFilter.value;
-
-      const filtered = SETS.filter(s=>{
-        if (!s.is_published || String(s.is_published).toUpperCase() !== "TRUE") return false;
-        if (lv && s.level_band !== lv) return false;    // use level_band = Beginner/Elementary/...
-        if (tp && s.topic !== tp) return false;
-        return true;
-      }).sort((a,b)=> (Number(a.sort_order||0) - Number(b.sort_order||0)));
-
-      setGrid.innerHTML = "";
-
-      for (const s of filtered){
-        const card = document.createElement("div");
-        card.className = "card" + (s.set_id === selectedSetId ? " selected" : "");
-        const thumb = (s.thumb_image || "").trim();
-        card.innerHTML = `
-          <div class="thumb" style="background-image:url('${thumb}')"></div>
-          <div class="shade"></div>
-          <div class="meta">
-            <div class="titleRow">
-              <div>
-                <div class="title">${escapeHTML(s.title_en || "")}</div>
-                <div class="subtitle">${escapeHTML(s.subtitle_en || "")}</div>
-              </div>
-              <div class="badges">
-                <span class="${triedSets.has(s.set_id) ? "" : "badgeDim"}">✅</span>
-                <span class="badgeDim">🔖</span>
-              </div>
-            </div>
-            <div class="small">${escapeHTML((s.level_cefr||"") + "/" + (s.level_jlpt||""))} ・ ${escapeHTML(s.level_band||"")} ・ ${escapeHTML(s.topic||"")}</div>
-          </div>
-        `;
-        card.addEventListener("click", ()=>{
-          selectedSetId = s.set_id;
-          btnStart.disabled = !selectedSetId;
-          render();
-        });
-        setGrid.appendChild(card);
-      }
-
-      btnStart.disabled = !selectedSetId;
-    }
-
-    function escapeHTML(x){
-      return String(x||"")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;");
-    }
-
-    btnStart.addEventListener("click", ()=>{
-      if (!selectedSetId) return;
-      // linkable per set ✅
-      location.href = `quiz.html?set=${encodeURIComponent(selectedSetId)}`;
-    });
-
-    document.getElementById("btnExit").addEventListener("click", ()=> {
-      // keep simple for now
-      location.href = "index.html";
-    });
-
-    levelFilter.addEventListener("change", render);
-    topicFilter.addEventListener("change", render);
-
-    async function init(){
-      const res = await fetch("assets/quiz/data/sets.csv", { cache:"no-store" });
-      if (!res.ok) throw new Error("sets.csv fetch failed: " + res.status);
-      const data = parseCSV(await res.text());
-
-      SETS = data.map(r => ({
-        set_id: (r.set_id||"").trim(),
-        title_ja: r.title_ja || "",
-        title_en: r.title_en || "",
-        subtitle_en: r.subtitle_en || "",
-        level_cefr: r.level_cefr || "",
-        level_jlpt: r.level_jlpt || "",
-        level_band: r.level_band || "",
-        topic: r.topic || "",
-        subtopic: r.subtopic || "",
-        thumb_image: r.thumb_image || "",
-        tags: r.tags || "",
-        is_published: r.is_published || "",
-        sort_order: r.sort_order || "0"
-      })).filter(s => s.set_id);
-
-      const levelBands = uniq(SETS.map(s=>s.level_band)).sort();
-      const topics = uniq(SETS.map(s=>s.topic)).sort();
-
-      fillSelect(levelFilter, "All levels", levelBands);
-      fillSelect(topicFilter, "All topics", topics);
-
+  (async()=>{
+    try{
+      await loadSets();
+      buildFilters();
       render();
-    }
-
-    init().catch(err=>{
+    }catch(err){
       console.error(err);
-      setGrid.innerHTML = `<div style="color:rgba(238,245,255,.85);font-weight:900;">Error: ${escapeHTML(err.message||String(err))}</div>`;
-    });
-  </script>
+      els.list.innerHTML = `<div style="color:rgba(238,245,255,.9);font-weight:900;">
+        Error: ${String(err.message||err)}
+      </div>`;
+    }
+  })();
+</script>
 </body>
 </html>
